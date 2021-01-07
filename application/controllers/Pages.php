@@ -22,7 +22,12 @@ class Pages extends CI_Controller
       show_404();
     }
 
-    $data['shifts'] = $this->am->getShifts();
+    $data['shifts'] = $this->mm->getShifts();
+    $data['companies'] = $this->mm->getCompanies();
+    $data['locations'] = $this->mm->getLocations();
+    $data['contractors'] = $this->mm->getContractors();
+    $data['departments'] = $this->mm->getDepartments();
+    $data['holidays'] = $this->mm->getHolidays();
 
     $data['header'] = $this->load->view('templates/header', '', TRUE);
     $data['links'] = $this->load->view('templates/links', '', TRUE);

@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>GateKeeper | Home</title>
+  <title>Shift - Admin</title>
   <!-- Bootstrap CSS -->
-  <link rel='stylesheet' href="<?= ASSETS_URL . 'css/shift.css' ?>">
+  <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <?= $links; ?>
 </head>
 
@@ -17,7 +17,7 @@
   <?= $header; ?>
 
   <div class="container mt-3">
-    <div class="row">
+    <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
@@ -92,7 +92,7 @@
           <div class="card-body">
             <?php if ($shifts) : ?>
               <?php foreach ($shifts as $shift) : ?>
-                <div class='card'>
+                <div class='card mt-3'>
                   <div class="card-body">
                     <h5><?= $shift['shift_name']; ?></h5>
                     <div>

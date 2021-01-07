@@ -1,0 +1,11 @@
+## TODOs
+- Make Location After Company and amke address dynamic in company.php
+- Make Contractor After Company and amke Contractor dynamic in company.php
+
+
+
+
+## Questions
+- what cin is in company table?
+- what cont_person_name is in contractor table?
+-What are hod and mob in department table?

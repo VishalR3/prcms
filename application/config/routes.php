@@ -49,8 +49,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | Examples:	my-controller/index	-> my_controller/index
 |		my-controller/my-method	-> my_controller/my_method
 */
-$route['masters/(:any)'] = 'Pages/masters/$1';
+
+//API
+$route['api/addHoliday'] = 'api/addHoliday';
+$route['api/addDepartment'] = 'api/addDepartment';
+$route['api/addContractor'] = 'api/addContractor';
+$route['api/addCompany'] = 'api/addCompany';
 $route['api/addShift'] = 'api/addShift';
+
+//Masters
+$route['masters/(:any)'] = 'Pages/masters/$1';
+
+//Any
 $route['(:any)'] = 'Pages/view/$1';
 
 $route['default_controller'] = 'Pages/view';
