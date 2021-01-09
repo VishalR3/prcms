@@ -118,6 +118,7 @@ class Master_Model extends CI_Model
     $data = array(
       'comp_name' => $this->input->post('comp_name'),
       'address' => $this->input->post('address'),
+      'cin' => $this->input->post('cin'),
       'cont_person' => $this->input->post('cont_person'),
       'mobile' => $this->input->post('mobile'),
       'weekly_off' => $this->input->post('weekly_off')

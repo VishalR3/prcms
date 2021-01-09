@@ -51,14 +51,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
 */
 
 //API
+//read
+$route['api/getEmpReports'] = 'api/getEmpReports';
+$route['api/getEmpAttendance'] = 'api/getEmpAttendance';
+$route['api/getEmployees'] = 'api/getEmployees';
+$route['api/getLocations'] = 'api/getLocations';
+//write
+$route['api/postEmployeeAttendance'] = 'api/postEmployeeAttendance';
 $route['api/addHoliday'] = 'api/addHoliday';
 $route['api/addDepartment'] = 'api/addDepartment';
 $route['api/addContractor'] = 'api/addContractor';
 $route['api/addCompany'] = 'api/addCompany';
 $route['api/addShift'] = 'api/addShift';
 
+//Visitor
+$route['visitor/(:any)'] = 'Pages/visitor/$1';
+
+//Reports
+$route['reports/(:any)'] = 'Pages/reports/$1';
+
 //Masters
 $route['masters/(:any)'] = 'Pages/masters/$1';
+
+//Admin
+$route['admin/employee/$1'] = 'Admin/employee/$1';
 
 //Any
 $route['(:any)'] = 'Pages/view/$1';

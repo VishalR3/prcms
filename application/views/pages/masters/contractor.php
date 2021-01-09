@@ -31,7 +31,7 @@
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Address </label>
-                <select name='address' class="form-control" id='address'>
+                <select name='address' class="form-select" id='address'>
                   <?php foreach ($locations as $location) : ?>
                     <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
                   <?php endforeach; ?>

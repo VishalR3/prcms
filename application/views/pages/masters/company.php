@@ -31,15 +31,19 @@
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Address </label>
-                <select name='address' class="form-control">
+                <select name='address' id='address' class="form-select">
                   <?php foreach ($locations as $location) : ?>
                     <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
               <div class="mb-3">
+                <label for="cin" class="form-label">Company Identification Number</label>
+                <input type='text' name='cin' id='cin' class="form-control" />
+              </div>
+              <div class="mb-3">
                 <label for="cont_person" class="form-label">Contractor </label>
-                <select name='cont_person' class="form-control">
+                <select name='cont_person' id='cont_person' class="form-select">
                   <?php foreach ($contractors as $contractor) : ?>
                     <option value="<?= $contractor['cont_id']; ?>"><?= $contractor['cont_name']; ?></option>
                   <?php endforeach; ?>
@@ -49,7 +53,7 @@
 
               <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile Number </label>
-                <input type='text' name='mobile' class="form-control" />
+                <input type='text' name='mobile' id='cont_person' class="form-control" />
               </div>
 
               <div class="mb-3">

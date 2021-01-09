@@ -24,7 +24,7 @@
             Master
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Employee</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>masters/employee/">Employee</a></li>
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>masters/company/">Company</a></li>
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>masters/location/">Location</a></li>
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>masters/shift/">Shift</a></li>
@@ -37,16 +37,16 @@
           <a class="nav-link" href="#">Attendance</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Visitors Management</a>
+          <a class="nav-link" href="<?= SITE_ROOT; ?>visitors_management/">Visitors Management</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Reports/Dashboard
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Attendance Report</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/attendance_report/">Attendance Report</a></li>
             <li><a class="dropdown-item" href="#">Visitors Report</a></li>
-            <li><a class="dropdown-item" href="#">Dashboard</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/dashboard/">Dashboard</a></li>
           </ul>
         </li>
       </ul>
@@ -60,9 +60,3 @@
     </div>
   </div>
 </nav>
-
-<style>
-  .no-wrap {
-    white-space: nowrap;
-  }
-</style>
