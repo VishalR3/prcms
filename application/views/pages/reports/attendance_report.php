@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+  <title>Contractor - Admin</title>
+  <!-- Bootstrap CSS -->
+  <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
+  <?= $links; ?>
+</head>
+
+<body>
+  <?= $header; ?>
+
+  <div class="container mt-3">
+    <div class="page-heading">
+      <h4>Reports</h4>
+    </div>
+    <div class="wrapper">
+      <div class="d-md-flex justify-content-between">
+        <div class="table-heading">
+          <h6>Employee's Data</h6>
+        </div>
+        <div class="searchWrapper">
+          <select name='company' id='company' class="input-select">
+            <?php foreach ($companies as $company) : ?>
+              <option value="<?= $company['comp_id']; ?>"><?= $company['comp_name']; ?></option>
+            <?php endforeach; ?>
+          </select>
+          <select name='location' id='location' class="input-select">
+            <?php foreach ($locations as $location) : ?>
+              <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
+            <?php endforeach; ?>
+          </select>
+          <select name='company' id='company' class="input-select">
+            <?php foreach ($departments as $department) : ?>
+              <option value="<?= $department['dept_id']; ?>"><?= $department['dept_name']; ?></option>
+            <?php endforeach; ?>
+          </select>
+          <input type="text" name="search" id='search' placeholder="Search An Employee" />
+        </div>
+      </div>
+      <div class="table-wrapper table-responsive">
+        <table class='table text-center' id='emp_report'>
+          <thead class="bg-dark text-white">
+            <th scope='col'>Emp ID</th>
+            <th scope='col'>Name</th>
+            <th scope='col'>Location</th>
+            <th scope='col'>Shift</th>
+            <th scope='col'>Department</th>
+            <th scope='col'>Mobile</th>
+            <th scope='col'>Date</th>
+            <th scope='col'>In Time</th>
+            <th scope='col'>Out Time </th>
+            <th scope='col'>Total Hours Spent</th>
+          </thead>
+          <!-- <tr scope='row'>
+          </tr> -->
+        </table>
+      </div>
+    </div>
+    <div class="table-footer d-md-flex justify-content-between">
+      <div class="date-filter">
+        Data Showing From <input type='date' name='start' id='start' value="<?php echo date('Y-m-d'); ?>" /> to <input type='date' name='start' id='start' value="<?php echo date('Y-m-d'); ?>" />
+      </div>
+      <div class="download-Wrapper">
+        <select name='download_type' id='download_type' class="input-select">
+          <option selected value="csv">.csv</option>
+          <option value="xlsx">.xlsx</option>
+          <option value="json">.json</option>
+          <option value="txt">.txt</option>
+        </select>
+        <button class="btn btn-primary">Download Data</button>
+      </div>
+    </div>
+  </div>
+
+  <?= $footer; ?>
+  <?= $scripts; ?>
+  <script type='module' src="<?= ASSETS_URL . 'js/attendance_report.js' ?>"></script>
+</body>
+
+</html>

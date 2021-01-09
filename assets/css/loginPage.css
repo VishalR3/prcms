@@ -1,0 +1,31 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  display: -ms-grid;
+  display: grid;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.form {
+  margin-top: 3rem;
+}
+
+.link {
+  text-decoration: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .card {
+    width: 40vw;
+  }
+}
+/*# sourceMappingURL=loginPage.css.map */
