@@ -22,6 +22,7 @@
             <p>Employee Attendance Website</p>
           </div>
         </div>
+        <div id='react'></div>
       </div>
       <div class="col-sm-6">
         <div class="card">

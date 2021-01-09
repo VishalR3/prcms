@@ -32,3 +32,4 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 
 ## Images
 assets/images/
+assets/js/node_modules/

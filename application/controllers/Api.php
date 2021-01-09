@@ -138,6 +138,13 @@ class Api extends CI_Controller
 
     $this->echoJsonResponse($response);
   }
+  public function getEmpReportsDateRange()
+  {
+    $from = date("Y-m-d", strtotime($this->input->post('from')));
+    $to = date("Y-m-d", strtotime($this->input->post('to')));
+    $response = $this->am->getEmpReportsDateRange($from, $to);
+    $this->echoJsonResponse($response);
+  }
 
   //Python
   public function postEmployeeAttendance()

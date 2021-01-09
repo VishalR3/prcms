@@ -36,7 +36,7 @@
               <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
             <?php endforeach; ?>
           </select>
-          <select name='company' id='company' class="input-select">
+          <select name='dept' id='dept' class="input-select">
             <?php foreach ($departments as $department) : ?>
               <option value="<?= $department['dept_id']; ?>"><?= $department['dept_name']; ?></option>
             <?php endforeach; ?>
@@ -46,26 +46,12 @@
       </div>
       <div class="table-wrapper table-responsive">
         <table class='table text-center' id='emp_report'>
-          <thead class="bg-dark text-white">
-            <th scope='col'>Emp ID</th>
-            <th scope='col'>Name</th>
-            <th scope='col'>Location</th>
-            <th scope='col'>Shift</th>
-            <th scope='col'>Department</th>
-            <th scope='col'>Mobile</th>
-            <th scope='col'>Date</th>
-            <th scope='col'>In Time</th>
-            <th scope='col'>Out Time </th>
-            <th scope='col'>Total Hours Spent</th>
-          </thead>
-          <!-- <tr scope='row'>
-          </tr> -->
         </table>
       </div>
     </div>
     <div class="table-footer d-md-flex justify-content-between">
       <div class="date-filter">
-        Data Showing From <input type='date' name='start' id='start' value="<?php echo date('Y-m-d'); ?>" /> to <input type='date' name='start' id='start' value="<?php echo date('Y-m-d'); ?>" />
+        Data Showing From <input type='date' name='from' id='from' value="<?php echo date('Y-m-d'); ?>" /> to <input type='date' name='to' id='to' value="<?php echo date('Y-m-d'); ?>" />
       </div>
       <div class="download-Wrapper">
         <select name='download_type' id='download_type' class="input-select">
@@ -81,6 +67,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
+
   <script type='module' src="<?= ASSETS_URL . 'js/attendance_report.js' ?>"></script>
 </body>
 

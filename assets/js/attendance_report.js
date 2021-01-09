@@ -1,11 +1,17 @@
 import {SITE_ROOT} from './init.js';
 
+var List =[];
+
 window.onload=()=>{
   $.get(SITE_ROOT+'api/getEmpReports',(res)=>{
       renderTable(res);
   });
-
 }
+
+$('#location').on('change',()=>{
+  let value = $(this).find('option:selected').val();
+  filter('location',value);
+});
 
 
 document.querySelector('#from').addEventListener('change',function(){
@@ -30,7 +36,10 @@ document.querySelector('#to').addEventListener('change',function(){
     renderTable(res);
   });
 });
+
+//Render Table
 function renderTable(res){
+  List=[];
   let thead = document.createElement('thead');
     thead.classList='bg-dark text-white';
     let headers = ['Emp Id','Name','Location','Shift','Department','Mobile','Date','In Time','Out Time','Total Time Spent'];
@@ -50,5 +59,6 @@ function renderTable(res){
           row.append(col);
       }
       $('#emp_report').append(row);
+      List.push(tran);
     });
 }

@@ -5,6 +5,7 @@ class Attendance_Model extends CI_Model
   public function __construct()
   {
     parent::__construct();
+    date_default_timezone_set('Asia/Kolkata');
   }
 
 
@@ -120,12 +121,41 @@ class Attendance_Model extends CI_Model
         $employee['date'] = date("d/m/Y", strtotime($row['date']));
         $employee['in_time'] = $row['in_time'];
         $employee['out_time'] = $row['out_time'];
-        $employee['total_hrs_spent'] = date_diff(date_create($row['out_time']), date_create($row['in_time']))->format('%h h %i min');
+        if ($row['out_time'] == "00:00:00") {
+          $employee['total_hrs_spent'] = date_diff(date_create($row['in_time']), date_create(date('H:i:s')))->format('%h h %i min');
+        } else {
+          $employee['total_hrs_spent'] = date_diff(date_create($row['out_time']), date_create($row['in_time']))->format('%h h %i min');
+        }
 
         array_push($employees, $employee);
       }
       return $employees;
     }
     return FALSE;
+  }
+  public function getEmpReportsDateRange($from, $to)
+  {
+    $employees = array();
+    $this->db->where('date >=', $from);
+    $this->db->where('date <=', $to);
+    $query = $this->db->get('emp_tran');
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        $data = $this->getEmployee($row['empID']);
+        $employee['empID'] = $row['empID'];
+        $employee['name'] = $data['name'];
+        $employee['location'] = $data['location'];
+        $employee['shift'] = $data['shift'];
+        $employee['department'] = $data['dept'];
+        $employee['mobile'] = $data['mobile'];
+        $employee['date'] = date("d/m/Y", strtotime($row['date']));
+        $employee['in_time'] = $row['in_time'];
+        $employee['out_time'] = $row['out_time'];
+        $employee['total_hrs_spent'] = date_diff(date_create($row['out_time']), date_create($row['in_time']))->format('%h h %i min');
+
+        array_push($employees, $employee);
+      }
+    }
+    return $employees;
   }
 }
