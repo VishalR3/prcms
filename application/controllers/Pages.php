@@ -14,11 +14,42 @@ class Pages extends CI_Controller
       show_404();
     }
 
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('pages/' . $page, $data);
+    if ($this->session->is_logged_in) {
+      $data['companies'] = $this->mm->getCompanies();
+      $data['locations'] = $this->mm->getLocations();
+      $data['departments'] = $this->mm->getDepartments();
+
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('pages/' . $page, $data);
+    } else {
+      redirect('login');
+    }
+  }
+  public function login($data = array())
+  {
+
+    if ($this->session->is_logged_in) {
+      redirect('home');
+    } else {
+
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $this->load->view('login/login', $data);
+    }
+  }
+  public function first_login($data = array())
+  {
+    if ($this->session->is_logged_in && $this->session->active == 0) {
+      $data['errors'] = '0';
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $this->load->view('login/f_login', $data);
+    } else {
+      redirect('home');
+    }
   }
 
   public function masters($page = 'home')
@@ -26,48 +57,58 @@ class Pages extends CI_Controller
     if (!file_exists(APPPATH . 'views/pages/masters/' . $page . '.php')) {
       show_404();
     }
+    if ($this->session->is_logged_in) {
+      $data['shifts'] = $this->mm->getShifts();
+      $data['companies'] = $this->mm->getCompanies();
+      $data['locations'] = $this->mm->getLocations();
+      $data['contractors'] = $this->mm->getContractors();
+      $data['departments'] = $this->mm->getDepartments();
+      $data['holidays'] = $this->mm->getHolidays();
+      $data['employees'] = $this->em->getEmployees();
 
-    $data['shifts'] = $this->mm->getShifts();
-    $data['companies'] = $this->mm->getCompanies();
-    $data['locations'] = $this->mm->getLocations();
-    $data['contractors'] = $this->mm->getContractors();
-    $data['departments'] = $this->mm->getDepartments();
-    $data['holidays'] = $this->mm->getHolidays();
-    $data['employees'] = $this->em->getEmployees();
-
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('pages/masters/' . $page, $data);
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('pages/masters/' . $page, $data);
+    } else {
+      redirect('login');
+    }
   }
   public function reports($page)
   {
     if (!file_exists(APPPATH . 'views/pages/reports/' . $page . '.php')) {
       show_404();
     }
-    $data['companies'] = $this->mm->getCompanies();
-    $data['locations'] = $this->mm->getLocations();
-    $data['departments'] = $this->mm->getDepartments();
+    if ($this->session->is_logged_in) {
+      $data['companies'] = $this->mm->getCompanies();
+      $data['locations'] = $this->mm->getLocations();
+      $data['departments'] = $this->mm->getDepartments();
 
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('pages/reports/' . $page, $data);
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('pages/reports/' . $page, $data);
+    } else {
+      redirect('login');
+    }
   }
   public function visitor($page)
   {
     if (!file_exists(APPPATH . 'views/pages/visitor/' . $page . '.php')) {
       show_404();
     }
+    if ($this->session->is_logged_in) {
+      $data['contractors'] = $this->mm->getContractors();
 
-    $data['contractors'] = $this->mm->getContractors();
-
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('pages/visitor/' . $page, $data);
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('pages/visitor/' . $page, $data);
+    } else {
+      redirect('login');
+    }
   }
 }

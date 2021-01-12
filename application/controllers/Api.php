@@ -1,5 +1,6 @@
 <?php
 
+
 class Api extends CI_Controller
 {
   public function __construct()
@@ -103,8 +104,25 @@ class Api extends CI_Controller
       show_404();
       return;
     }
+    $this->load->library('form_validation');
 
-    $response = $this->em->addEmployee();
+    $this->form_validation->set_rules('name', 'Name', 'required');
+    $this->form_validation->set_rules('location', 'Location', 'required');
+    $this->form_validation->set_rules('shift', 'Shift', 'required');
+    $this->form_validation->set_rules('dept', 'Department', 'required');
+    $this->form_validation->set_rules('status', 'Status', 'required');
+    $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[10]|is_unique[employee.mobile]');
+    $this->form_validation->set_rules('email', 'E-Mail', 'trim|required|valid_email|is_unique[employee.email]');
+
+    if ($this->form_validation->run() == FALSE) {
+      $response['success'] = FALSE;
+      $response['errors'] = validation_errors();
+      $response['name'] = $this->input->post('name');
+    } else {
+      $response['empID'] = $this->em->addEmployee();
+      $response['success'] = TRUE;
+    }
+
 
     if ($response) {
       exit(json_encode($response));
@@ -138,6 +156,13 @@ class Api extends CI_Controller
 
     $this->echoJsonResponse($response);
   }
+  public function getEmpReportsForHome()
+  {
+    $date = date('Y-m-d');
+    $response = $this->am->getEmpReportsForHome($date);
+
+    $this->echoJsonResponse($response);
+  }
   public function getEmpReportsDateRange()
   {
     $from = date("Y-m-d", strtotime($this->input->post('from')));
@@ -145,12 +170,23 @@ class Api extends CI_Controller
     $response = $this->am->getEmpReportsDateRange($from, $to);
     $this->echoJsonResponse($response);
   }
+  public function searchEmployee()
+  {
+    $term = $this->input->post('term');
+
+    $response = $this->em->searchEmployee($term);
+    if ($response)
+      $this->echoJsonResponse($response);
+
+    return FALSE;
+  }
+
 
   //Python
   public function postEmployeeAttendance()
   {
     $empID = $this->input->post('empID');
-    $time = date('h:i:s');
+    $time = date('H:i:s');
     $date = date('Y-m-d');
     $timezone = date_default_timezone_get();
 
@@ -161,5 +197,11 @@ class Api extends CI_Controller
     $response['timezone'] = $timezone;
 
     $this->echoJsonResponse($response);
+  }
+  public function makePDF()
+  {
+    $pdf = new \Mpdf\Mpdf();
+    $pdf->WriteHTML($this->input->post('html'));
+    $file = $pdf->output('reports/report.pdf', \Mpdf\Output\Destination::FILE);
   }
 }

@@ -13,6 +13,7 @@ class Admin extends CI_Controller
     if (!file_exists(APPPATH . 'views/admin/' . $page . '.php')) {
       show_404();
     }
+    $data['users'] = $this->um->getUsers();
 
     $data['header'] = $this->load->view('templates/header', '', TRUE);
     $data['links'] = $this->load->view('templates/links', '', TRUE);
@@ -22,7 +23,7 @@ class Admin extends CI_Controller
   }
   public function employee($id)
   {
-    $data['employee'] = $this->am->getEmployee($id);
+    $data['employee'] = $this->em->getEmployee($id);
 
     $data['header'] = $this->load->view('templates/header', '', TRUE);
     $data['links'] = $this->load->view('templates/links', '', TRUE);

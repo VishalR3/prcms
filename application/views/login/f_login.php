@@ -19,9 +19,10 @@
       <div class="card-body">
         <h2 class="text-center">PRC - Management System</h2>
         <h5 class="text-center mt-4">First Login</h5>
-        <div class="form">
-          <p>We noticed its your first time login, It is recommended that you change your password now. </p>
-          <form>
+        <p>Hello <b><?php echo $this->session->username; ?></b></p>
+        <p>We noticed its your first time login, It is recommended that you change your password now. </p>
+        <div class="mt-2">
+          <form action="user/firstLogin" method="POST">
             <div class="form-floating my-3">
               <input type="password" name="password" id='password' class="form-control" placeholder="password@123">
               <label for="password">Change Password</label>

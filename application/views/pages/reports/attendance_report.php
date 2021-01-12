@@ -27,18 +27,21 @@
         </div>
         <div class="searchWrapper">
           <select name='company' id='company' class="input-select">
+            <option value="all">All</option>
             <?php foreach ($companies as $company) : ?>
               <option value="<?= $company['comp_id']; ?>"><?= $company['comp_name']; ?></option>
             <?php endforeach; ?>
           </select>
           <select name='location' id='location' class="input-select">
+            <option value="all">All</option>
             <?php foreach ($locations as $location) : ?>
-              <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
+              <option value="<?= $location['loc_name']; ?>"><?= $location['loc_name']; ?></option>
             <?php endforeach; ?>
           </select>
           <select name='dept' id='dept' class="input-select">
+            <option value="all">All</option>
             <?php foreach ($departments as $department) : ?>
-              <option value="<?= $department['dept_id']; ?>"><?= $department['dept_name']; ?></option>
+              <option value="<?= $department['dept_name']; ?>"><?= $department['dept_name']; ?></option>
             <?php endforeach; ?>
           </select>
           <input type="text" name="search" id='search' placeholder="Search An Employee" />
@@ -46,6 +49,7 @@
       </div>
       <div class="table-wrapper table-responsive">
         <table class='table text-center' id='emp_report'>
+
         </table>
       </div>
     </div>
@@ -60,7 +64,7 @@
           <option value="json">.json</option>
           <option value="txt">.txt</option>
         </select>
-        <button class="btn btn-primary">Download Data</button>
+        <button id="download_btn" class="btn btn-primary">Download Data</button>
       </div>
     </div>
   </div>

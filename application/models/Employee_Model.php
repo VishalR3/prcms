@@ -41,4 +41,48 @@ class Employee_Model extends CI_Model
       return $query->result_array();
     return FALSE;
   }
+  public function getEmployee($id)
+  {
+    $this->db->from('employee t1');
+    $this->db->where('empID', $id);
+    $this->db->join('shift t2', 't2.shift_id=t1.shift');
+    $this->db->join('location t3', 't3.loc_id=t1.location');
+    $this->db->join('department t4', 't4.dept_id=t1.dept');
+    $query = $this->db->get();
+    $query = $query->row_array();
+    $employee['empID'] = $query['empID'];
+    $employee['name'] = $query['name'];
+    $employee['email'] = $query['email'];
+    $employee['mobile'] = $query['mobile'];
+    $employee['location'] = $query['loc_name'];
+    $employee['shift'] = $query['shift_name'];
+    $employee['dept'] = $query['dept_name'];
+    $employee['status'] = $query['status'] ? 'P' : 'C';
+    $employee['active'] = $query['active'] ? 'active' : 'deactivated';
+    $employee['vehicle_number'] = $query['vehicle_number'];
+    $employee['license'] = $query['license'];
+    $employee['emission_exp'] = $query['emission_exp'];
+    $employee['photo'] = $query['photo'];
+
+    return $employee;
+  }
+  public function searchEmployee($term)
+  {
+
+    $this->db->like('name', $term, 'both');
+    $query = $this->db->get('employee');
+
+    $employees = array();
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      foreach ($query as $row) {
+        $employee = $this->getEmployee($row['empID']);
+
+        array_push($employees, $employee);
+      }
+
+      return $employees;
+    }
+    return FALSE;
+  }
 }

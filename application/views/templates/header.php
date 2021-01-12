@@ -11,8 +11,8 @@
             Admin
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Users Management</a></li>
-            <li><a class="dropdown-item" href="#">Upload Data</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>admin/users_management">Users Management</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>admin/upload_data">Upload Data</a></li>
             <li><a class="dropdown-item" href="#">Roles</a></li>
             <li><a class="dropdown-item" href="#">Privilages</a></li>
             <li><a class="dropdown-item" href="#">General Settings</a></li>
@@ -54,7 +54,7 @@
     <div class='user_details'>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item no-wrap">
-          <a class="nav-link" href="#">Log Out</a>
+          <a class="nav-link" href="<?= SITE_ROOT; ?>user/logout">Log Out</a>
         </li>
       </ul>
     </div>

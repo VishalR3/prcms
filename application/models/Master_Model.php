@@ -106,10 +106,26 @@ class Master_Model extends CI_Model
   //Function for Getting All the Companies from the Database
   public function getCompanies()
   {
-    $query = $this->db->get("company");
+    $this->db->from('company t1');
+    $this->db->join('location t2', 't2.loc_id=t1.address');
+    $this->db->join('contractor t3', 't3.cont_id=t1.cont_person');
+    $query = $this->db->get();
+    $companies = array();
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      foreach ($query as $row) {
+        $company['comp_id'] = $row['comp_id'];
+        $company['comp_name'] = $row['comp_name'];
+        $company['address'] = $row['loc_name'];
+        $company['cin'] = $row['cin'];
+        $company['cont_person'] = $row['cont_person_name'];
+        $company['mobile'] = $row['mobile'];
+        $company['weekly_off'] = $row['weekly_off'];
 
-    if ($query && $query->num_rows() > 0)
-      return $query->result_array();
+        array_push($companies, $company);
+      }
+      return $companies;
+    }
     return FALSE;
   }
   //Function for Adding a Company 
@@ -132,10 +148,27 @@ class Master_Model extends CI_Model
   //Function for Getting All the Contractors from the Database
   public function getContractors()
   {
-    $query = $this->db->get("contractor");
+    $this->db->from('contractor t1');
+    $this->db->join('location t2', 't2.loc_id=t1.address');
+    $query = $this->db->get();
 
-    if ($query && $query->num_rows() > 0)
-      return $query->result_array();
+    $contractors = array();
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      foreach ($query as $row) {
+        $contractor['cont_id'] = $row['cont_id'];
+        $contractor['cont_name'] = $row['cont_name'];
+        $contractor['address'] = $row['loc_name'];
+        $contractor['full_address'] = $row['loc_address'];
+        $contractor['cont_person_name'] = $row['cont_person_name'];
+        $contractor['mobile'] = $row['mobile'];
+        $contractor['email'] = $row['email'];
+        $contractor['active'] = $row['active'];
+
+        array_push($contractors, $contractor);
+      }
+      return $contractors;
+    }
     return FALSE;
   }
   //Function for Adding a Contractor

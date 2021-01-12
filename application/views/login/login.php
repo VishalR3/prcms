@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GateKeeper | Home</title>
+  <title>PRCMS | Login</title>
   <!-- Bootstrap CSS -->
 
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/loginPage.css' ?>">
@@ -19,8 +19,15 @@
       <div class="card-body">
         <h2 class="text-center">PRC - Management System</h2>
         <h5 class="text-center mt-4">Login</h5>
+        <?= $this->session->username; ?>
         <div class="form">
-          <form>
+          <?php if ($this->session->flashdata('errors')) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <?php echo $this->session->flashdata('errors'); ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <?php endif; ?>
+          <form action='user/login' method="POST">
             <div class="form-floating mb-3">
               <input type="text" name="mobile" id='mobile' class="form-control" placeholder="0000000000">
               <label for="mobile">Mobile Number</label>

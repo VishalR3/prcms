@@ -64,7 +64,7 @@ class Attendance_Model extends CI_Model
     if ($query && $query->num_rows() > 0) {
       foreach ($query->result_array() as $row) {
         $employee['tran_id'] = $row['tran_id'];
-        $data = $this->getEmployee($row['empID']);
+        $data = $this->em->getEmployee($row['empID']);
         foreach ($data as $key => $value) {
           $employee[$key] = $value;
         }
@@ -79,31 +79,7 @@ class Attendance_Model extends CI_Model
     }
     return FALSE;
   }
-  public function getEmployee($id)
-  {
-    $this->db->from('employee t1');
-    $this->db->where('empID', $id);
-    $this->db->join('shift t2', 't2.shift_id=t1.shift');
-    $this->db->join('location t3', 't3.loc_id=t1.location');
-    $this->db->join('department t4', 't4.dept_id=t1.dept');
-    $query = $this->db->get();
-    $query = $query->row_array();
-    $employee['empID'] = $query['empID'];
-    $employee['name'] = $query['name'];
-    $employee['email'] = $query['email'];
-    $employee['mobile'] = $query['mobile'];
-    $employee['location'] = $query['loc_name'];
-    $employee['shift'] = $query['shift_name'];
-    $employee['dept'] = $query['dept_name'];
-    $employee['status'] = $query['status'] ? 'P' : 'C';
-    $employee['active'] = $query['active'] ? 'active' : 'deactivated';
-    $employee['vehicle_number'] = $query['vehicle_number'];
-    $employee['license'] = $query['license'];
-    $employee['emission_exp'] = $query['emission_exp'];
-    $employee['photo'] = $query['photo'];
 
-    return $employee;
-  }
   public function getEmpReports($date)
   {
     $employees = array();
@@ -111,7 +87,7 @@ class Attendance_Model extends CI_Model
     $query = $this->db->get('emp_tran');
     if ($query && $query->num_rows() > 0) {
       foreach ($query->result_array() as $row) {
-        $data = $this->getEmployee($row['empID']);
+        $data = $this->em->getEmployee($row['empID']);
         $employee['empID'] = $row['empID'];
         $employee['name'] = $data['name'];
         $employee['location'] = $data['location'];
@@ -133,27 +109,55 @@ class Attendance_Model extends CI_Model
     }
     return FALSE;
   }
+  public function getEmpReportsForHome($date)
+  {
+    $employees = array();
+    $this->db->where('date', $date);
+    $query = $this->db->get('emp_tran');
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        $data = $this->em->getEmployee($row['empID']);
+        $employee['empID'] = $row['empID'];
+        $employee['name'] = $data['name'];
+        $employee['in_time'] = $row['in_time'];
+        $employee['out_time'] = $row['out_time'];
+
+        array_push($employees, $employee);
+      }
+      return $employees;
+    }
+    return FALSE;
+  }
   public function getEmpReportsDateRange($from, $to)
   {
+    $loc_filter = $this->input->post('loc_filter');
+    $dept_filter = $this->input->post('dept_filter');
     $employees = array();
     $this->db->where('date >=', $from);
     $this->db->where('date <=', $to);
     $query = $this->db->get('emp_tran');
     if ($query && $query->num_rows() > 0) {
       foreach ($query->result_array() as $row) {
-        $data = $this->getEmployee($row['empID']);
-        $employee['empID'] = $row['empID'];
-        $employee['name'] = $data['name'];
-        $employee['location'] = $data['location'];
-        $employee['shift'] = $data['shift'];
-        $employee['department'] = $data['dept'];
-        $employee['mobile'] = $data['mobile'];
-        $employee['date'] = date("d/m/Y", strtotime($row['date']));
-        $employee['in_time'] = $row['in_time'];
-        $employee['out_time'] = $row['out_time'];
-        $employee['total_hrs_spent'] = date_diff(date_create($row['out_time']), date_create($row['in_time']))->format('%h h %i min');
+        $data = $this->em->getEmployee($row['empID']);
+        if ($loc_filter != $data['location'] && $loc_filter != 'all') {
+          continue;
+        } else if ($dept_filter != $data['dept'] && $dept_filter != 'all') {
+          continue;
+        } else {
+          $employee['empID'] = $row['empID'];
+          $employee['name'] = $data['name'];
+          $employee['location'] = $data['location'];
+          $employee['shift'] = $data['shift'];
+          $employee['department'] = $data['dept'];
+          $employee['mobile'] = $data['mobile'];
+          $employee['date'] = date("d/m/Y", strtotime($row['date']));
+          $employee['in_time'] = $row['in_time'];
+          $employee['out_time'] = $row['out_time'];
+          $employee['total_hrs_spent'] = date_diff(date_create($row['out_time']), date_create($row['in_time']))->format('%h h %i min');
 
-        array_push($employees, $employee);
+
+          array_push($employees, $employee);
+        }
       }
     }
     return $employees;

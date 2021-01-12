@@ -52,12 +52,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 //API
 //read
+$route['api/searchEmployee'] = 'api/searchEmployee';
 $route['api/getEmpReportsDateRange'] = 'api/getEmpReportsDateRange';
 $route['api/getEmpReports'] = 'api/getEmpReports';
 $route['api/getEmpAttendance'] = 'api/getEmpAttendance';
 $route['api/getEmployees'] = 'api/getEmployees';
 $route['api/getLocations'] = 'api/getLocations';
 //write
+$route['api/makePDF/(:any)'] = 'api/makePDF/$1';
 $route['api/postEmployeeAttendance'] = 'api/postEmployeeAttendance';
 $route['api/addHoliday'] = 'api/addHoliday';
 $route['api/addDepartment'] = 'api/addDepartment';
@@ -76,8 +78,16 @@ $route['masters/(:any)'] = 'Pages/masters/$1';
 
 //Admin
 $route['admin/employee/$1'] = 'Admin/employee/$1';
+$route['admin/(:any)'] = 'Admin/view/$1';
+
+//Users
+$route['user/logout'] = 'User/logout';
+$route['user/firstLogin'] = 'User/firstLogin';
+$route['user/login'] = 'User/login';
 
 //Any
+$route['f_login'] = 'Pages/first_login';
+$route['login'] = 'Pages/login';
 $route['(:any)'] = 'Pages/view/$1';
 
 $route['default_controller'] = 'Pages/view';
