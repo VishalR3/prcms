@@ -26,6 +26,10 @@
           <div class="card-body">
             <form id="visitor_details_form">
               <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type='text' name='name' id='name' class="form-control" />
+              </div>
+              <div class="mb-3">
                 <label for="from_comp" class="form-label">From Company</label>
                 <input type='text' name='from_comp' id='from_comp' class="form-control" />
               </div>

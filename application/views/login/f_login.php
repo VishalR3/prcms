@@ -22,6 +22,14 @@
         <p>Hello <b><?php echo $this->session->username; ?></b></p>
         <p>We noticed its your first time login, It is recommended that you change your password now. </p>
         <div class="mt-2">
+          <?php if ($this->session->userdata('errors')) : ?>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <?php echo $this->session->userdata('errors');
+              $this->session->unset_userdata('errors');
+              ?>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <?php endif; ?>
           <form action="user/firstLogin" method="POST">
             <div class="form-floating my-3">
               <input type="password" name="password" id='password' class="form-control" placeholder="password@123">

@@ -21,9 +21,11 @@
         <h5 class="text-center mt-4">Login</h5>
         <?= $this->session->username; ?>
         <div class="form">
-          <?php if ($this->session->flashdata('errors')) : ?>
+          <?php if ($this->session->userdata('errors')) : ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <?php echo $this->session->flashdata('errors'); ?>
+              <?php echo $this->session->userdata('errors');
+              $this->session->unset_userdata('errors');
+              ?>
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           <?php endif; ?>

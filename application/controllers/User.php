@@ -36,7 +36,7 @@ class User extends CI_Controller
     $this->form_validation->set_rules('password', "Password", 'required|min_length[8]');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('errors', validation_errors());
+      $this->session->set_userdata('errors', validation_errors());
       redirect('login');
     } else {
       $mobile = $this->input->post('mobile');
@@ -52,14 +52,13 @@ class User extends CI_Controller
         $this->session->set_userdata('is_logged_in', TRUE);
 
         if ($user['active']) {
-          $this->session->set_tempdata('login_success', TRUE, 10);
-          $this->session->set_flashdata('login_msg', TRUE);
+          $this->session->set_userdata('login_success', TRUE);
           redirect('home');
         } else {
           redirect('f_login');
         }
       } else {
-        $this->session->set_flashdata('errors', $response['errors']);
+        $this->session->set_userdata('errors', $response['errors']);
         redirect('login');
       }
     }
@@ -69,7 +68,7 @@ class User extends CI_Controller
     $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
 
     if ($this->form_validation->run() == FALSE) {
-      $this->session->set_flashdata('errors', validation_errors());
+      $this->session->set_userdata('errors', validation_errors());
       redirect('f_login');
     } else {
       $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
@@ -82,7 +81,7 @@ class User extends CI_Controller
 
         redirect('home');
       } else {
-        $this->session->set_flashdata('errors', "Couldn't Update Your Password, Try Again!!");
+        $this->session->set_userdata('errors', "Couldn't Update Your Password, Try Again!!");
         redirect('f_login');
       }
     }

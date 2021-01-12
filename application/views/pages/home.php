@@ -17,15 +17,10 @@
   <?= $header; ?>
 
   <div class="container mt-3">
-    <?php if ($this->session->tempdata('login_success')) : ?>
+    <?php if ($this->session->userdata('login_success')) : ?>
       <div class="alert alert-success alert-dismissible fade show" role="alert">
         <?php echo "SuccessFully Logged In"; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php endif; ?>
-    <?php if ($this->session->flashdata('login_msg')) : ?>
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <?php echo "SuccessFully Logged In"; ?>
+        <?php $this->session->unset_userdata('login_success'); ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <?php endif; ?>
@@ -102,14 +97,7 @@
   <?= $footer; ?>
   <?= $scripts; ?>
 
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-app.js"></script>
 
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-     https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-analytics.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.2.2/firebase-database.js"></script>
-  <script src="<?= ASSETS_URL . 'js/firebase.config.js' ?>"></script>
 
   <script type='module' src="<?= ASSETS_URL . 'js/home.js' ?>"></script>
   <script type='module' src="<?= ASSETS_URL . 'js/init.js' ?>"></script>

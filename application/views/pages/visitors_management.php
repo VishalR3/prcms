@@ -11,6 +11,31 @@
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <?= $links; ?>
+  <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
+  <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
+  <script type="text/javascript">
+    // FirebaseUI config.
+    var uiConfig = {
+      signInSuccessUrl: '<?= SITE_ROOT; ?>visitor/details_form',
+      signInOptions: [
+        // Leave the lines as is for the providers you want to offer your users.
+        firebase.auth.PhoneAuthProvider.PROVIDER_ID
+      ],
+      // tosUrl and privacyPolicyUrl accept either url string or a callback
+      // function.
+      // Terms of service url/callback.
+      tosUrl: '<?php echo site_url('tos'); ?>',
+      // Privacy policy url/callback.
+      privacyPolicyUrl: function() {
+        window.location.assign('<?= site_url('privacy_policy'); ?>');
+      }
+    };
+
+    // Initialize the FirebaseUI Widget using Firebase.
+    var ui = new firebaseui.auth.AuthUI(firebase.auth());
+    // The start method will wait until the DOM is loaded.
+    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
 </head>
 
 <body>
@@ -20,17 +45,7 @@
     <div class="center_card">
       <h3>Visitors Management</h3>
       <div class="col-sm-4 mt-5">
-        <form id='visitor_login_form'>
-          <div class="mb-3">
-            <label for="visitor_name" class="form-label">Visitor Name</label>
-            <input type="text" name='visitor_name' id='visitor_name' class="form-control">
-          </div>
-          <div class="mb-3">
-            <label for="visitor_mobile" class="form-label">Mobile Number</label>
-            <input type="text" name='visitor_mobile' id='visitor_mobile' class="form-control">
-          </div>
-          <button type='submit' class="btn btn-primary">Log In</button>
-        </form>
+        <div id="firebaseui-auth-container"></div>
       </div>
     </div>
 
