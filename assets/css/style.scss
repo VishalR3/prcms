@@ -10,7 +10,31 @@
 .br-2{
   border-radius: 0.5rem !important;
 }
+.mr-2{
+  margin-right: 0.5rem ;
+}
+.ml-2{
+  margin-left: 0.5rem ;
+}
+.btn{
+  box-shadow: 3px 3px 3px rgba(0,0,0,0.25);
+}
 
+.nav-link{
+  font-weight: 600;
+  color :rgba(255,255,255,0.8) !important;
+}
+.card{
+  border:1px solid rgb(0,0,0) !important;
+  .card-header{
+    background-color: #3B3B98 !important;
+    color: white;
+    font-weight: 500;
+  }
+}
+.form-control,.form-select{
+  border:1px solid rgb(0,0,0) !important;
+}
 .wrapper{
   width:100%;
   min-height: 400px;
@@ -91,7 +115,74 @@
   }
 }
 .emp_id{
-  font-size: 00.75rem;
+  font-size: 0.75rem;
   color:dimgrey;
   font-style: italic;
 }
+.user_card{
+  .card-body{
+    position: relative;
+  }
+  .edit_btn{
+    text-decoration: none;
+  }
+
+  .userId{
+    font-size: 0.75rem;
+    color:dimgrey;
+    font-style: italic;
+  }
+  .user_details{
+    margin-top: 0.5rem;
+    padding-bottom: 3rem;
+    span{
+      display: block;
+      line-height: 2rem;
+    }
+  }
+  .user_role{
+    position: absolute;
+    display: flex;
+    bottom: 0;
+    left:0;
+    right: 0;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0 0 8px 8px;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color:white;
+
+  }
+}
+.details_card{
+  box-shadow: 2px 2px 4px rgba(0,0,0,0.25);
+  .card-body{
+    position: relative;
+  }
+  a{
+    text-decoration: none;
+  }
+
+  .id{
+    font-size: 0.75rem;
+    color:dimgrey;
+    font-style: italic;
+  }
+  .details{
+    margin-top: 0.75rem;
+    span{
+      display: block;
+      line-height: 2rem;
+    }
+  }
+
+}
+
+.camera_input{
+  width: 100%;
+  height: 300px;
+  background-color: grey;
+}
+

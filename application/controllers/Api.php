@@ -1,5 +1,6 @@
 <?php
 
+use Kreait\Firebase\Factory;
 
 class Api extends CI_Controller
 {
@@ -8,6 +9,7 @@ class Api extends CI_Controller
     parent::__construct();
 
     date_default_timezone_set('Asia/Kolkata');
+    $this->load->library('form_validation');
   }
 
   private function echoJsonResponse($response)
@@ -98,20 +100,34 @@ class Api extends CI_Controller
     }
     return FALSE;
   }
+  public function addPurpose()
+  {
+    if (!$this->input->is_ajax_request()) {
+      show_404();
+      return;
+    }
+
+    $response = $this->am->addPurpose();
+
+    if ($response) {
+      exit(json_encode($response));
+    }
+    return FALSE;
+  }
   public function addEmployee()
   {
     if (!$this->input->is_ajax_request()) {
       show_404();
       return;
     }
-    $this->load->library('form_validation');
+
 
     $this->form_validation->set_rules('name', 'Name', 'required');
     $this->form_validation->set_rules('location', 'Location', 'required');
     $this->form_validation->set_rules('shift', 'Shift', 'required');
     $this->form_validation->set_rules('dept', 'Department', 'required');
     $this->form_validation->set_rules('status', 'Status', 'required');
-    $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[10]|is_unique[employee.mobile]');
+    $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[13]|is_unique[employee.mobile]');
     $this->form_validation->set_rules('email', 'E-Mail', 'trim|required|valid_email|is_unique[employee.email]');
 
     if ($this->form_validation->run() == FALSE) {
@@ -128,6 +144,42 @@ class Api extends CI_Controller
       exit(json_encode($response));
     }
     return FALSE;
+  }
+
+  public function sendVisitorDetails()
+  {
+    $this->form_validation->set_rules('name', 'Name', 'required');
+    $this->form_validation->set_rules('no_of_people', 'No. of People', 'required');
+    $this->form_validation->set_rules('to_meet', 'Employee To Meet', 'required');
+    $this->form_validation->set_rules('date_from', 'Date From', 'required');
+    $this->form_validation->set_rules('time_from', 'Time From', 'required');
+    if ($this->form_validation->run() == FALSE) {
+      $response['success'] = FALSE;
+      $response['errors'] = validation_errors();
+
+      exit(json_encode($response));
+    } else {
+      $in_time = date('H:i:s');
+      $response = $this->am->sendVisitorDetails($in_time);
+
+      if ($response)
+        exit(json_encode($response));
+      exit(FALSE);
+    }
+  }
+  public function sendMeetAlerts()
+  {
+    $factory = (new Factory())->withDatabaseUri('https://prcms-6f25b-default-rtdb.firebaseio.com/');
+
+    $database = $factory->createDatabase();
+
+    $meets = $database->getReference('meets');
+    $visit_data = array(
+      'to_meet' => $this->input->post('to_meet'),
+      'purpose' => $this->input->post('purpose'),
+      'visit_id' => $this->input->post('visit_id')
+    );
+    $meets->push($visit_data);
   }
 
   //Read API
@@ -180,6 +232,20 @@ class Api extends CI_Controller
 
     return FALSE;
   }
+  public function getPreviousVisits()
+  {
+    $response = $this->am->getPreviousVisits();
+
+    if ($response)
+      exit(json_encode($response));
+    exit(FALSE);
+  }
+  public function makePDF()
+  {
+    $pdf = new \Mpdf\Mpdf();
+    $pdf->WriteHTML($this->input->post('html'));
+    $pdf->output('reports/report.pdf', \Mpdf\Output\Destination::FILE);
+  }
 
 
   //Python
@@ -191,17 +257,36 @@ class Api extends CI_Controller
     $timezone = date_default_timezone_get();
 
     $response['data'] = $this->am->employeeAttendance($empID, $time, $date);
-    $response['empID'] = $empID;
-    $response['time'] = $time;
-    $response['date'] = $date;
     $response['timezone'] = $timezone;
+    $employee = $response['data'];
+
+    $factory = (new Factory())->withDatabaseUri('https://prcms-6f25b-default-rtdb.firebaseio.com/');
+
+    $database = $factory->createDatabase();
+    $date = $database->getReference('date');
+    if ($date->getValue() != date('d/m/Y')) {
+      //New Day
+      $date->set(date('d/m/Y'));
+      $response['day'] = "New Day";
+      $today = $database->getReference('today');
+      $today->set(NULL);
+      $today->push($employee);
+    } else {
+      //Old Day
+      $response['day'] = "Old Day";
+      $today = $database->getReference('today');
+      $snap = $today->orderByKey()->getSnapshot()->getValue();
+      foreach ($snap as $key => $value) {
+        if ($empID == $value['empID']) {
+          $today->getChild($key)->set(NULL);
+        }
+      }
+      $today->push($employee);
+    }
+    $liveCam = $database->getReference('liveCam');
+    $liveCam->set(NULL);
+    $liveCam->push($employee);
 
     $this->echoJsonResponse($response);
-  }
-  public function makePDF()
-  {
-    $pdf = new \Mpdf\Mpdf();
-    $pdf->WriteHTML($this->input->post('html'));
-    $file = $pdf->output('reports/report.pdf', \Mpdf\Output\Destination::FILE);
   }
 }

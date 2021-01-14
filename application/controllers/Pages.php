@@ -81,7 +81,7 @@ class Pages extends CI_Controller
       show_404();
     }
     if ($this->session->is_logged_in) {
-      $data['companies'] = $this->mm->getCompanies();
+      $data['contractors'] = $this->mm->getContractors();
       $data['locations'] = $this->mm->getLocations();
       $data['departments'] = $this->mm->getDepartments();
 
@@ -100,7 +100,11 @@ class Pages extends CI_Controller
       show_404();
     }
     if ($this->session->is_logged_in) {
-      $data['contractors'] = $this->mm->getContractors();
+      $data['companies'] = $this->mm->getCompanies();
+      $data['employees'] = $this->em->getEmployees();
+      $data['purposes'] =  $this->am->getPurposes();
+
+
 
       $data['header'] = $this->load->view('templates/header', '', TRUE);
       $data['links'] = $this->load->view('templates/links', '', TRUE);

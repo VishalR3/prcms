@@ -13,22 +13,31 @@ class Admin extends CI_Controller
     if (!file_exists(APPPATH . 'views/admin/' . $page . '.php')) {
       show_404();
     }
-    $data['users'] = $this->um->getUsers();
 
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('admin/' . $page, $data);
+    if ($this->session->is_logged_in) {
+      $data['users'] = $this->um->getUsers();
+
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('admin/' . $page, $data);
+    } else {
+      redirect('login');
+    }
   }
   public function employee($id)
   {
-    $data['employee'] = $this->em->getEmployee($id);
+    if ($this->session->is_logged_in) {
+      $data['employee'] = $this->em->getEmployee($id);
 
-    $data['header'] = $this->load->view('templates/header', '', TRUE);
-    $data['links'] = $this->load->view('templates/links', '', TRUE);
-    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-    $this->load->view('admin/employee', $data);
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('admin/employee', $data);
+    } else {
+      redirect('login');
+    }
   }
 }

@@ -17,6 +17,20 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
@@ -32,7 +46,11 @@
 
               <div class="mb-3">
                 <label for="hod" class="form-label">HOD </label>
-                <input type='text' name="hod" id="hod" class="form-control" />
+                <select name="hod" id="hod" class="form-select">
+                  <?php foreach ($employees as $employee) : ?>
+                    <option value="<?= $employee['empID']; ?>"><?= $employee['name']; ?></option>
+                  <?php endforeach; ?>
+                </select>
               </div>
 
 
@@ -55,16 +73,24 @@
           <div class="card-body">
             <?php if ($departments) : ?>
               <?php foreach ($departments as $department) : ?>
-                <div class='card mt-3'>
+                <div class='card mt-3 br-2 details_card'>
                   <div class="card-body">
-                    <h5><?= $department['dept_name']; ?></h5>
-                    <div>
-                      <p>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $department['dept_name']; ?></h5>
+                        <span class="id">Department ID : <?= $department['dept_id']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href="<?= SITE_ROOT; ?>masters/edit/department/<?= $department['dept_id']; ?>" class='edit_btn'><i class="fa fa-edit mr-2"></i> Edit Department</a>
+                      </div>
+                    </div>
+                    <div class="details">
+                      <span class="detail">
                         <?= $department['hod']; ?>
-                      </p>
-                      <p>
+                      </span>
+                      <span class="detail">
                         <?= $department['mob']; ?>
-                      </p>
+                      </span>
                     </div>
                   </div>
                 </div>

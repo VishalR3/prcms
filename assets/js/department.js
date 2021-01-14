@@ -1,10 +1,10 @@
-import {SITE_ROOT} from './init.js';
+
 
 $('#add_department_form').submit(function(e){
   e.preventDefault();
 
   let name = $(this).find('#dept_name').val();
-  let hod = $(this).find('#hod').val();
+  let hod = $(this).find('#hod option:selected').val();
   let mob = $(this).find('#mob').val();
   $.post(SITE_ROOT + 'api/addDepartment',{
     'dept_name':name,

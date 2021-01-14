@@ -30,7 +30,8 @@
           <div class="card-body">
             <p>Employee Attendance Website</p>
             <p>Logged In : <b><?= $this->session->username; ?></b></p>
-            <div id="fbrealtime"></div>
+            <div class="camera_input">
+            </div>
           </div>
         </div>
         <div class="card mt-3">
@@ -86,7 +87,14 @@
                 </div>
               </div>
             </div>
-            <table class="table table-responsive" id='realtime_data'></table>
+            <table class="table table-responsive" id='realtime_data'>
+              <thead class="bg-dark text-white">
+                <td scope='col'>Emp Id</td>
+                <td scope='col'>Name</td>
+                <td scope='col'>In Time</td>
+                <td scope='col'>Out Time</td>
+              </thead>
+            </table>
           </div>
         </div>
       </div>
@@ -100,7 +108,6 @@
 
 
   <script type='module' src="<?= ASSETS_URL . 'js/home.js' ?>"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/init.js' ?>"></script>
 
 </body>
 

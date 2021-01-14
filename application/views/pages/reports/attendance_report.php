@@ -23,23 +23,23 @@
     <div class="wrapper">
       <div class="d-md-flex justify-content-between">
         <div class="table-heading">
-          <h6>Employee's Data</h6>
+          <h6>Attendance Report</h6>
         </div>
         <div class="searchWrapper">
           <select name='company' id='company' class="input-select">
-            <option value="all">All</option>
-            <?php foreach ($companies as $company) : ?>
-              <option value="<?= $company['comp_id']; ?>"><?= $company['comp_name']; ?></option>
+            <option value="all">Contractor</option>
+            <?php foreach ($contractors as $contractor) : ?>
+              <option value="<?= $contractor['cont_id']; ?>"><?= $contractor['cont_name']; ?></option>
             <?php endforeach; ?>
           </select>
           <select name='location' id='location' class="input-select">
-            <option value="all">All</option>
+            <option value="all">Location</option>
             <?php foreach ($locations as $location) : ?>
               <option value="<?= $location['loc_name']; ?>"><?= $location['loc_name']; ?></option>
             <?php endforeach; ?>
           </select>
           <select name='dept' id='dept' class="input-select">
-            <option value="all">All</option>
+            <option value="all">Department</option>
             <?php foreach ($departments as $department) : ?>
               <option value="<?= $department['dept_name']; ?>"><?= $department['dept_name']; ?></option>
             <?php endforeach; ?>

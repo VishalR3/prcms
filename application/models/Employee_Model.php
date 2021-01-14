@@ -85,4 +85,38 @@ class Employee_Model extends CI_Model
     }
     return FALSE;
   }
+  public function updateEmployee($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    if ($this->input->post('status') == '0') {
+      unset($data['cont']);
+    }
+    $this->db->where('empID', $id);
+    $query = $this->db->update("employee", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteEmployee($id)
+  {
+
+    $this->db->where('empID', $id);
+    $query = $this->db->delete("employee");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getEmployeeByID($id)
+  {
+    $this->db->where('empID', $id);
+    $query = $this->db->get("employee");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
+    return FALSE;
+  }
 }

@@ -57,13 +57,15 @@ class User_Model extends CI_Model
       $data['empID'] = $this->input->post('empID');
     }
     if ($this->db->insert('users', $data)) {
-      return $this->db->insert_id();
+      return array('insert_id' => $this->db->insert_id());
     }
     return FALSE;
   }
   public function getUsers()
   {
-    $query = $this->db->get('users');
+    $this->db->from('users t1');
+    $this->db->join('roles t2', 't2._id=t1.role');
+    $query = $this->db->get('');
     $users = array();
     if ($query && $query->num_rows() > 0) {
       $query = $query->result_array();
@@ -73,6 +75,7 @@ class User_Model extends CI_Model
         $user['mobile'] = $row['mobile'];
         $user['is_employee'] = $row['is_employee'];
         $user['role'] = $row['role'];
+        $user['role_color'] = $row['roleColor'];
         if ($row['is_employee']) {
           $data = $this->em->getEmployee($row['empID']);
           $user['empID'] = $data['empID'];

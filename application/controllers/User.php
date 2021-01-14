@@ -14,7 +14,7 @@ class User extends CI_Controller
   {
 
     $this->form_validation->set_rules('username', 'Full Name', 'required');
-    $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[10]');
+    $this->form_validation->set_rules('mobile', 'Mobile', 'required|min_length[10]|max_length[13]|is_unique[users.mobile]');
     $this->form_validation->set_rules('password', 'Password', 'required|min_length[8]');
     $this->form_validation->set_rules('role', 'Role', 'required');
 
@@ -32,7 +32,7 @@ class User extends CI_Controller
   }
   public function login()
   {
-    $this->form_validation->set_rules('mobile', "Mobile Number", 'required|min_length[10]|max_length[10]');
+    $this->form_validation->set_rules('mobile', "Mobile Number", 'required|min_length[10]|max_length[13]');
     $this->form_validation->set_rules('password', "Password", 'required|min_length[8]');
 
     if ($this->form_validation->run() == FALSE) {

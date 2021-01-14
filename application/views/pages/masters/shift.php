@@ -17,6 +17,20 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
@@ -66,14 +80,14 @@
                 <div class="row">
                   <div class="col-sm-6">
                     <div class="mb-3">
-                      <label for="lunch_bk_start" class="form-label">Starts at </label>
-                      <input type='time' name='lunch_bk_start' class="form-control" />
+                      <label for="other_bk_start" class="form-label">Starts at </label>
+                      <input type='time' name='other_bk_start' id='other_bk_start' class="form-control" />
                     </div>
                   </div>
                   <div class="col-sm-6">
                     <div class="mb-3">
-                      <label for="lunch_bk_end" class="form-label">Ends at </label>
-                      <input type='time' name='lunch_bk_end' class="form-control" />
+                      <label for="other_bk_end" class="form-label">Ends at </label>
+                      <input type='time' name='other_bk_end' id='other_bk_end' class="form-control" />
                     </div>
                   </div>
                 </div>
@@ -92,12 +106,20 @@
           <div class="card-body">
             <?php if ($shifts) : ?>
               <?php foreach ($shifts as $shift) : ?>
-                <div class='card mt-3'>
+                <div class='card mt-3 br-2 details_card'>
                   <div class="card-body">
-                    <h5><?= $shift['shift_name']; ?></h5>
-                    <div>
-                      <p><?= $shift['start'] . ' - ' . $shift['end']; ?></p>
-                      <p>Lunch Break : <?= $shift['lunch_bk_start'] . " - " . $shift['lunch_bk_end']; ?></p>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $shift['shift_name']; ?></h5>
+                        <span class="id">Shift ID : <?= $shift['shift_id']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href="<?= SITE_ROOT; ?>masters/edit/shift/<?= $shift['shift_id']; ?>" class='edit_btn'><i class="fa fa-edit mr-2"></i> Edit Shift</a>
+                      </div>
+                    </div>
+                    <div class="details">
+                      <span class="detail"><?= $shift['start'] . ' - ' . $shift['end']; ?></span>
+                      <span class="detail">Lunch Break : <?= $shift['lunch_bk_start'] . " - " . $shift['lunch_bk_end']; ?></span>
                     </div>
                   </div>
                 </div>

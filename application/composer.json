@@ -10,10 +10,17 @@
 		"slack": "https://codeigniterchat.slack.com",
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
+	"autoload": {
+		"psr-4": {
+			"ChatApp\\":"third_party/",
+			"Libraries\\":"libraries/"
+		}
+	},
 	"require": {
 		"php": ">=5.3.7",
 		"mpdf/mpdf": "^8.0",
-		"cboden/ratchet": "^0.4.3"
+		"cboden/ratchet": "^0.4.3",
+		"kreait/firebase-php": "^5.14"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

@@ -17,6 +17,20 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
@@ -27,7 +41,7 @@
             <form id="add_company_form">
               <div class="mb-3">
                 <label for="comp_name" class="form-label">Name of the Company</label>
-                <input type='text' name='comp_name' class="form-control" />
+                <input type='text' name='comp_name' id="comp_name" class="form-control" />
               </div>
               <div class="mb-3">
                 <label for="address" class="form-label">Address </label>
@@ -53,7 +67,7 @@
 
               <div class="mb-3">
                 <label for="mobile" class="form-label">Mobile Number </label>
-                <input type='text' name='mobile' id='cont_person' class="form-control" />
+                <input type='text' name='mobile' id='mobile' class="form-control" />
               </div>
 
               <div class="mb-3">
@@ -81,18 +95,26 @@
           <div class="card-body">
             <?php if ($companies) : ?>
               <?php foreach ($companies as $company) : ?>
-                <div class='card mt-3'>
+                <div class='card mt-3 br-2 details_card'>
                   <div class="card-body">
-                    <h5><?= $company['comp_name']; ?></h5>
-                    <div>
-                      <p><?= $company['address']; ?></p>
-                      <p> <?= $company['cont_person']; ?></p>
-                      <p> <?= $company['mobile']; ?></p>
-                      <p> <?php if ($company['weekly_off']) {
-                            echo "Weekly Off";
-                          } else {
-                            echo "No Weekly Off";
-                          } ?> </p>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $company['comp_name']; ?></h5>
+                        <span class='id'>Company ID : <?= $company['comp_id']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href="<?= SITE_ROOT; ?>masters/edit/company/<?= $company['comp_id']; ?>" class='edit_btn'><i class="fa fa-edit mr-2"></i> Edit Company</a>
+                      </div>
+                    </div>
+                    <div class="details">
+                      <span class='detail'><?= $company['address']; ?></span>
+                      <span class='detail'> <?= $company['cont_person']; ?></span>
+                      <span class='detail'><i class="fa fa-phone-square"></i> <?= $company['mobile']; ?></span>
+                      <span class='detail'> <?php if ($company['weekly_off']) {
+                                              echo "<i class='fa fa-check mr-2'></i>Weekly Off";
+                                            } else {
+                                              echo "<i class='fa fa-times mr-2'></i>No Weekly Off";
+                                            } ?> </span>
                     </div>
                   </div>
                 </div>

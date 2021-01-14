@@ -29,7 +29,7 @@ class Attendance_Model extends CI_Model
       );
       $this->db->reset_query();
       if ($this->db->insert('emp_tran', $data))
-        return TRUE;
+        return $this->getEmpAttendanceByID($empID, $date);
       return FALSE;
     } else {
       $row = $query->row_array();
@@ -51,9 +51,26 @@ class Attendance_Model extends CI_Model
       $this->db->reset_query();
       $this->db->where('empID', $empID);
       if ($this->db->update('emp_tran', $data))
-        return TRUE;
+        return $this->getEmpAttendanceByID($empID, $date);
       return FALSE;
       // return $in_outs;
+    }
+  }
+  public function getEmpAttendanceByID($id, $date)
+  {
+    $this->db->where('empID', $id);
+    $this->db->where('date', $date);
+    $query = $this->db->get('emp_tran');
+    if ($query && $query->num_rows() > 0) {
+      $row = $query->row_array();
+      $data = $this->em->getEmployee($row['empID']);
+      $employee['empID'] = $row['empID'];
+      $employee['name'] = $data['name'];
+      $employee['in_time'] = $row['in_time'];
+      $employee['out_time'] = $row['out_time'];
+      $employee['shift'] = $data['shift'];
+
+      return $employee;
     }
   }
   public function getEmpAttendance($date)
@@ -161,5 +178,90 @@ class Attendance_Model extends CI_Model
       }
     }
     return $employees;
+  }
+
+  /////////////////////////////////////////
+  //Visitors
+  /////////////////////////////////////////
+  public function sendVisitorDetails($in_time)
+  {
+    $post = $this->input->post();
+    $dov_from = date("Y-m-d H:i:s", strtotime($post['date_from'] . " " . $post['time_from']));
+    $dov_to = date("Y-m-d H:i:s", strtotime($post['date_to'] . " " . $post['time_to']));
+    $data = array(
+      'name' => $post['name'],
+      'uid' => $post['uid'],
+      'v_mobile' => $post['v_mobile'],
+      'from_comp' => $post['from_comp'],
+      'no_of_people' => $post['no_of_people'],
+      'to_meet' => $post['to_meet'],
+      'purpose' => $post['purpose'],
+      'dov_from' => $dov_from,
+      'dov_to' => $dov_to,
+      'in_time' => $in_time
+    );
+
+    $query = $this->db->insert('visitor_tran', $data);
+    if ($query) {
+      return array("insert_id" => $this->db->insert_id());
+    }
+    return FALSE;
+  }
+  public function getPreviousVisits()
+  {
+    $this->db->where('v_mobile', $this->input->post('v_mobile'));
+    $this->db->from('visitor_tran t1');
+    $this->db->join('company t2', 't2.comp_id=t1.from_comp');
+    $this->db->join('purpose t3', 't3.purp_id=t1.purpose');
+    $query = $this->db->get();
+    $visits = array();
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      foreach ($query as $row) {
+        $visit['visit_id'] = $row['visit_id'];
+        $visit['location'] = $row['location'];
+        $visit['name'] = $row['name'];
+        $visit['dov_from'] = $row['dov_from'];
+        $visit['dov_to'] = $row['dov_to'];
+        $visit['no_of_people'] = $row['no_of_people'];
+        $visit['from_comp'] = $row['comp_name'];
+        $visit['v_mobile'] = $row['v_mobile'];
+        $visit['uid'] = $row['uid'];
+        $visit['in_time'] = $row['in_time'];
+        $visit['purpose'] = $row['purpose'];
+        $visit['to_meet'] = $this->em->getEmployee($row['to_meet'])['name'];
+        $visit['to_meet_conf'] = $row['to_meet_conf'];
+        $visit['denial_reason'] = $row['denial_reason'];
+        $visit['proposed_time'] = $row['proposed_time'];
+        $visit['out_time'] = $row['out_time'];
+        $visit['photo'] = $row['photo'];
+
+        array_push($visits, $visit);
+      }
+
+      return $visits;
+    }
+
+    return FALSE;
+  }
+  public function getPurposes()
+  {
+    $query = $this->db->get('purpose');
+
+    if ($query && $query->num_rows() > 0) {
+      return $query->result_array();
+    }
+    return FALSE;
+  }
+  public function addPurpose()
+  {
+    $data = array(
+      'purpose' => $this->input->post('purpose')
+    );
+    $query = $this->db->insert('purpose', $data);
+    if ($query) {
+      return array('insert_id' => $this->db->insert_id());
+    }
+    return FALSE;
   }
 }

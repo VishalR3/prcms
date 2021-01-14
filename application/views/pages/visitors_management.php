@@ -14,27 +14,37 @@
   <script src="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.js"></script>
   <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.7.1/firebase-ui-auth.css" />
   <script type="text/javascript">
-    // FirebaseUI config.
-    var uiConfig = {
-      signInSuccessUrl: '<?= SITE_ROOT; ?>visitor/details_form',
-      signInOptions: [
-        // Leave the lines as is for the providers you want to offer your users.
-        firebase.auth.PhoneAuthProvider.PROVIDER_ID
-      ],
-      // tosUrl and privacyPolicyUrl accept either url string or a callback
-      // function.
-      // Terms of service url/callback.
-      tosUrl: '<?php echo site_url('tos'); ?>',
-      // Privacy policy url/callback.
-      privacyPolicyUrl: function() {
-        window.location.assign('<?= site_url('privacy_policy'); ?>');
-      }
-    };
 
-    // Initialize the FirebaseUI Widget using Firebase.
-    var ui = new firebaseui.auth.AuthUI(firebase.auth());
-    // The start method will wait until the DOM is loaded.
-    ui.start('#firebaseui-auth-container', uiConfig);
+  </script>
+  <script type="text/javascript">
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        window.location.href = "<?= SITE_ROOT; ?>visitor/details_form";
+      } else {
+        // FirebaseUI config.
+        var uiConfig = {
+          signInSuccessUrl: '<?= SITE_ROOT; ?>visitor/details_form',
+          signInOptions: [{
+            // Leave the lines as is for the providers you want to offer your users.
+            provider: firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+            defaultCountry: 'IN'
+          }],
+          // tosUrl and privacyPolicyUrl accept either url string or a callback
+          // function.
+          // Terms of service url/callback.
+          tosUrl: '<?php echo site_url('tos'); ?>',
+          // Privacy policy url/callback.
+          privacyPolicyUrl: function() {
+            window.location.assign('<?= site_url('privacy_policy'); ?>');
+          }
+        };
+
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // The start method will wait until the DOM is loaded.
+        ui.start('#firebaseui-auth-container', uiConfig);
+      }
+    });
   </script>
 </head>
 
@@ -53,7 +63,6 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/visitor.js' ?>"></script>
 </body>
 
 </html>

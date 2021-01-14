@@ -10,7 +10,7 @@ for employee in employees:
     print(employee['name'])
 
 payload = {
-    'empID': employees[0]['empID']
+    'empID': employees[1]['empID']
 }
 
 post = requests.post(

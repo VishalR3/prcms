@@ -17,11 +17,25 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <h5>Add Employee</h5>
+            <h5 class='text-center'>Add Employee</h5>
           </div>
           <div class="card-body">
             <form id="add_employee_form">
@@ -64,11 +78,11 @@
               <div class="mb-3">
                 <h6>Status</h6>
                 <div class="form-check">
-                  <input class="form-check-input" type='radio' name='status' id="status_p" value="0" />
+                  <input class="form-check-input" type='radio' name='status' id="status_c" value="1" />
                   <label class='form-check-label' for='status_c'>C</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type='radio' name='status' id="status_c" value="1" />
+                  <input class="form-check-input" type='radio' name='status' id="status_p" value="0" />
                   <label class='form-check-label' for='status_p'>P</label>
                 </div>
               </div>
@@ -88,7 +102,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <h5>Employee List</h5>
+            <h5 class='text-center'>Employee List</h5>
           </div>
           <div class="card-body">
             <div class="input-group my-3">
@@ -101,13 +115,24 @@
             </div>
             <?php if ($employees) : ?>
               <?php foreach ($employees as $employee) : ?>
-                <div class="card mt-3">
+                <div class="card mt-3 br-2 details_card">
                   <div class="card-body">
-                    <h6><?= $employee['name']; ?></h6>
-                    <span class="emp_id">Emp ID : <?= $employee['empID']; ?></span>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $employee['name']; ?></h5>
+                        <span class="id">Emp ID : <?= $employee['empID']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href="<?= SITE_ROOT; ?>masters/edit/employee/<?= $employee['empID']; ?>" class='edit_btn'><i class="fa fa-edit mr-2"></i>Edit Employee</a>
+                      </div>
+                    </div>
+                    <div class="details">
+                      <span class='detail'><i class="fa fa-phone-square mr-2"></i><?= $employee['mobile']; ?></span>
+                      <span class='detail'><i class="fa fa-envelope mr-2"></i><?= $employee['email']; ?></span>
+                    </div>
                   </div>
                   <div class="card-footer">
-                    <a href='<?= SITE_ROOT; ?>admin/employee/<?= $employee['empID']; ?>'>More Details</a>
+                    <a href='<?= SITE_ROOT; ?>admin/employee/<?= $employee['empID']; ?>'>More Details<i class="fa fa-arrow-circle-right ml-2"></i></a>
                   </div>
                 </div>
               <?php endforeach; ?>

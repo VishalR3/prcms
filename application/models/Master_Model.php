@@ -15,6 +15,37 @@ class Master_Model extends CI_Model
       return $query->result_array();
     return FALSE;
   }
+  public function updateShift($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('shift_id', $id);
+    $query = $this->db->update("shift", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteShift($id)
+  {
+
+    $this->db->where('shift_id', $id);
+    $query = $this->db->delete("shift");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getShiftByID($id)
+  {
+    $this->db->where('shift_id', $id);
+    $query = $this->db->get("shift");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
+    return FALSE;
+  }
   //Function for Adding a Shift
   public function addShift()
   {
@@ -45,6 +76,38 @@ class Master_Model extends CI_Model
       return $query->result_array();
     return FALSE;
   }
+  public function getHolidayByID($id)
+  {
+    $this->db->where('_id', $id);
+    $query = $this->db->get("holiday");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
+    return FALSE;
+  }
+  public function updateHoliday($id)
+  {
+    $post = $this->input->post();
+    foreach ($post as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('_id', $id);
+    $query = $this->db->update("holiday", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteHoliday($id)
+  {
+
+    $this->db->where('_id', $id);
+    $query = $this->db->delete("holiday");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
   //Function for Adding a holiday
   public function addHoliday()
   {
@@ -68,6 +131,37 @@ class Master_Model extends CI_Model
       return $query->result_array();
     return FALSE;
   }
+  public function updateDepartment($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('dept_id', $id);
+    $query = $this->db->update("department", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteDepartment($id)
+  {
+
+    $this->db->where('dept_id', $id);
+    $query = $this->db->delete("department");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getDepartmentByID($id)
+  {
+    $this->db->where('dept_id', $id);
+    $query = $this->db->get("department");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
+    return FALSE;
+  }
   //Function for Adding a Department
   public function addDepartment()
   {
@@ -89,6 +183,37 @@ class Master_Model extends CI_Model
 
     if ($query && $query->num_rows() > 0)
       return $query->result_array();
+    return FALSE;
+  }
+  public function updateLocation($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('loc_id', $id);
+    $query = $this->db->update("location", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteLocation($id)
+  {
+
+    $this->db->where('loc_id', $id);
+    $query = $this->db->delete("location");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getLocationByID($id)
+  {
+    $this->db->where('loc_id', $id);
+    $query = $this->db->get("location");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
     return FALSE;
   }
   //Function for Adding a Location
@@ -126,6 +251,37 @@ class Master_Model extends CI_Model
       }
       return $companies;
     }
+    return FALSE;
+  }
+  public function updateCompany($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('comp_id', $id);
+    $query = $this->db->update("company", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteCompany($id)
+  {
+
+    $this->db->where('comp_id', $id);
+    $query = $this->db->delete("company");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getCompanyByID($id)
+  {
+    $this->db->where('comp_id', $id);
+    $query = $this->db->get("company");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
     return FALSE;
   }
   //Function for Adding a Company 
@@ -169,6 +325,37 @@ class Master_Model extends CI_Model
       }
       return $contractors;
     }
+    return FALSE;
+  }
+  public function updateContractor($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('cont_id', $id);
+    $query = $this->db->update("contractor", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteContractor($id)
+  {
+
+    $this->db->where('cont_id', $id);
+    $query = $this->db->delete("contractor");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getContractorByID($id)
+  {
+    $this->db->where('cont_id', $id);
+    $query = $this->db->get("contractor");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
     return FALSE;
   }
   //Function for Adding a Contractor

@@ -1,4 +1,4 @@
-import {SITE_ROOT} from './init.js';
+
 
 $('#add_company_form').submit(function(e){
   e.preventDefault();

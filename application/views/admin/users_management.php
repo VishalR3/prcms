@@ -61,19 +61,26 @@
           <div class="card-header">
             <h5>Users</h5>
           </div>
-          <div class="card-body">
+          <div class="card-body" id="users_list">
             <?php if ($users) : ?>
               <?php foreach ($users as $user) : ?>
-                <div class="card mt-3">
+                <div class="card mt-3 br-2 user_card">
                   <div class="card-body">
-                    <h6><?= $user['username']; ?></h6>
-                    <span class='userid'>User ID : <?= $user['user_id']; ?></span>
-                    <div class="userdata">
-                      <pre id="json">
-                      <?php $data = json_encode($user);
-                      echo $data;
-                      ?>
-                    </pre>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $user['username']; ?></h5>
+                        <span class='userId'>User ID : <?= $user['user_id']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href='#' class="edit_btn"><i class="fa fa-edit mx-2"></i>Edit User</a>
+                      </div>
+                    </div>
+                    <div class='user_details'>
+                      <span class='detail'>Mobile : <?= $user['mobile']; ?></span>
+                      <span class='detail'>Email : <?= $user['data']['email']; ?></span>
+                    </div>
+                    <div class='user_role' style="background-color: <?= $user['role_color']; ?>;">
+                      <?= $user['role']; ?>
                     </div>
                   </div>
                 </div>
@@ -90,8 +97,9 @@
   <?= $footer; ?>
   <?= $scripts; ?>
 
-  <script type='module' src="<?= ASSETS_URL . 'js/admin.js' ?>"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/init.js' ?>"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="<?= ASSETS_URL . 'js/jsx.js' ?>"></script>
+  <script type='text/babel' src="<?= ASSETS_URL . 'js/admin.js' ?>"></script>
 
 
 

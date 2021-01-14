@@ -68,12 +68,36 @@ $route['api/addCompany'] = 'api/addCompany';
 $route['api/addShift'] = 'api/addShift';
 
 //Visitor
+$route['visitor/addPurpose'] = 'api/addPurpose';
+$route['visitor/getPreviousVisits'] = 'api/getPreviousVisits';
+$route['visitor/sendDetails'] = 'api/sendVisitorDetails';
 $route['visitor/(:any)'] = 'Pages/visitor/$1';
 
 //Reports
 $route['reports/(:any)'] = 'Pages/reports/$1';
 
 //Masters
+$route['masters/delete/employee/(:any)'] = 'Master/deleteEmployee/$1';
+$route['masters/update/employee/(:any)'] = 'Master/updateEmployee/$1';
+$route['masters/edit/employee/(:any)'] = 'Master/editEmployee/$1';
+$route['masters/delete/company/(:any)'] = 'Master/deleteCompany/$1';
+$route['masters/update/company/(:any)'] = 'Master/updateCompany/$1';
+$route['masters/edit/company/(:any)'] = 'Master/editCompany/$1';
+$route['masters/delete/location/(:any)'] = 'Master/deleteLocation/$1';
+$route['masters/update/location/(:any)'] = 'Master/updateLocation/$1';
+$route['masters/edit/location/(:any)'] = 'Master/editLocation/$1';
+$route['masters/delete/shift/(:any)'] = 'Master/deleteShift/$1';
+$route['masters/update/shift/(:any)'] = 'Master/updateShift/$1';
+$route['masters/edit/shift/(:any)'] = 'Master/editShift/$1';
+$route['masters/delete/contractor/(:any)'] = 'Master/deleteContractor/$1';
+$route['masters/update/contractor/(:any)'] = 'Master/updateContractor/$1';
+$route['masters/edit/contractor/(:any)'] = 'Master/editContractor/$1';
+$route['masters/delete/department/(:any)'] = 'Master/deleteDepartment/$1';
+$route['masters/update/department/(:any)'] = 'Master/updateDepartment/$1';
+$route['masters/edit/department/(:any)'] = 'Master/editDepartment/$1';
+$route['masters/delete/holiday/(:any)'] = 'Master/deleteHoliday/$1';
+$route['masters/update/holiday/(:any)'] = 'Master/updateHoliday/$1';
+$route['masters/edit/holiday/(:any)'] = 'Master/editHoliday/$1';
 $route['masters/(:any)'] = 'Pages/masters/$1';
 
 //Admin

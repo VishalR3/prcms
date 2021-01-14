@@ -17,6 +17,20 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row g-4">
       <div class="col-sm-6">
         <div class="card">
@@ -71,25 +85,33 @@
         </div>
       </div>
       <div class="col-sm-6">
-        <div class="card">
+        <div class="card ">
           <div class="card-header">
             <p class='text-center'>Existing Contractors</p>
           </div>
           <div class="card-body">
             <?php if ($contractors) : ?>
               <?php foreach ($contractors as $contractor) : ?>
-                <div class='card mt-3'>
+                <div class='card mt-3 br-2 details_card'>
                   <div class="card-body">
-                    <h5><?= $contractor['cont_name']; ?></h5>
-                    <div>
-                      <p><?= $contractor['address']; ?></p>
-                      <p> <?= $contractor['mobile']; ?></p>
-                      <p> <?= $contractor['email']; ?></p>
-                      <p> <?php if ($contractor['active']) {
-                            echo "Active";
-                          } else {
-                            echo "Deactivated";
-                          } ?></p>
+                    <div class="d-flex justify-content-between">
+                      <div>
+                        <h5><?= $contractor['cont_name']; ?></h5>
+                        <span class="id">Contractor ID : <?= $contractor['cont_id']; ?></span>
+                      </div>
+                      <div class='edit_div'>
+                        <a href="<?= SITE_ROOT; ?>masters/edit/contractor/<?= $contractor['cont_id']; ?>" class='edit_btn'><i class="fa fa-edit mr-2"></i> Edit Contractor</a>
+                      </div>
+                    </div>
+                    <div class="details">
+                      <span class='detail'><?= $contractor['address']; ?></span>
+                      <span class='detail'> <?= $contractor['mobile']; ?></span>
+                      <span class='detail'> <?= $contractor['email']; ?></span>
+                      <span class='detail'> <?php if ($contractor['active']) {
+                                              echo "Active";
+                                            } else {
+                                              echo "Deactivated";
+                                            } ?></span>
                     </div>
                   </div>
                 </div>

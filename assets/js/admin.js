@@ -1,10 +1,11 @@
-import {SITE_ROOT} from './init.js';
+
+/** @jsx createElement */
+/*** @jsxFrag createFragment */
+
 
 window.onload=()=>{
   $('#empIdDiv').hide();
-  let data = JSON.parse($('#json').html());
-  data = JSON.stringify(data, null, 3);
-  $('#json').html(data);
+  
 };
 
 $('#is_employee').change(()=>{
@@ -24,7 +25,40 @@ $('#reg_user_form').submit((e)=>{
     'role':$('#role option:selected').val(),
   }
   $.post(SITE_ROOT+'user/registerUser',payload,(res)=>{
+    res=JSON.parse(res);
     console.log(res);
+    if(res){
+      let user = {
+        'username':payload.username,
+        'user_id':res.insert_id,
+        'mobile':payload.mobile,
+        'role':payload.role
+      }
+      document.getElementById('users_list').appendChild(<Card user={user} />);
+    }
   });
   console.log(payload);
 });
+
+const Card =(props) => (
+  <div class="card mt-3 br-2 user_card">
+    <div class="card-body">
+    <div class="d-flex justify-content-between">
+      <div>
+        <h5>{props.user.username}</h5>
+        <span class='userId'>User ID : {props.user.user_id}</span>
+      </div>
+      <div class='edit_user'>
+        <a href='#' class="edit_btn"><i class="fa fa-edit mx-2"></i>Edit User</a>
+      </div>
+    </div>
+    <div class='user_details'>
+      <span class='detail'>Mobile : {props.user.mobile}</span>
+    </div>
+    <div class='user_role'>
+      {props.user.role}
+    </div>
+    </div>
+  </div>
+);
+
