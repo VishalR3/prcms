@@ -3,6 +3,13 @@
 class Employee_Model extends CI_Model
 {
 
+  public function __construct()
+  {
+    parent::__construct();
+
+    date_default_timezone_set('Asia/Kolkata');
+  }
+
   public function addEmployee()
   {
     $data = array(
@@ -118,5 +125,99 @@ class Employee_Model extends CI_Model
     if ($query && $query->num_rows() > 0)
       return $query->row_array();
     return FALSE;
+  }
+  public function getPendingMeets($empID)
+  {
+    $meets = array();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', NULL);
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+
+    return $meets;
+  }
+  public function getScheduledMeets($empID)
+  {
+    $meets = array();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', MEET_CONFIRMED);
+    $this->db->where('dov_to >', date('Y-m-d H:i:s'));
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+    $this->db->reset_query();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', MEET_SCHEDULED);
+    $this->db->where('proposed_time >', date('Y-m-d H:i:s'));
+
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+
+    return $meets;
+  }
+  public function getFinishedMeets($empID)
+  {
+    $meets = array();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', MEET_CONFIRMED);
+    $this->db->where('dov_to <=', date('Y-m-d H:i:s'));
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+    $this->db->reset_query();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', MEET_SCHEDULED);
+    $this->db->where('proposed_time <', date('Y-m-d H:i:s'));
+
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+    $this->db->reset_query();
+    $this->db->from('visitor_tran t1');
+    $this->db->where('to_meet', $empID);
+    $this->db->where('to_meet_conf', MEET_REJECTED);
+
+    $this->db->join('purpose t2', 't2.purp_id=t1.purpose');
+    $query = $this->db->get();
+
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        array_push($meets, $row);
+      }
+    }
+
+    return $meets;
   }
 }

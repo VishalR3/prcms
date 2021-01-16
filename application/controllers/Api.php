@@ -247,6 +247,32 @@ class Api extends CI_Controller
     $pdf->output('reports/report.pdf', \Mpdf\Output\Destination::FILE);
   }
 
+  public function approveVisit()
+  {
+    $response = $this->am->approveVisit();
+
+    $this->echoJsonResponse($response);
+  }
+  public function rejectVisit()
+  {
+    $time = date('H:i:s');
+    $response = $this->am->rejectVisit($time);
+
+    $this->echoJsonResponse($response);
+  }
+  public function rescheduleVisit()
+  {
+    $response = $this->am->rescheduleVisit();
+
+    $this->echoJsonResponse($response);
+  }
+  public function finishVisit()
+  {
+    $response = $this->am->finishVisit();
+
+    $this->echoJsonResponse($response);
+  }
+
 
   //Python
   public function postEmployeeAttendance()
@@ -288,5 +314,23 @@ class Api extends CI_Controller
     $liveCam->push($employee);
 
     $this->echoJsonResponse($response);
+  }
+  public function postVisitorAttendance()
+  {
+    $time = date('H:i:s');
+    $date = date('Y-m-d');
+    $visitor['visitor'] = TRUE;
+    $visitor['time'] = $time;
+    $visitor['date'] = $date;
+
+    $factory = (new Factory())->withDatabaseUri('https://prcms-6f25b-default-rtdb.firebaseio.com/');
+
+    $database = $factory->createDatabase();
+
+    $liveCam = $database->getReference('liveCam');
+    $liveCam->set(NULL);
+    $liveCam->push($visitor);
+
+    $this->echoJsonResponse(TRUE);
   }
 }

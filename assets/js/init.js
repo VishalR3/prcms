@@ -1,4 +1,7 @@
 const SITE_ROOT= 'http://prcms.com/';
+const MEET_REJECTED = 0;
+const MEET_CONFIRMED = 1;
+
 
 $('#upload').change((e)=>{
   console.log(e.target.files[0].name);

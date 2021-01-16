@@ -59,7 +59,12 @@ $route['api/getEmpAttendance'] = 'api/getEmpAttendance';
 $route['api/getEmployees'] = 'api/getEmployees';
 $route['api/getLocations'] = 'api/getLocations';
 //write
+$route['api/finishVisit'] = 'api/finishVisit';
+$route['api/rescheduleVisit'] = 'api/rescheduleVisit';
+$route['api/rejectVisit'] = 'api/rejectVisit';
+$route['api/approveVisit'] = 'api/approveVisit';
 $route['api/makePDF/(:any)'] = 'api/makePDF/$1';
+$route['api/postVisitorAttendance'] = 'api/postVisitorAttendance';
 $route['api/postEmployeeAttendance'] = 'api/postEmployeeAttendance';
 $route['api/addHoliday'] = 'api/addHoliday';
 $route['api/addDepartment'] = 'api/addDepartment';
@@ -74,6 +79,7 @@ $route['visitor/sendDetails'] = 'api/sendVisitorDetails';
 $route['visitor/(:any)'] = 'Pages/visitor/$1';
 
 //Reports
+$route['reports/dashboard'] = 'Pages/dashboard';
 $route['reports/(:any)'] = 'Pages/reports/$1';
 
 //Masters

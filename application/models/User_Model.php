@@ -13,6 +13,10 @@ class User_Model extends CI_Model
       $hash = $query['password'];
       if (password_verify($password, $hash)) {
         $user = $query;
+        if ($query['is_employee']) {
+          $empData = $this->em->getEmployee($query['empID']);
+        }
+        $user['empData'] = $empData;
 
         $data['success'] = TRUE;
         $data['user'] = $user;

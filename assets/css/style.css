@@ -14,8 +14,16 @@
   border-radius: 0.5rem !important;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .ml-2 {
@@ -239,7 +247,20 @@
 
 .camera_input {
   width: 100%;
-  height: 300px;
   background-color: grey;
+}
+
+.meet_details span {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: grey;
+}
+
+.m-reject {
+  background-color: #FFDFDF !important;
+}
+
+.m-confirm {
+  background-color: #C2FFC8 !important;
 }
 /*# sourceMappingURL=style.css.map */

@@ -20,6 +20,7 @@ $('#add_contractor_form').submit(function(e){
     if(res){
       console.log("Succesful!!");
       console.log(JSON.parse(res));
+      window.location.reload();
     }
   });
   // console.log(`name : ${name}, address : ${address}, active : ${active}`);

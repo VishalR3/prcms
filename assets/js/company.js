@@ -19,6 +19,7 @@ $('#add_company_form').submit(function(e){
   },function(res){
     if(res){
       console.log(res);
+      window.location.reload();
     }
   });
 });

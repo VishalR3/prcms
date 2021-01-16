@@ -21,7 +21,7 @@ $('#add_shift_form').submit(function(e){
   },function(res){
     if(res){
       console.log(res);
+      window.location.reload();
     }
   });
-  console.log(`name : ${name}, start : ${other_start}, end : ${other_end}`);
 })

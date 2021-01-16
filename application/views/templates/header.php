@@ -13,7 +13,7 @@
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>admin/users_management">Users Management</a></li>
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>admin/upload_data">Upload Data</a></li>
-            <li><a class="dropdown-item" href="#">Roles</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>admin/roles">Roles</a></li>
             <li><a class="dropdown-item" href="#">Privilages</a></li>
             <li><a class="dropdown-item" href="#">General Settings</a></li>
             <li><a class="dropdown-item" href="#">Password Policy</a></li>

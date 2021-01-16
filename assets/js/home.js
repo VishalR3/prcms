@@ -37,14 +37,28 @@ const liveCam = firebase.database().ref().child('liveCam');
 liveCam.on('child_added',snap=>{
   let tr = document.createElement('tr');
   tr.id=snap.key;
-  let id = document.createElement('td');
-  id.innerHTML=snap.val().empID;
-  let name = document.createElement('td');
-  name.innerHTML=snap.val().name;
-  let shift = document.createElement('td');
-  shift.innerHTML=snap.val().shift;
-  tr.append(id,name,shift);
+  if(snap.val().visitor == true){
+    let id = document.createElement('td');
+    id.innerHTML="V1";
+    let name = document.createElement('td');
+    name.innerHTML="Visitor";
+    let shift = document.createElement('td');
+    shift.innerHTML="<a href='"+SITE_ROOT+"visitors_management'>Visitor Management</a>";
+    tr.append(id,name,shift);
+  }else{
+    console.log('Employee');
+    let id = document.createElement('td');
+    id.innerHTML=snap.val().empID;
+    let name = document.createElement('td');
+    name.innerHTML=snap.val().name;
+    let shift = document.createElement('td');
+    shift.innerHTML=snap.val().shift;
+    tr.append(id,name,shift);
+  }
   table.append(tr);
+  setTimeout(()=>{
+    tr.remove();
+  },60000);
 });
 liveCam.on('child_changed',snap=>{
   let tr=document.getElementById(snap.key);
@@ -57,10 +71,10 @@ liveCam.on('child_changed',snap=>{
   tr.innerHTML='';
   tr.append(id,name,shift);
 });
-liveCam.on('child_removed',snap=>{
-  let tr=document.getElementById(snap.key);
-  tr.remove();
-});
+// liveCam.on('child_removed',snap=>{
+//   let tr=document.getElementById(snap.key);
+//   tr.remove();
+// });
 
 const todayTable =document.getElementById('realtime_data');
 const today = firebase.database().ref().child('today');
@@ -95,3 +109,45 @@ today.on('child_removed',snap=>{
   let tr=document.getElementById(snap.key);
   tr.remove();
 });
+
+navigator.mediaDevices.enumerateDevices()
+.then(function(devices) {
+  devices.forEach(function(device) {
+    if(device.kind.startsWith('video')){
+      console.log(device.kind+' '+ ": " + device.label +
+                  " id = " + device.deviceId);
+      let option = new Option(device.label,device.deviceId);
+      document.querySelector('#input_video').append(option);
+    }
+  });
+})
+.catch(function(err) {
+  console.log(err.name + ": " + err.message);
+});
+
+window.onload = ()=>{
+  renderVideo();
+}
+
+$('#input_video').change(()=>{
+  renderVideo();
+})
+
+const renderVideo = ()=> {
+  let prefDevice = document.querySelector('#input_video').value;
+  var constraints = { audio: false, video: { width: 1280, height: 720, deviceId: prefDevice } };
+  
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(function(mediaStream) {
+    var video = document.querySelector('.camera_input');
+    video.srcObject = mediaStream;
+    video.onloadedmetadata = function(e) {
+      video.play();
+    };
+  })
+  .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.
+}
+
+
+
+

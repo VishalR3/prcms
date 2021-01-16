@@ -28,10 +28,14 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <p>Employee Attendance Website</p>
             <p>Logged In : <b><?= $this->session->username; ?></b></p>
-            <div class="camera_input">
+            <div class="form-group">
+              <label for="input_video" class='form-label'>Select Input Source</label>
+              <select name='input_video' id='input_video' class='form-select'>
+              </select>
             </div>
+            <video class="camera_input mt-3">
+            </video>
           </div>
         </div>
         <div class="card mt-3">

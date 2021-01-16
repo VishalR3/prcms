@@ -26,6 +26,7 @@ $('#add_employee_form').submit(function(e){
   },function(res){
     if(res){
       console.log(JSON.parse(res));
+      window.location.reload();
     }
   })
   

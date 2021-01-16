@@ -45,6 +45,7 @@ $(function(){
       $.post(SITE_ROOT+'visitor/sendDetails',payload,(res)=>{
         res=JSON.parse(res);
         console.log(res);
+        window.location.reload();
       })
     });    
 
@@ -101,8 +102,13 @@ function getPreviousVisits(mobile){
 }
 
 const VisitCard = (props) => {
+  let colorClass ='';
+  if(props.visit.to_meet_conf== MEET_REJECTED)
+  {colorClass = 'm-reject'}
+  else if(props.visit.to_meet_conf== MEET_CONFIRMED)
+  {colorClass='m-confirm'}
   return(
-  <div class={`card mt-3 br-2 details_card`}>
+  <div class={`card mt-3 br-2 details_card ${colorClass}`}>
     <div class='card-body'>
       <div class='d-flex justify-content-between'>
         <div>
@@ -117,6 +123,7 @@ const VisitCard = (props) => {
         <span class='detail'>To Meet : {props.visit.to_meet}</span>
         <span class='id'>{props.visit.dov_from} - {props.visit.dov_to}</span>
         <span class='detail mt-2'><b>Purpose : </b>{props.visit.purpose}</span>
+        <i>{(props.visit.to_meet_conf== MEET_REJECTED) ? <b>Reason - {props.visit.denial_reason}</b>   :''}</i>
       </div>
     </div>
   </div>

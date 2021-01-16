@@ -211,6 +211,7 @@ class Attendance_Model extends CI_Model
   {
     $this->db->where('v_mobile', $this->input->post('v_mobile'));
     $this->db->from('visitor_tran t1');
+    $this->db->order_by('visit_id', "DESC");
     $this->db->join('company t2', 't2.comp_id=t1.from_comp');
     $this->db->join('purpose t3', 't3.purp_id=t1.purpose');
     $query = $this->db->get();
@@ -262,6 +263,73 @@ class Attendance_Model extends CI_Model
     if ($query) {
       return array('insert_id' => $this->db->insert_id());
     }
+    return FALSE;
+  }
+  public function approveVisit()
+  {
+    $empID = $this->session->userdata('empID');
+    $visitID = $this->input->post('visit_id');
+
+    $this->db->where('to_meet', $empID);
+    $this->db->where('visit_id', $visitID);
+    $this->db->set('to_meet_conf', MEET_CONFIRMED);
+    $query = $this->db->update('visitor_tran');
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function rejectVisit($time)
+  {
+    $empID = $this->session->userdata('empID');
+    $visitID = $this->input->post('visit_id');
+    $reason = $this->input->post('reason');
+
+    $this->db->where('to_meet', $empID);
+    $this->db->where('visit_id', $visitID);
+    $this->db->set('out_time', $time);
+    $this->db->set('to_meet_conf', MEET_REJECTED);
+    $this->db->set('denial_reason', $reason);
+    $query = $this->db->update('visitor_tran');
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function rescheduleVisit()
+  {
+    $empID = $this->session->userdata('empID');
+    $visitID = $this->input->post('visit_id');
+    $datetime = $this->input->post('datetime');
+    $proposed_time = date("Y-m-d H:i:s", strtotime($datetime));
+    $out_time = date('H:i:s');
+
+    $this->db->where('to_meet', $empID);
+    $this->db->where('visit_id', $visitID);
+    $this->db->set('to_meet_conf', MEET_SCHEDULED);
+    $this->db->set('proposed_time', $proposed_time);
+    $this->db->set('out_time', $out_time);
+    $query = $this->db->update('visitor_tran');
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function finishVisit()
+  {
+    $empID = $this->session->userdata('empID');
+    $visitID = $this->input->post('visit_id');
+    $time = date('H:i:s');
+    $dov_to = date('Y-m-d H:i:s');
+
+    $this->db->where('to_meet', $empID);
+    $this->db->where('visit_id', $visitID);
+    $this->db->set('dov_to', $dov_to);
+    $this->db->set('out_time', $time);
+    $query = $this->db->update('visitor_tran');
+
+    if ($query)
+      return TRUE;
     return FALSE;
   }
 }

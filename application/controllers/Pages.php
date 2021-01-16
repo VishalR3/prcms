@@ -115,4 +115,22 @@ class Pages extends CI_Controller
       redirect('login');
     }
   }
+  public function dashboard()
+  {
+    if ($this->session->is_logged_in) {
+      $empID = $this->session->userdata('empID');
+      $data['PendingMeets'] = $this->em->getPendingMeets($empID);
+      $data['ScheduledMeets'] = $this->em->getScheduledMeets($empID);
+      $data['FinishedMeets'] = $this->em->getFinishedMeets($empID);
+
+
+      $data['header'] = $this->load->view('templates/header', '', TRUE);
+      $data['links'] = $this->load->view('templates/links', '', TRUE);
+      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+      $this->load->view('pages/reports/dashboard', $data);
+    } else {
+      redirect('login');
+    }
+  }
 }

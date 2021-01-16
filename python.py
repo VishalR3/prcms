@@ -10,7 +10,7 @@ for employee in employees:
     print(employee['name'])
 
 payload = {
-    'empID': employees[1]['empID']
+    'empID': employees[0]['empID']
 }
 
 post = requests.post(
@@ -18,3 +18,9 @@ post = requests.post(
 
 print(post.status_code)
 print(post.text)
+
+post2 = requests.post(
+    'http://localhost/attendance/api/postVisitorAttendance')
+
+print(post2.status_code)
+print(post2.text)
