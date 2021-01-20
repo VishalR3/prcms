@@ -6,7 +6,7 @@ $('.shutter-title').click(function(){
 });
 
 $(function(){
-  document.querySelector('.accept_link').addEventListener('click',(e)=>{
+  $('.accept_link').click((e)=>{
     let visit_id = e.target.getAttribute('data-id');
     $.post(SITE_ROOT+'api/approveVisit',{'visit_id':visit_id},(res)=>{
       console.log(res);
@@ -16,7 +16,7 @@ $(function(){
     })
   })
   
-  document.querySelector('.reject_link').addEventListener('click',(e)=>{
+  $('.reject_link').click((e)=>{
     let visit_id = e.target.getAttribute('data-id');
     const getReason  = new Promise((resolve,reject)=>{
       $.confirm({
@@ -46,7 +46,7 @@ $(function(){
 
 
   })
-  document.querySelector('.reschedule_link').addEventListener('click',(e)=>{
+  $('.reschedule_link').click((e)=>{
     let visit_id = e.target.getAttribute('data-id');
     const getReason  = new Promise((resolve,reject)=>{
       $.confirm({
@@ -80,7 +80,7 @@ $(function(){
   })
 })
 
-document.querySelector('.exit_meet').addEventListener('click',(e)=>{
+$('.exit_meet').click((e)=>{
   let visit_id = e.target.getAttribute('data-id');
   $.post(SITE_ROOT+'api/finishVisit',{'visit_id':visit_id},(res)=>{
     console.log(res);
@@ -89,3 +89,4 @@ document.querySelector('.exit_meet').addEventListener('click',(e)=>{
     }
   })
 })
+

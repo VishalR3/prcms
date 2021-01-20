@@ -21,7 +21,7 @@
       <div class="col-sm-6 offset-sm-3">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Edit Company</p>
+            <h5 class="text-center">Edit Company</h5>
           </div>
           <div class="card-body">
             <form id="edit_company_form" method="POST" action="<?= SITE_ROOT; ?>masters/update/company/<?= $company['comp_id']; ?>">

@@ -35,7 +35,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Holiday</p>
+            <h5 class="text-center">Add Holiday</h5>
           </div>
           <div class="card-body">
             <form id="add_holiday_form">
@@ -71,7 +71,7 @@
       <div class="col-md-6">
         <div class="card">
           <div class="card-header">
-            <p class='text-center'>Holidays</p>
+            <h5 class='text-center'>Holidays</h5>
           </div>
           <div class="card-body">
             <?php if ($holidays) : ?>

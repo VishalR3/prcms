@@ -21,7 +21,7 @@
       <div class="col-md-6 offset-md-3">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Edit Holiday</p>
+            <h5 class="text-center">Edit Holiday</h5>
           </div>
           <div class="card-body">
             <form id="update_holiday_form" method="POST" action='<?= SITE_ROOT; ?>masters/update/holiday/<?= $holiday['_id']; ?>'>

@@ -21,7 +21,7 @@
       <div class="col-sm-6 offset-sm-3">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Department</p>
+            <h5 class="text-center">Add Department</h5>
           </div>
           <div class="card-body">
             <form id="update_department_form" method="POST" action="<?= SITE_ROOT; ?>masters/update/department/<?= $department['dept_id']; ?>">

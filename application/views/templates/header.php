@@ -42,7 +42,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/attendance_report/">Attendance Report</a></li>
-            <li><a class="dropdown-item" href="#">Visitors Report</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/visitors_report/">Visitors Report</a></li>
             <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/dashboard/">Dashboard</a></li>
           </ul>
         </li>

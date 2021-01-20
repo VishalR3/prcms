@@ -3,10 +3,6 @@
 /*** @jsxFrag createFragment */
 
 
-window.onload=()=>{
-  $('#empIdDiv').hide();
-  
-};
 
 $('#is_employee').change(()=>{
   $('#empIdDiv').toggle();
@@ -27,7 +23,7 @@ $('#reg_user_form').submit((e)=>{
   $.post(SITE_ROOT+'user/registerUser',payload,(res)=>{
     res=JSON.parse(res);
     console.log(res);
-    if(res){
+    if(res.success){
       let user = {
         'username':payload.username,
         'user_id':res.insert_id,
@@ -35,6 +31,9 @@ $('#reg_user_form').submit((e)=>{
         'role':payload.role
       }
       document.getElementById('users_list').appendChild(<Card user={user} />);
+      window.location.reload();
+    }else{
+      $.alert(`${res.errors}`,'Operation Failed')
     }
   });
   console.log(payload);

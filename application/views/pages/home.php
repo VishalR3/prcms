@@ -40,7 +40,7 @@
         </div>
         <div class="card mt-3">
           <div class="card-body">
-            <h5>Employee Identification</h5>
+            <h5 class='text-center'>Employee Identification</h5>
             <table class="table table-responsive" id='realtime_table'>
               <thead class='bg-dark text-white'>
                 <th scope='col'>Emp ID</th>
@@ -62,32 +62,6 @@
                   <span class="input-group-text" id='input-icon'>
                     <i class="fa fa-search"></i>
                   </span>
-                </div>
-              </div>
-              <div class="filters row my-3">
-                <div class="col">
-                  <select name='company' id='company' class="form-select">
-                    <option value="all">All</option>
-                    <?php foreach ($companies as $company) : ?>
-                      <option value="<?= $company['comp_id']; ?>"><?= $company['comp_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="col">
-                  <select name='location' id='location' class="form-select">
-                    <option value="all">All</option>
-                    <?php foreach ($locations as $location) : ?>
-                      <option value="<?= $location['loc_name']; ?>"><?= $location['loc_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="col">
-                  <select name='dept' id='dept' class="form-select">
-                    <option value="all">All</option>
-                    <?php foreach ($departments as $department) : ?>
-                      <option value="<?= $department['dept_name']; ?>"><?= $department['dept_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
                 </div>
               </div>
             </div>

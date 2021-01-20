@@ -220,4 +220,42 @@ class Employee_Model extends CI_Model
 
     return $meets;
   }
+  public function uploadEmployeePhoto()
+  {
+    $empID = $this->input->post('empID');
+    $photo = $this->input->post('photo');
+    $face_descriptor = json_encode($this->input->post('face_descriptor'));
+
+    $this->db->where('empID', $empID);
+    $this->db->set('photo', $photo);
+    $this->db->set('face_descriptor', $face_descriptor);
+    $query = $this->db->update('employee');
+
+    if ($query) {
+      $empData = $this->session->userdata('empData');
+      $empData['photo'] = $photo;
+      $this->session->set_userdata('empData', $empData);
+      return TRUE;
+    }
+
+    return FALSE;
+  }
+  public function getFaceDescriptors()
+  {
+    $faces = array();
+    $this->db->select('face_descriptor');
+    $this->db->where('face_descriptor !=', NULL);
+    $this->db->or_where('face_descriptor !=', "");
+    $query = $this->db->get('employee');
+
+    if ($query && $query->num_rows()) {
+      foreach ($query->result_array() as $row) {
+        $face = json_decode($row['face_descriptor']);
+
+        array_push($faces, $face);
+      }
+      return $faces;
+    }
+    return FALSE;
+  }
 }

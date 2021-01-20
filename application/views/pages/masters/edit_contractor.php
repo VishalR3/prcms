@@ -21,7 +21,7 @@
       <div class="col-sm-6 offset-sm-3">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Edit Contractor</p>
+            <h5 class="text-center">Edit Contractor</h5>
           </div>
           <div class="card-body">
             <form id="edit_contractor_form" method="POST" action="<?= SITE_ROOT; ?>masters/update/contractor/<?= $contractor['cont_id']; ?>">

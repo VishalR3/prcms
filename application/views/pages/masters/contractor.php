@@ -35,7 +35,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Contractor</p>
+            <h5 class="text-center">Add Contractor</h5>
           </div>
           <div class="card-body">
             <form id="add_contractor_form">
@@ -87,7 +87,7 @@
       <div class="col-sm-6">
         <div class="card ">
           <div class="card-header">
-            <p class='text-center'>Existing Contractors</p>
+            <h5 class='text-center'>Existing Contractors</h5>
           </div>
           <div class="card-body">
             <?php if ($contractors) : ?>

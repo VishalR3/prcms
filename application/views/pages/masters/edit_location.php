@@ -21,7 +21,7 @@
       <div class="col-sm-6 offset-sm-3">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Edit Location</p>
+            <h5 class="text-center">Edit Location</h5>
           </div>
           <div class="card-body">
             <form id="edit_location_form" method="POST" action="<?= SITE_ROOT; ?>masters/update/location/<?= $location['loc_id']; ?>">

@@ -44,7 +44,7 @@
               <option value="<?= $department['dept_name']; ?>"><?= $department['dept_name']; ?></option>
             <?php endforeach; ?>
           </select>
-          <input type="text" name="search" id='search' placeholder="Search An Employee" />
+          <input type="text" name="search" id='search' placeholder="Search An Employee" class='input-text' />
         </div>
       </div>
       <div class="table-wrapper table-responsive">
@@ -55,14 +55,14 @@
     </div>
     <div class="table-footer d-md-flex justify-content-between">
       <div class="date-filter">
-        Data Showing From <input type='date' name='from' id='from' value="<?php echo date('Y-m-d'); ?>" /> to <input type='date' name='to' id='to' value="<?php echo date('Y-m-d'); ?>" />
+        Data Showing From <input type='date' name='from' id='from' value="<?php echo date('Y-m-d'); ?>" class='input-date' /> to <input type='date' name='to' id='to' value="<?php echo date('Y-m-d'); ?>" class='input-date' />
       </div>
       <div class="download-Wrapper">
-        <select name='download_type' id='download_type' class="input-select">
+        <select name='download_type' id='download_type' class="input-select mr-2">
           <option selected value="csv">.csv</option>
           <option value="xlsx">.xlsx</option>
           <option value="json">.json</option>
-          <option value="txt">.txt</option>
+          <option value="pdf">.pdf</option>
         </select>
         <button id="download_btn" class="btn btn-primary">Download Data</button>
       </div>
@@ -72,6 +72,7 @@
   <?= $footer; ?>
   <?= $scripts; ?>
 
+  <script src="<?= ASSETS_URL . 'js/jquery.csv.js' ?>"></script>
   <script type='module' src="<?= ASSETS_URL . 'js/attendance_report.js' ?>"></script>
 </body>
 

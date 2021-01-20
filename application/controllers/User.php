@@ -19,11 +19,15 @@ class User extends CI_Controller
     $this->form_validation->set_rules('role', 'Role', 'required');
 
     if ($this->form_validation->run() == FALSE) {
+      $data['errors'] = validation_errors();
+      $data['success'] = FALSE;
+      exit(json_encode($data));
     } else {
       $mobile = $this->input->post('mobile');
       $password = password_hash($this->input->post('password'), PASSWORD_DEFAULT);
 
       $response = $this->um->registerUser($mobile, $password);
+      $response['success'] = TRUE;
 
       if ($response)
         exit(json_encode($response));

@@ -1,6 +1,7 @@
-const SITE_ROOT= 'http://prcms.com/';
+const SITE_ROOT= 'http://localhost/attendance/';
 const MEET_REJECTED = 0;
 const MEET_CONFIRMED = 1;
+const MEET_SCHEDULED = 2;
 
 
 $('#upload').change((e)=>{

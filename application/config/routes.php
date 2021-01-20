@@ -52,6 +52,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 //API
 //read
+$route['api/getFaceDescriptors'] = 'api/getFaceDescriptors';
 $route['api/searchEmployee'] = 'api/searchEmployee';
 $route['api/getEmpReportsDateRange'] = 'api/getEmpReportsDateRange';
 $route['api/getEmpReports'] = 'api/getEmpReports';
@@ -59,6 +60,7 @@ $route['api/getEmpAttendance'] = 'api/getEmpAttendance';
 $route['api/getEmployees'] = 'api/getEmployees';
 $route['api/getLocations'] = 'api/getLocations';
 //write
+$route['api/uploadEmployeePhoto'] = 'api/uploadEmployeePhoto';
 $route['api/finishVisit'] = 'api/finishVisit';
 $route['api/rescheduleVisit'] = 'api/rescheduleVisit';
 $route['api/rejectVisit'] = 'api/rejectVisit';
@@ -107,6 +109,10 @@ $route['masters/edit/holiday/(:any)'] = 'Master/editHoliday/$1';
 $route['masters/(:any)'] = 'Pages/masters/$1';
 
 //Admin
+$route['admin/delete/user/(:any)'] = 'Admin/deleteUser/$1';
+$route['admin/update/user/(:any)'] = 'Admin/updateUser/$1';
+$route['admin/edit/user/(:any)'] = 'Admin/editUser/$1';
+$route['admin/addRole'] = 'Admin/addRole';
 $route['admin/employee/$1'] = 'Admin/employee/$1';
 $route['admin/(:any)'] = 'Admin/view/$1';
 
@@ -117,6 +123,7 @@ $route['user/login'] = 'User/login';
 
 //Any
 $route['f_login'] = 'Pages/first_login';
+$route['sendSMS'] = 'Pages/sendSMS';
 $route['login'] = 'Pages/login';
 $route['(:any)'] = 'Pages/view/$1';
 

@@ -148,6 +148,8 @@ class Api extends CI_Controller
 
   public function sendVisitorDetails()
   {
+    $this->load->library('Twilio');
+
     $this->form_validation->set_rules('name', 'Name', 'required');
     $this->form_validation->set_rules('no_of_people', 'No. of People', 'required');
     $this->form_validation->set_rules('to_meet', 'Employee To Meet', 'required');
@@ -159,27 +161,18 @@ class Api extends CI_Controller
 
       exit(json_encode($response));
     } else {
+      $date = date('Y-m-d');
       $in_time = date('H:i:s');
-      $response = $this->am->sendVisitorDetails($in_time);
+      $response = $this->am->sendVisitorDetails($date, $in_time);
 
-      if ($response)
+      if ($response) {
+        $msg = 'Hello ' . $response['empName'] . ', ' . $response['visitor'] . ' wants to meet you at ' . $response['date'] . ' with ' . $response['people'] . ' people. Purpose : ' . $response['purpose'] . '  Visit ID : ' . $response['insert_id'];
+        $mobile = '+91' . $response['empMobile'];
+        $response['msgdata'] = $this->twilio->sendSMS($mobile, $msg);
         exit(json_encode($response));
+      }
       exit(FALSE);
     }
-  }
-  public function sendMeetAlerts()
-  {
-    $factory = (new Factory())->withDatabaseUri('https://prcms-6f25b-default-rtdb.firebaseio.com/');
-
-    $database = $factory->createDatabase();
-
-    $meets = $database->getReference('meets');
-    $visit_data = array(
-      'to_meet' => $this->input->post('to_meet'),
-      'purpose' => $this->input->post('purpose'),
-      'visit_id' => $this->input->post('visit_id')
-    );
-    $meets->push($visit_data);
   }
 
   //Read API
@@ -208,6 +201,13 @@ class Api extends CI_Controller
 
     $this->echoJsonResponse($response);
   }
+  public function getVisitorReports()
+  {
+    $date = date('Y-m-d');
+    $response = $this->am->getVisitorReports($date);
+
+    $this->echoJsonResponse($response);
+  }
   public function getEmpReportsForHome()
   {
     $date = date('Y-m-d');
@@ -220,6 +220,13 @@ class Api extends CI_Controller
     $from = date("Y-m-d", strtotime($this->input->post('from')));
     $to = date("Y-m-d", strtotime($this->input->post('to')));
     $response = $this->am->getEmpReportsDateRange($from, $to);
+    $this->echoJsonResponse($response);
+  }
+  public function getVisitorReportsDateRange()
+  {
+    $from = date("Y-m-d", strtotime($this->input->post('from')));
+    $to = date("Y-m-d", strtotime($this->input->post('to')));
+    $response = $this->am->getVisitorReportsDateRange($from, $to);
     $this->echoJsonResponse($response);
   }
   public function searchEmployee()
@@ -244,7 +251,9 @@ class Api extends CI_Controller
   {
     $pdf = new \Mpdf\Mpdf();
     $pdf->WriteHTML($this->input->post('html'));
-    $pdf->output('reports/report.pdf', \Mpdf\Output\Destination::FILE);
+    $this->output->set_content_type('application/pdf');
+    $file = $pdf->output('report/report.pdf', 'F');
+    exit($file);
   }
 
   public function approveVisit()
@@ -269,6 +278,19 @@ class Api extends CI_Controller
   public function finishVisit()
   {
     $response = $this->am->finishVisit();
+
+    $this->echoJsonResponse($response);
+  }
+
+  public function uploadEmployeePhoto()
+  {
+    $response = $this->em->uploadEmployeePhoto();
+
+    $this->echoJsonResponse($response);
+  }
+  public function getFaceDescriptors()
+  {
+    $response = $this->em->getFaceDescriptors();
 
     $this->echoJsonResponse($response);
   }

@@ -24,11 +24,6 @@
             document.getElementById('sign-in').textContent = 'Sign out ' + phoneNumber;
             document.getElementById('v_mobile').value = phoneNumber;
             document.getElementById('uid').value = uid;
-            console.log({
-              phoneNumber: phoneNumber,
-              uid: uid,
-              accessToken: accessToken,
-            });
           });
         } else {
           // User is signed out.
@@ -77,6 +72,10 @@
                 <input type='text' name='v_mobile' id='v_mobile' value="" disabled class="form-control" />
               </div>
               <div class="mb-3">
+                <label for="no_of_people" class="form-label">Number Of People</label>
+                <input type='text' name='no_of_people' id='no_of_people' class="form-control" />
+              </div>
+              <div class="mb-3">
                 <label for="from_comp" class="form-label">From Company</label>
                 <select name='from_comp' id='from_comp' class="form-select">
                   <?php foreach ($companies as $company) : ?>
@@ -84,10 +83,7 @@
                   <?php endforeach; ?>
                 </select>
               </div>
-              <div class="mb-3">
-                <label for="no_of_people" class="form-label">Number Of People</label>
-                <input type='text' name='no_of_people' id='no_of_people' class="form-control" />
-              </div>
+
               <div class="mb-3">
                 <label for="to_meet" class="form-label">Employee To Meet </label>
                 <select name='to_meet' class="form-select" id='to_meet'>
@@ -139,12 +135,33 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-body">
-            <div class="input-group my-3">
-              <input type="text" class="form-control" placeholder="Search Previous Visits">
-              <div class="input-group-append">
-                <span class="input-group-text" id='input-icon'>
-                  <i class="fa fa-search"></i>
-                </span>
+            <div class="row">
+              <div class="col-sm-6">
+                <video class="camera_input mb-3">
+                </video>
+                <div class="mb-3 text-center">
+                  <button id='capture_btn' class='btn btn-default'>Capture Image</button>
+                </div>
+              </div>
+              <div class="col-sm-6 ">
+                <canvas class='d-none' id='canvas'></canvas>
+                <div id='output'>
+                  <img id='photo' style='width:100%;' />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card mt-4">
+          <div class="card-body">
+            <div class="searchWrapper">
+              <div class="input-group my-3">
+                <input type="text" name='searchVisit' id='searchVisit' class="form-control" placeholder="Search Previous Visits">
+                <div class="input-group-append">
+                  <span class="input-group-text" id='input-icon'>
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
               </div>
             </div>
             <div id="previous_visits">

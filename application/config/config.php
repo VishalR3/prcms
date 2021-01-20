@@ -29,8 +29,8 @@ function is_localhost($whitelist = ["127.0.0.1", "::1"])
   return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
 }
 if (is_localhost()) {
-  // $config['base_url'] = 'http://localhost/attendance/';
-  $config['base_url'] = 'http://prcms.com/';
+  $config['base_url'] = 'http://localhost/attendance/';
+  // $config['base_url'] = 'http://prcms.com/';
 } else {
   $config['base_url'] = 'http://' . gethostbyname(gethostname()) . "/attendance/";
 }

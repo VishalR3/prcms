@@ -17,11 +17,25 @@
   <?= $header; ?>
 
   <div class="container mt-3">
+    <?php if ($this->session->userdata('success_msg')) : ?>
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('success_msg'); ?>
+        <?php $this->session->unset_userdata('success_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
+    <?php if ($this->session->userdata('error_msg')) : ?>
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $this->session->userdata('error_msg'); ?>
+        <?php $this->session->unset_userdata('error_msg'); ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    <?php endif; ?>
     <div class="row">
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <h5>Add User</h5>
+            <h5 class='text-center'>Add User</h5>
           </div>
           <div class="card-body">
             <form id="reg_user_form">
@@ -38,7 +52,7 @@
                 <label for='username'>Password</label>
               </div>
               <div class="form-check mb-3">
-                <input type="checkbox" name="is_employee" id='is_employee' value="1" class="form-check-input" />
+                <input type="checkbox" name="is_employee" id='is_employee' value="1" class="form-check-input" checked />
                 <label for='is_employee' class="form-check-label">Is Employee</label>
               </div>
               <div class="form-group form-floating mb-3" id='empIdDiv'>
@@ -48,7 +62,9 @@
               <div class="form-group mb-3">
                 <label for='role' class="form-label">Role</label>
                 <select name="role" id='role' class="form-select">
-                  <option value="1">Manager</option>
+                  <?php foreach ($roles as $role) : ?>
+                    <option value="<?= $role['_id']; ?>"><?= $role['role']; ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <button type="submit" class="btn btn-primary">Add User</button>
@@ -59,7 +75,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <h5>Users</h5>
+            <h5 class='text-center'>Users</h5>
           </div>
           <div class="card-body" id="users_list">
             <?php if ($users) : ?>
@@ -72,7 +88,7 @@
                         <span class='userId'>User ID : <?= $user['user_id']; ?></span>
                       </div>
                       <div class='edit_div'>
-                        <a href='#' class="edit_btn"><i class="fa fa-edit mx-2"></i>Edit User</a>
+                        <a href='<?= SITE_ROOT; ?>admin/edit/user/<?= $user['user_id']; ?>' class="edit_btn"><i class="fa fa-edit mx-2"></i>Edit User</a>
                       </div>
                     </div>
                     <div class='user_details'>

@@ -35,7 +35,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Shift</p>
+            <h5 class="text-center">Add Shift</h5>
           </div>
           <div class="card-body">
             <form id="add_shift_form">
@@ -101,7 +101,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class='text-center'>Existing Shift</p>
+            <h5 class='text-center'>Existing Shift</h5>
           </div>
           <div class="card-body">
             <?php if ($shifts) : ?>

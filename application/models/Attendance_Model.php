@@ -126,6 +126,7 @@ class Attendance_Model extends CI_Model
     }
     return FALSE;
   }
+
   public function getEmpReportsForHome($date)
   {
     $employees = array();
@@ -180,10 +181,11 @@ class Attendance_Model extends CI_Model
     return $employees;
   }
 
+
   /////////////////////////////////////////
   //Visitors
   /////////////////////////////////////////
-  public function sendVisitorDetails($in_time)
+  public function sendVisitorDetails($date, $in_time)
   {
     $post = $this->input->post();
     $dov_from = date("Y-m-d H:i:s", strtotime($post['date_from'] . " " . $post['time_from']));
@@ -198,14 +200,71 @@ class Attendance_Model extends CI_Model
       'purpose' => $post['purpose'],
       'dov_from' => $dov_from,
       'dov_to' => $dov_to,
+      'date' => $date,
       'in_time' => $in_time
     );
 
     $query = $this->db->insert('visitor_tran', $data);
     if ($query) {
-      return array("insert_id" => $this->db->insert_id());
+      $info['insert_id'] = $this->db->insert_id();
+      $employee = $this->em->getEmployee($data['to_meet']);
+      $info['empName'] = $employee['name'];
+      $info['empMobile'] = $employee['mobile'];
+      $info['purpose'] = $this->getPurpose($data['purpose']);
+      $info['visitor'] = $data['name'];
+      $info['date'] = $data['dov_from'];
+      $info['people'] = $data['no_of_people'];
+      return $info;
     }
     return FALSE;
+  }
+  public function getVisitorReports($date)
+  {
+    $visitors = array();
+    $this->db->where('date', $date);
+    $query = $this->db->get('visitor_tran');
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        $data = $this->em->getEmployee($row['to_meet']);
+        $visitor['visit_id'] = $row['visit_id'];
+        $visitor['name'] = $row['name'];
+        $visitor['from_comp'] = $row['from_comp'];
+        $visitor['to_meet'] = $data['name'];
+        $visitor['mobile'] = $row['v_mobile'];
+        $visitor['date'] = $row['date'];
+        $visitor['in_time'] = $row['in_time'];
+        $visitor['out_time'] = $row['out_time'];
+        $visitor['purpose'] = $this->getPurpose($row['purpose']);
+
+        array_push($visitors, $visitor);
+      }
+      return $visitors;
+    }
+    return FALSE;
+  }
+  public function getVisitorReportsDateRange($from, $to)
+  {
+    $visitors = array();
+    $this->db->where('date >=', $from);
+    $this->db->where('date <=', $to);
+    $query = $this->db->get('visitor_tran');
+    if ($query && $query->num_rows() > 0) {
+      foreach ($query->result_array() as $row) {
+        $data = $this->em->getEmployee($row['to_meet']);
+        $visitor['visit_id'] = $row['visit_id'];
+        $visitor['name'] = $row['name'];
+        $visitor['from_comp'] = $row['from_comp'];
+        $visitor['to_meet'] = $data['name'];
+        $visitor['mobile'] = $row['v_mobile'];
+        $visitor['date'] = $row['date'];
+        $visitor['in_time'] = $row['in_time'];
+        $visitor['out_time'] = $row['out_time'];
+        $visitor['purpose'] = $this->getPurpose($row['purpose']);
+
+        array_push($visitors, $visitor);
+      }
+    }
+    return $visitors;
   }
   public function getPreviousVisits()
   {
@@ -243,6 +302,16 @@ class Attendance_Model extends CI_Model
       return $visits;
     }
 
+    return FALSE;
+  }
+  public function getPurpose($id)
+  {
+    $this->db->where('purp_id', $id);
+    $query = $this->db->get('purpose');
+
+    if ($query && $query->num_rows() > 0) {
+      return $query->row_array()['purpose'];
+    }
     return FALSE;
   }
   public function getPurposes()

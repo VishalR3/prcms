@@ -35,7 +35,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Company</p>
+            <h5 class="text-center">Add Company</h5>
           </div>
           <div class="card-body">
             <form id="add_company_form">
@@ -90,7 +90,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class='text-center'>Existing Companies</p>
+            <h5 class='text-center'>Existing Companies</h5>
           </div>
           <div class="card-body">
             <?php if ($companies) : ?>

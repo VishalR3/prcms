@@ -133,4 +133,13 @@ class Pages extends CI_Controller
       redirect('login');
     }
   }
+  public function sendSMS()
+  {
+    $this->load->library('Twilio');
+    $message = $this->twilio->sendSMS();
+    $data['success'] = TRUE;
+    $data['message'] = $message;
+
+    exit(json_encode($data));
+  }
 }

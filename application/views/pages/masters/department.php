@@ -35,7 +35,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class="text-center">Add Department</p>
+            <h5 class="text-center">Add Department</h5>
           </div>
           <div class="card-body">
             <form id="add_department_form">
@@ -68,7 +68,7 @@
       <div class="col-sm-6">
         <div class="card">
           <div class="card-header">
-            <p class='text-center'>Existing Departments</p>
+            <h5 class='text-center'>Existing Departments</h5>
           </div>
           <div class="card-body">
             <?php if ($departments) : ?>

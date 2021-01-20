@@ -92,4 +92,56 @@ class User_Model extends CI_Model
     }
     return FALSE;
   }
+  public function addRole()
+  {
+    $data = array(
+      'role' => $this->input->post('role'),
+      'access' => $this->input->post('access'),
+      'roleColor' => $this->input->post('roleColor')
+    );
+    $query = $this->db->insert('roles', $data);
+    if ($query)
+      return TRUE;
+
+    return FALSE;
+  }
+  public function getRoles()
+  {
+    $this->db->order_by('_id', 'DESC');
+    $query = $this->db->get('roles');
+    if ($query && $query->num_rows() > 0)
+      return $query->result_array();
+    return FALSE;
+  }
+  public function updateUser($id)
+  {
+    foreach ($this->input->post() as $key => $value) {
+      $data[$key] = $value;
+    }
+    $this->db->where('user_id', $id);
+    $query = $this->db->update("users", $data);
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function deleteUser($id)
+  {
+
+    $this->db->where('user_id', $id);
+    $query = $this->db->delete("users");
+
+    if ($query)
+      return TRUE;
+    return FALSE;
+  }
+  public function getUserByID($id)
+  {
+    $this->db->where('user_id', $id);
+    $query = $this->db->get("users");
+
+    if ($query && $query->num_rows() > 0)
+      return $query->row_array();
+    return FALSE;
+  }
 }
