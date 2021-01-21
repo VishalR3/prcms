@@ -101,13 +101,22 @@
                 <?php foreach ($PendingMeets as $meet) : ?>
                   <div class="card mt-2 shadow" id="visit<?= $meet['visit_id']; ?>">
                     <div class="card-body">
-                      <h5><?= $meet['name']; ?></h5>
-                      <div class="meet_details">
-                        <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
-                        <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
-                        <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                      <div class="row">
+                        <div class="col-sm-9">
+                          <h5><?= $meet['name']; ?></h5>
+                          <div class="meet_details">
+                            <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
+                            <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
+                            <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                          </div>
+                          <div class='my-2'><?= $meet['purpose']; ?></div>
+                        </div>
+                        <div class="col-sm-3">
+                          <?php if ($meet['photo'] != NULL) : ?>
+                            <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                          <?php endif; ?>
+                        </div>
                       </div>
-                      <div class='my-2'><?= $meet['purpose']; ?></div>
                     </div>
                     <div class="card-footer">
                       <div class="d-flex">
@@ -141,13 +150,22 @@
                 <?php foreach ($ScheduledMeets as $meet) : ?>
                   <div class="card mt-2 shadow <?= ($meet['to_meet_conf'] == MEET_REJECTED) ? 'm-reject' : 'm-confirm' ?>"">
                     <div class=" card-body">
-                    <h5><?= $meet['name']; ?></h5>
-                    <div class="meet_details">
-                      <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
-                      <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
-                      <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <h5><?= $meet['name']; ?></h5>
+                        <div class="meet_details">
+                          <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
+                          <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
+                          <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                        </div>
+                        <div class='my-2'><?= $meet['purpose']; ?></div>
+                      </div>
+                      <div class="col-sm-3">
+                        <?php if ($meet['photo'] != NULL) : ?>
+                          <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                        <?php endif; ?>
+                      </div>
                     </div>
-                    <div class='my-2'><?= $meet['purpose']; ?></div>
                   </div>
                   <div class="card-footer bg-primary text-white">
                     <?php if ($meet['to_meet_conf'] == MEET_CONFIRMED) : ?>
@@ -182,16 +200,25 @@
               <?php foreach ($FinishedMeets as $meet) : ?>
                 <div class="card mt-2 shadow <?= ($meet['to_meet_conf'] == MEET_REJECTED) ? 'm-reject' : 'm-confirm' ?>">
                   <div class="card-body">
-                    <h5><?= $meet['name']; ?></h5>
-                    <div class="meet_details">
-                      <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
-                      <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
-                      <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                    <div class="row">
+                      <div class="col-sm-9">
+                        <h5><?= $meet['name']; ?></h5>
+                        <div class="meet_details">
+                          <span class='d-block'><b><?= $meet['dov_from']; ?></b> - <?= $meet['dov_to']; ?></span>
+                          <span class='d-block'>Mobile : <b><?= $meet['v_mobile']; ?></b></span>
+                          <span class='d-block'>No. Of People : <?= $meet['no_of_people']; ?></span>
+                        </div>
+                        <div class='my-2'><?= $meet['purpose']; ?></div>
+                        <?php if ($meet['to_meet_conf'] == MEET_REJECTED) : ?>
+                          <div class='my-2'><i><b>Reason</b> : <?= $meet['denial_reason']; ?></i></div>
+                        <?php endif; ?>
+                      </div>
+                      <div class="col-sm-3">
+                        <?php if ($meet['photo'] != NULL) : ?>
+                          <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                        <?php endif; ?>
+                      </div>
                     </div>
-                    <div class='my-2'><?= $meet['purpose']; ?></div>
-                    <?php if ($meet['to_meet_conf'] == MEET_REJECTED) : ?>
-                      <div class='my-2'><i><b>Reason</b> : <?= $meet['denial_reason']; ?></i></div>
-                    <?php endif; ?>
                   </div>
                 </div>
               <?php endforeach; ?>

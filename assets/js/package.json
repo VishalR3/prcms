@@ -4,7 +4,7 @@
   "main": "init.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build":"webpack"
+    "build": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "babel-loader": "^8.2.2",
+    "cloudinary-jquery-file-upload": "^2.11.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }

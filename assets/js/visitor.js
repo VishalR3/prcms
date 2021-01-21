@@ -39,6 +39,7 @@ $(function(){
         'time_from':$('#time_from').val(),
         'date_to':$('#date_to').val(),
         'time_to':$('#time_to').val(),
+        'photo':$('#visitorPhoto').val()
       };
       $.post(SITE_ROOT+'visitor/sendDetails',payload,(res)=>{
         res=JSON.parse(res);
@@ -218,14 +219,15 @@ function takepicture() {
   var video = document.querySelector('.camera_input');
   var photo = document.getElementById('photo');
   var context = canvas.getContext('2d');
-  let width = video.videoWidth;
-  let height = video.videoHeight;
-  // var width= 220;
-  // var height = width* video.videoHeight/video.videoWidth;
+  // let width = video.videoWidth;
+  // let height = video.videoHeight;
+  var width= 350;
+  var height = width* video.videoHeight/video.videoWidth;
     canvas.width = width;
     canvas.height =height;
     context.drawImage(video, 0, 0, width, height);
 
     var data = canvas.toDataURL('image/png');
     photo.setAttribute('src', data);
-}
+    $('#usephoto').show();
+} 

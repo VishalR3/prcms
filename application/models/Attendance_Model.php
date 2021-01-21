@@ -203,6 +203,9 @@ class Attendance_Model extends CI_Model
       'date' => $date,
       'in_time' => $in_time
     );
+    if ($post['photo'] != "") {
+      $data['photo'] = $post['photo'];
+    }
 
     $query = $this->db->insert('visitor_tran', $data);
     if ($query) {

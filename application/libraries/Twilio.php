@@ -18,7 +18,7 @@ class Twilio
   public function sendSMS($to, $msg)
   {
     $account_sid = 'AC1805f72d329877871e85e8d7c13b0eba';
-    $auth_token = '625535946bc39c2b2a0480571864d84a';
+    $auth_token = 'b77febe696932f35803527b6b6b9a28e';
     $twilio_number = "+19254034478";
 
     $client = new Client($account_sid, $auth_token);
