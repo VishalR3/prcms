@@ -26,6 +26,17 @@
     <?php endif; ?>
     <div class="row">
       <div class="col-sm-6">
+        <div class="card mb-3" id='loading_state_card'>
+          <div class="card-body">
+            <div class="progress mt-3" style="height:5px;">
+              <div class="progress-bar" id="faceRecProgress">
+              </div>
+            </div>
+            <div>
+              <span id="status_span" style="font-size:0.75rem;">Loading Models...</span>
+            </div>
+          </div>
+        </div>
         <div class="card">
           <div class="card-body">
             <p>Logged In : <b><?= $this->session->username; ?></b></p>
@@ -34,8 +45,11 @@
               <select name='input_video' id='input_video' class='form-select'>
               </select>
             </div>
-            <video class="camera_input mt-3">
-            </video>
+            <div class="frdiv" style='position:relative;'>
+              <video id='video' class="camera_input mt-3">
+              </video>
+              <canvas id="face-canvas" width='602' height="338" style="position: absolute;top:1rem;left:0;right:0; border:1px solid black;"></canvas>
+            </div>
           </div>
         </div>
         <div class="card mt-3">
@@ -75,6 +89,7 @@
             </table>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -85,6 +100,8 @@
 
 
 
+  <script defer src="<?= ASSETS_URL . 'js/vendor/face-api/face-api.min.js' ?>"></script>
+  <script defer src="<?= ASSETS_URL . 'js/face-recognition.js' ?>"></script>
   <script type='module' src="<?= ASSETS_URL . 'js/home.js' ?>"></script>
 
 </body>

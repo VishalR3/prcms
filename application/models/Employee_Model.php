@@ -21,6 +21,7 @@ class Employee_Model extends CI_Model
       'active' => '1',
       'email' => $this->input->post('email'),
       'mobile' => $this->input->post('mobile'),
+      'weekly_off' => $this->input->post('weekly_off')
     );
     if ($this->input->post('status')) {
       $data['cont'] = $this->input->post('cont');
@@ -84,6 +85,7 @@ class Employee_Model extends CI_Model
       $query = $query->result_array();
       foreach ($query as $row) {
         $employee = $this->getEmployee($row['empID']);
+        $employee['label'] = $employee['name'];
 
         array_push($employees, $employee);
       }

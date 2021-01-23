@@ -72,14 +72,15 @@
 
               <div class="mb-3">
                 <h6>Weekly Off</h6>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='weekly_off' id="weekly_off_false" value="0" />
-                  <label class='form-check-label' for='weekly_off_false'>False</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='weekly_off' id="weekly_off_true" value="1" />
-                  <label class='form-check-label' for='weekly_off_true'>True</label>
-                </div>
+                <select name='weekly_off' class='form-select'>
+                  <option value="1">Sunday</option>
+                  <option value="2">Monday</option>
+                  <option value="3">Tuesday</option>
+                  <option value="4">Wednesday</option>
+                  <option value="5">Thursday</option>
+                  <option value="6">Friday</option>
+                  <option value="7">Saturday</option>
+                </select>
               </div>
               <button type='submit' class='btn btn-primary'>Add Company</button>
 
@@ -110,11 +111,30 @@
                       <span class='detail'><?= $company['address']; ?></span>
                       <span class='detail'> <?= $company['cont_person']; ?></span>
                       <span class='detail'><i class="fa fa-phone-square"></i> <?= $company['mobile']; ?></span>
-                      <span class='detail'> <?php if ($company['weekly_off']) {
-                                              echo "<i class='fa fa-check mr-2'></i>Weekly Off";
-                                            } else {
-                                              echo "<i class='fa fa-times mr-2'></i>No Weekly Off";
-                                            } ?> </span>
+                      <span class='detail'>
+                        <?php switch ($company['weekly_off']) {
+                          case '1':
+                            echo "Sunday Off";
+                            break;
+                          case '2':
+                            echo "Monday Off";
+                            break;
+                          case '3':
+                            echo "Tuesday Off";
+                            break;
+                          case '4':
+                            echo "Wednesday Off";
+                            break;
+                          case '5':
+                            echo "Thursday Off";
+                            break;
+                          case '6':
+                            echo "Friday Off";
+                            break;
+                          case '7':
+                            echo "Saturday Off";
+                            break;
+                        } ?> </span>
                     </div>
                   </div>
                 </div>

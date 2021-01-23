@@ -58,14 +58,15 @@
 
               <div class="mb-3">
                 <h6>Weekly Off</h6>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='weekly_off' id="weekly_off_false" value="0" <?= ($company['weekly_off']) ? '' : 'checked' ?> />
-                  <label class='form-check-label' for='weekly_off_false'>False</label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='weekly_off' id="weekly_off_true" value="1" <?= ($company['weekly_off']) ? 'checked' : '' ?> />
-                  <label class='form-check-label' for='weekly_off_true'>True</label>
-                </div>
+                <select name='weekly_off' class='form-select'>
+                  <option value="1" <?= ($company['weekly_off'] == "1") ? 'selected' : '' ?>>Sunday</option>
+                  <option value="2" <?= ($company['weekly_off'] == "2") ? 'selected' : '' ?>>Monday</option>
+                  <option value="3" <?= ($company['weekly_off'] == "3") ? 'selected' : '' ?>>Tuesday</option>
+                  <option value="4" <?= ($company['weekly_off'] == "4") ? 'selected' : '' ?>>Wednesday</option>
+                  <option value="5" <?= ($company['weekly_off'] == "5") ? 'selected' : '' ?>>Thursday</option>
+                  <option value="6" <?= ($company['weekly_off'] == "6") ? 'selected' : '' ?>>Friday</option>
+                  <option value="7" <?= ($company['weekly_off'] == "7") ? 'selected' : '' ?>>Saturday</option>
+                </select>
               </div>
               <button type='submit' class='btn btn-primary'>Update Company</button>
               <a href='<?= SITE_ROOT; ?>masters/delete/company/<?= $company['comp_id']; ?>' class="btn btn-danger delete_btn">Delete Company</a>

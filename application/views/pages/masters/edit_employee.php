@@ -72,7 +72,7 @@
                   <label class='form-check-label' for='status_p'>P</label>
                 </div>
               </div>
-              <div class="mb-3">
+              <div id="cont_div" class="mb-3" <?= ($employee['status']) ? "" : "style='display:none;'" ?>>
                 <label for="cont">Contractor</label>
                 <select name='cont' id='cont' class="form-select">
                   <?php foreach ($contractors as $contractor) : ?>

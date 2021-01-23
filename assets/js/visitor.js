@@ -55,7 +55,6 @@ $(function(){
 
   $('#purpose').select2();
   $('#to_meet').select2();
-  $('#from_comp').select2();
 
   $('#purpose').change((e)=>{
     if(e.target.value=='0'){

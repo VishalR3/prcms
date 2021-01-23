@@ -11,6 +11,7 @@ $('#add_employee_form').submit(function(e){
   let dept= $(this).find('#dept option:selected').val();
   let status= $(this).find('input[name="status"]:checked').val();
   let cont = '0';
+  let weekly_off = $(this).find('#weekly_off option:selected').val();
   if(status){
     cont = $(this).find('#cont option:selected').val();
   }
@@ -22,7 +23,8 @@ $('#add_employee_form').submit(function(e){
     'shift':shift,
     'dept':dept,
     'status':status,
-    'cont':cont
+    'cont':cont,
+    'weekly_off':weekly_off
   },function(res){
     if(res){
       console.log(JSON.parse(res));
@@ -30,4 +32,34 @@ $('#add_employee_form').submit(function(e){
     }
   })
   
+});
+
+$('input[name="status"]').change((e)=>{
+  if(e.target.value=="1"){
+    $('#cont_div').show()
+  }else{
+    $('#cont_div').hide()
+  }
+})
+
+$(function() {
+  var cache = {};
+  $("#searchEmp").autocomplete({
+    minLength: 2,
+    source: function(request, response) {
+      var term = request.term;
+      if (term in cache) {
+        response(cache[term]);
+        return;
+      }
+
+      $.post(SITE_ROOT + "api/searchEmployee", request, (res) => {
+        cache[term] = res;
+        response(res);
+      });
+    },
+    select: function( event, ui ) {
+      window.location.href = SITE_ROOT+'masters/employee/#emp'+ui.item.empID;
+    }
+  });
 });

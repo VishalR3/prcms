@@ -10,6 +10,7 @@
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <?= $links; ?>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
 </head>
 
@@ -57,7 +58,7 @@
               </div>
               <div class="form-group form-floating mb-3" id='empIdDiv'>
                 <input type="text" name="empID" id='empID' placeholder="empID" class="form-control" />
-                <label for='username'>Employee ID</label>
+                <label for='username'>Employee ID (Search Employee By Name)</label>
               </div>
               <div class="form-group mb-3">
                 <label for='role' class="form-label">Role</label>
@@ -115,6 +116,7 @@
 
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="<?= ASSETS_URL . 'js/jsx.js' ?>"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type='text/babel' src="<?= ASSETS_URL . 'js/admin.js' ?>"></script>
 
 

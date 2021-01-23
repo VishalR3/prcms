@@ -61,3 +61,32 @@ const Card =(props) => (
   </div>
 );
 
+$(function() {
+  let empID;
+  var cache = {};
+  $("#empID").autocomplete({
+    minLength: 2,
+    source: function(request, response) {
+      var term = request.term;
+      if (term in cache) {
+        response(cache[term]);
+        return;
+      }
+
+      $.post(SITE_ROOT + "api/searchEmployee", request, (res) => {
+        cache[term] = res;
+        response(res);
+      });
+    },
+    select: function( event, ui ) {
+      empID = ui.item.empID;
+      $('#empID').trigger('myEvent');
+    }
+  });
+  $('#empID').on('myEvent',e=>{
+    setTimeout(()=>{
+      $('#empID').val(empID);
+    },50)
+  })
+});
+

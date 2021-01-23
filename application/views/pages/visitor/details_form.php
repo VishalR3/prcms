@@ -122,11 +122,7 @@
               </div>
               <div class="mb-3">
                 <label for="from_comp" class="form-label">From Company</label>
-                <select name='from_comp' id='from_comp' class="form-select">
-                  <?php foreach ($companies as $company) : ?>
-                    <option value="<?= $company['comp_id']; ?>"><?= $company['comp_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
+                <input name='from_comp' id='from_comp' class="form-control" />
               </div>
 
               <div class="mb-3">

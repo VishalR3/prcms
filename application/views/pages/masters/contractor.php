@@ -74,7 +74,7 @@
                   <label class='form-check-label' for='active_false'>False</label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type='radio' name='active' id="active_true" value="1" />
+                  <input class="form-check-input" type='radio' name='active' id="active_true" value="1" checked />
                   <label class='form-check-label' for='active_true'>True</label>
                 </div>
               </div>

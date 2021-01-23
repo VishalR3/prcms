@@ -11,6 +11,7 @@
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <?= $links; ?>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
@@ -86,12 +87,24 @@
                   <label class='form-check-label' for='status_p'>P</label>
                 </div>
               </div>
-              <div class="mb-3">
+              <div id="cont_div" class="mb-3" style='display:none;'>
                 <label for="cont">Contractor</label>
                 <select name='cont' id='cont' class="form-select">
                   <?php foreach ($contractors as $contractor) : ?>
                     <option value='<?= $contractor['cont_id']; ?>'><?= $contractor['cont_name']; ?></option>
                   <?php endforeach; ?>
+                </select>
+              </div>
+              <div class="mb-3">
+                <h6>Weekly Off</h6>
+                <select name='weekly_off' id='weekly_off' class='form-select'>
+                  <option value="1">Sunday</option>
+                  <option value="2">Monday</option>
+                  <option value="3">Tuesday</option>
+                  <option value="4">Wednesday</option>
+                  <option value="5">Thursday</option>
+                  <option value="6">Friday</option>
+                  <option value="7">Saturday</option>
                 </select>
               </div>
               <button type='submit' class="btn btn-primary">Add Employee</button>
@@ -106,7 +119,7 @@
           </div>
           <div class="card-body">
             <div class="input-group my-3">
-              <input type="text" class="form-control" placeholder="Search An Employee">
+              <input type="text" class="form-control" name="searchEmp" id='searchEmp' placeholder="Search An Employee">
               <div class="input-group-append">
                 <span class="input-group-text" id='input-icon'>
                   <i class="fa fa-search"></i>
@@ -115,7 +128,7 @@
             </div>
             <?php if ($employees) : ?>
               <?php foreach ($employees as $employee) : ?>
-                <div class="card mt-3 br-2 details_card">
+                <div class="card mt-3 br-2 details_card" id='emp<?= $employee['empID']; ?>'>
                   <div class="card-body">
                     <div class="d-flex justify-content-between">
                       <div>
@@ -148,6 +161,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type='module' src="<?= ASSETS_URL . 'js/employee.js' ?>"></script>
 </body>
 
