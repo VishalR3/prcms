@@ -93,7 +93,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/employee.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/employee.js' ?>"></script>
 </body>
 
 </html>

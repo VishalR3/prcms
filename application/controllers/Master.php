@@ -6,16 +6,21 @@ class Master extends CI_Controller
   public function editHoliday($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['holiday'] = $this->mm->getHolidayByID($id);
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['holiday'] = $this->mm->getHolidayByID($id);
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_holiday', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_holiday', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -23,42 +28,57 @@ class Master extends CI_Controller
   }
   public function updateHoliday($id)
   {
-    $response = $this->mm->updateHoliday($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateHoliday($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Holiday with id : $id is Successfully Updated!");
-      redirect('masters/holiday');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Holiday with id : $id is Successfully Updated!");
+        redirect('masters/holiday');
+      } else {
+        $this->session->set_userdata('error_msg', "Holiday is not Updated! Try again Later");
+        redirect('masters/holiday');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Holiday is not Updated! Try again Later");
-      redirect('masters/holiday');
+      redirect('error/NoAccess');
     }
   }
   public function deleteHoliday($id)
   {
-    $response = $this->mm->deleteHoliday($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteHoliday($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Holiday with id : $id is Successfully Deleted!");
-      redirect('masters/holiday');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Holiday with id : $id is Successfully Deleted!");
+        redirect('masters/holiday');
+      } else {
+        $this->session->set_userdata('error_msg', "Holiday is not Deleted! Try again Later");
+        redirect('masters/holiday');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Holiday is not Deleted! Try again Later");
-      redirect('masters/holiday');
+      redirect('error/NoAccess');
     }
   }
   public function editDepartment($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['department'] = $this->mm->getDepartmentByID($id);
-        $data['employees'] = $this->em->getEmployees();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['department'] = $this->mm->getDepartmentByID($id);
+          $data['employees'] = $this->em->getEmployees();
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_department', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_department', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -66,42 +86,57 @@ class Master extends CI_Controller
   }
   public function updateDepartment($id)
   {
-    $response = $this->mm->updateDepartment($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateDepartment($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Department with id : $id is Successfully Updated!");
-      redirect('masters/department');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Department with id : $id is Successfully Updated!");
+        redirect('masters/department');
+      } else {
+        $this->session->set_userdata('error_msg', "Department is not Updated! Try again Later");
+        redirect('masters/department');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Department is not Updated! Try again Later");
-      redirect('masters/department');
+      redirect('error/NoAccess');
     }
   }
   public function deleteDepartment($id)
   {
-    $response = $this->mm->deleteDepartment($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteDepartment($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Department with id : $id is Successfully Deleted!");
-      redirect('masters/department');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Department with id : $id is Successfully Deleted!");
+        redirect('masters/department');
+      } else {
+        $this->session->set_userdata('error_msg', "Department is not Deleted! Try again Later");
+        redirect('masters/department');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Department is not Deleted! Try again Later");
-      redirect('masters/department');
+      redirect('error/NoAccess');
     }
   }
   public function editContractor($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['contractor'] = $this->mm->getContractorByID($id);
-        $data['locations'] = $this->mm->getLocations();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['contractor'] = $this->mm->getContractorByID($id);
+          $data['locations'] = $this->mm->getLocations();
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_contractor', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_contractor', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -109,41 +144,56 @@ class Master extends CI_Controller
   }
   public function updateContractor($id)
   {
-    $response = $this->mm->updateContractor($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateContractor($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Contractor with id : $id is Successfully Updated!");
-      redirect('masters/contractor');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Contractor with id : $id is Successfully Updated!");
+        redirect('masters/contractor');
+      } else {
+        $this->session->set_userdata('error_msg', "Contractor is not Updated! Try again Later");
+        redirect('masters/contractor');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Contractor is not Updated! Try again Later");
-      redirect('masters/contractor');
+      redirect('error/NoAccess');
     }
   }
   public function deleteContractor($id)
   {
-    $response = $this->mm->deleteContractor($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteContractor($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Contractor with id : $id is Successfully Deleted!");
-      redirect('masters/contractor');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Contractor with id : $id is Successfully Deleted!");
+        redirect('masters/contractor');
+      } else {
+        $this->session->set_userdata('error_msg', "Contractor is not Deleted! Try again Later");
+        redirect('masters/contractor');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Contractor is not Deleted! Try again Later");
-      redirect('masters/contractor');
+      redirect('error/NoAccess');
     }
   }
   public function editShift($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['shift'] = $this->mm->getShiftByID($id);
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['shift'] = $this->mm->getShiftByID($id);
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_shift', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_shift', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -151,41 +201,56 @@ class Master extends CI_Controller
   }
   public function updateShift($id)
   {
-    $response = $this->mm->updateShift($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateShift($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Shift with id : $id is Successfully Updated!");
-      redirect('masters/shift');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Shift with id : $id is Successfully Updated!");
+        redirect('masters/shift');
+      } else {
+        $this->session->set_userdata('error_msg', "Shift is not Updated! Try again Later");
+        redirect('masters/shift');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Shift is not Updated! Try again Later");
-      redirect('masters/shift');
+      redirect('error/NoAccess');
     }
   }
   public function deleteShift($id)
   {
-    $response = $this->mm->deleteShift($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteShift($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Shift with id : $id is Successfully Deleted!");
-      redirect('masters/shift');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Shift with id : $id is Successfully Deleted!");
+        redirect('masters/shift');
+      } else {
+        $this->session->set_userdata('error_msg', "Shift is not Deleted! Try again Later");
+        redirect('masters/shift');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Shift is not Deleted! Try again Later");
-      redirect('masters/shift');
+      redirect('error/NoAccess');
     }
   }
   public function editLocation($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['location'] = $this->mm->getLocationByID($id);
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['location'] = $this->mm->getLocationByID($id);
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_location', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_location', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -193,43 +258,58 @@ class Master extends CI_Controller
   }
   public function updateLocation($id)
   {
-    $response = $this->mm->updateLocation($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateLocation($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Location with id : $id is Successfully Updated!");
-      redirect('masters/location');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Location with id : $id is Successfully Updated!");
+        redirect('masters/location');
+      } else {
+        $this->session->set_userdata('error_msg', "Location is not Updated! Try again Later");
+        redirect('masters/location');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Location is not Updated! Try again Later");
-      redirect('masters/location');
+      redirect('error/NoAccess');
     }
   }
   public function deleteLocation($id)
   {
-    $response = $this->mm->deleteLocation($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteLocation($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Location with id : $id is Successfully Deleted!");
-      redirect('masters/location');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Location with id : $id is Successfully Deleted!");
+        redirect('masters/location');
+      } else {
+        $this->session->set_userdata('error_msg', "Location is not Deleted! Try again Later");
+        redirect('masters/location');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Location is not Deleted! Try again Later");
-      redirect('masters/location');
+      redirect('error/NoAccess');
     }
   }
   public function editCompany($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['company'] = $this->mm->getCompanyByID($id);
-        $data['locations'] = $this->mm->getLocations();
-        $data['contractors'] = $this->mm->getContractors();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['company'] = $this->mm->getCompanyByID($id);
+          $data['locations'] = $this->mm->getLocations();
+          $data['contractors'] = $this->mm->getContractors();
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_company', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_company', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -237,45 +317,60 @@ class Master extends CI_Controller
   }
   public function updateCompany($id)
   {
-    $response = $this->mm->updateCompany($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->mm->updateCompany($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Company with id : $id is Successfully Updated!");
-      redirect('masters/company');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Company with id : $id is Successfully Updated!");
+        redirect('masters/company');
+      } else {
+        $this->session->set_userdata('error_msg', "Company is not Updated! Try again Later");
+        redirect('masters/company');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Company is not Updated! Try again Later");
-      redirect('masters/company');
+      redirect('error/NoAccess');
     }
   }
   public function deleteCompany($id)
   {
-    $response = $this->mm->deleteCompany($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->mm->deleteCompany($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Company with id : $id is Successfully Deleted!");
-      redirect('masters/company');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Company with id : $id is Successfully Deleted!");
+        redirect('masters/company');
+      } else {
+        $this->session->set_userdata('error_msg', "Company is not Deleted! Try again Later");
+        redirect('masters/company');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Company is not Deleted! Try again Later");
-      redirect('masters/company');
+      redirect('error/NoAccess');
     }
   }
   public function editEmployee($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['employee'] = $this->em->getEmployeeByID($id);
-        $data['locations'] = $this->mm->getLocations();
-        $data['contractors'] = $this->mm->getContractors();
-        $data['departments'] = $this->mm->getDepartments();
-        $data['shifts'] = $this->mm->getShifts();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('master.update', $access)) {
+        if ($id) {
+          $data['employee'] = $this->em->getEmployeeByID($id);
+          $data['locations'] = $this->mm->getLocations();
+          $data['contractors'] = $this->mm->getContractors();
+          $data['departments'] = $this->mm->getDepartments();
+          $data['shifts'] = $this->mm->getShifts();
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('pages/masters/edit_employee', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('pages/masters/edit_employee', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -283,26 +378,36 @@ class Master extends CI_Controller
   }
   public function updateEmployee($id)
   {
-    $response = $this->em->updateEmployee($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.update', $access)) {
+      $response = $this->em->updateEmployee($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Employee with id : $id is Successfully Updated!");
-      redirect('masters/employee');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Employee with id : $id is Successfully Updated!");
+        redirect('masters/employee');
+      } else {
+        $this->session->set_userdata('error_msg', "Employee is not Updated! Try again Later");
+        redirect('masters/employee');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Employee is not Updated! Try again Later");
-      redirect('masters/employee');
+      redirect('error/NoAccess');
     }
   }
   public function deleteEmployee($id)
   {
-    $response = $this->em->deleteEmployee($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('master.delete', $access)) {
+      $response = $this->em->deleteEmployee($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "Employee with id : $id is Successfully Deleted!");
-      redirect('masters/employee');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "Employee with id : $id is Successfully Deleted!");
+        redirect('masters/employee');
+      } else {
+        $this->session->set_userdata('error_msg', "Employee is not Deleted! Try again Later");
+        redirect('masters/employee');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "Employee is not Deleted! Try again Later");
-      redirect('masters/employee');
+      redirect('error/NoAccess');
     }
   }
 }

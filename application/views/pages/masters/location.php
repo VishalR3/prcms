@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -32,29 +33,33 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="text-center">Add Location</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_location_form">
-              <div class="mb-3">
-                <label for="loc_name" class="form-label">Location Name</label>
-                <input type='text' name='loc_name' id='loc_name' class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="loc_address" class="form-label">Address</label>
-                <input type='text' name='loc_address' id='loc_address' class="form-control" />
-              </div>
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="text-center">Add Location</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_location_form">
+                <div class="mb-3">
+                  <label for="loc_name" class="form-label">Location Name</label>
+                  <input type='text' name='loc_name' id='loc_name' class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="loc_address" class="form-label">Address</label>
+                  <input type='text' name='loc_address' id='loc_address' class="form-control" />
+                </div>
 
-              <button type='submit' class='btn btn-primary'>Add Location</button>
+                <button type='submit' class='btn btn-primary'>Add Location</button>
 
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
+      <?php endif; ?>
+      <div class="col-sm-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card">
           <div class="card-header">
             <h5 class='text-center'>Existing Locations</h5>
@@ -91,7 +96,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/location.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/location.js' ?>"></script>
 </body>
 
 </html>

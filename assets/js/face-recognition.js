@@ -14,6 +14,7 @@ setInterval(()=>{
 },600000)
 
 
+
 loadModules.then(()=>{
   const input = document.getElementById('video')
   
@@ -34,12 +35,12 @@ loadModules.then(()=>{
     setTimeout(()=>{
       status.text('Starting Face Recognition');
     },500)
-  setTimeout(() => {
-    $('#loading_state_card').fadeOut(800, ()=>{
-      $(this).remove();
-    });
-  }, 1500);
-  input.addEventListener('play',()=>{
+    setTimeout(() => {
+      $('#loading_state_card').fadeOut(800, ()=>{
+        $(this).remove();
+      });
+    }, 1500);
+    input.addEventListener('play',()=>{
       setInterval(() => {
         faceDetection(res);
       }, 250);
@@ -95,3 +96,4 @@ function fromJSON(json){
   })
   return new faceapi.LabeledFaceDescriptors(json.label,descriptors);
 }
+

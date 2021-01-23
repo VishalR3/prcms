@@ -15,14 +15,21 @@ class Admin extends CI_Controller
     }
 
     if ($this->session->is_logged_in) {
-      $data['users'] = $this->um->getUsers();
-      $data['roles'] = $this->um->getRoles();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('admin', $access)) {
 
-      $data['header'] = $this->load->view('templates/header', '', TRUE);
-      $data['links'] = $this->load->view('templates/links', '', TRUE);
-      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-      $this->load->view('admin/' . $page, $data);
+
+        $data['users'] = $this->um->getUsers();
+        $data['roles'] = $this->um->getRoles();
+
+        $data['header'] = $this->load->view('templates/header', '', TRUE);
+        $data['links'] = $this->load->view('templates/links', '', TRUE);
+        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('admin/' . $page, $data);
+      } else {
+        redirect('error/NoAccess');
+      }
     } else {
       redirect('login');
     }
@@ -30,13 +37,18 @@ class Admin extends CI_Controller
   public function employee($id)
   {
     if ($this->session->is_logged_in) {
-      $data['employee'] = $this->em->getEmployee($id);
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('admin', $access)) {
+        $data['employee'] = $this->em->getEmployee($id);
 
-      $data['header'] = $this->load->view('templates/header', '', TRUE);
-      $data['links'] = $this->load->view('templates/links', '', TRUE);
-      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-      $this->load->view('admin/employee', $data);
+        $data['header'] = $this->load->view('templates/header', '', TRUE);
+        $data['links'] = $this->load->view('templates/links', '', TRUE);
+        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('admin/employee', $data);
+      } else {
+        redirect('error/NoAccess');
+      }
     } else {
       redirect('login');
     }
@@ -50,17 +62,22 @@ class Admin extends CI_Controller
   public function editUser($id)
   {
     if ($this->session->is_logged_in) {
-      if ($id) {
-        $data['user'] = $this->um->getUserByID($id);
-        $data['roles'] = $this->um->getRoles();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('admin', $access)) {
+        if ($id) {
+          $data['user'] = $this->um->getUserByID($id);
+          $data['roles'] = $this->um->getRoles();
 
-        $data['header'] = $this->load->view('templates/header', '', TRUE);
-        $data['links'] = $this->load->view('templates/links', '', TRUE);
-        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-        $this->load->view('admin/editUser', $data);
+          $data['header'] = $this->load->view('templates/header', '', TRUE);
+          $data['links'] = $this->load->view('templates/links', '', TRUE);
+          $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+          $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+          $this->load->view('admin/editUser', $data);
+        } else {
+          redirect('home');
+        }
       } else {
-        redirect('home');
+        redirect('error/NoAccess');
       }
     } else {
       redirect('login');
@@ -68,26 +85,36 @@ class Admin extends CI_Controller
   }
   public function updateUser($id)
   {
-    $response = $this->um->updateUser($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('admin', $access)) {
+      $response = $this->um->updateUser($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "User with id : $id is Successfully Updated!");
-      redirect('admin/users_management');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "User with id : $id is Successfully Updated!");
+        redirect('admin/users_management');
+      } else {
+        $this->session->set_userdata('error_msg', "User is not Updated! Try again Later");
+        redirect('admin/users_management');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "User is not Updated! Try again Later");
-      redirect('admin/users_management');
+      redirect('error/NoAccess');
     }
   }
   public function deleteUser($id)
   {
-    $response = $this->um->deleteUser($id);
+    $access = json_decode($this->session->userdata('access'));
+    if (in_array('admin', $access)) {
+      $response = $this->um->deleteUser($id);
 
-    if ($response) {
-      $this->session->set_userdata('success_msg', "User with id : $id is Successfully Deleted!");
-      redirect('admin/users_management');
+      if ($response) {
+        $this->session->set_userdata('success_msg', "User with id : $id is Successfully Deleted!");
+        redirect('admin/users_management');
+      } else {
+        $this->session->set_userdata('error_msg', "User is not Deleted! Try again Later");
+        redirect('admin/users_management');
+      }
     } else {
-      $this->session->set_userdata('error_msg', "User is not Deleted! Try again Later");
-      redirect('admin/users_management');
+      redirect('error/NoAccess');
     }
   }
 }

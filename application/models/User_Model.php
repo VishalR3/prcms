@@ -17,6 +17,7 @@ class User_Model extends CI_Model
           $empData = $this->em->getEmployee($query['empID']);
         }
         $user['empData'] = $empData;
+        $user['access'] = $this->getPermissions($query['role']);
 
         $data['success'] = TRUE;
         $data['user'] = $user;
@@ -142,6 +143,18 @@ class User_Model extends CI_Model
 
     if ($query && $query->num_rows() > 0)
       return $query->row_array();
+    return FALSE;
+  }
+  public function getPermissions($id)
+  {
+    $this->db->where('_id', $id);
+    $query = $this->db->get('roles');
+
+    if ($query && $query->num_rows() > 0) {
+      $permissions = $query->row_array()['access'];
+
+      return $permissions;
+    }
     return FALSE;
   }
 }

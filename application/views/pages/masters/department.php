@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -32,40 +33,44 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="text-center">Add Department</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_department_form">
-              <div class="mb-3">
-                <label for="dept_name" class="form-label">Department Name</label>
-                <input type='text' name='dept_name' id='dept_name' class="form-control" />
-              </div>
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="text-center">Add Department</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_department_form">
+                <div class="mb-3">
+                  <label for="dept_name" class="form-label">Department Name</label>
+                  <input type='text' name='dept_name' id='dept_name' class="form-control" />
+                </div>
 
-              <div class="mb-3">
-                <label for="hod" class="form-label">HOD </label>
-                <select name="hod" id="hod" class="form-select">
-                  <?php foreach ($employees as $employee) : ?>
-                    <option value="<?= $employee['empID']; ?>"><?= $employee['name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
+                <div class="mb-3">
+                  <label for="hod" class="form-label">HOD </label>
+                  <select name="hod" id="hod" class="form-select">
+                    <?php foreach ($employees as $employee) : ?>
+                      <option value="<?= $employee['empID']; ?>"><?= $employee['name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
 
 
-              <div class="mb-3">
-                <label for="mob" class="form-label">MOB</label>
-                <input type='text' name='mob' id='mob' class="form-control" />
-              </div>
+                <div class="mb-3">
+                  <label for="mob" class="form-label">MOB</label>
+                  <input type='text' name='mob' id='mob' class="form-control" />
+                </div>
 
-              <button type='submit' class='btn btn-primary'>Add Department</button>
+                <button type='submit' class='btn btn-primary'>Add Department</button>
 
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
+      <?php endif; ?>
+      <div class="col-sm-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card">
           <div class="card-header">
             <h5 class='text-center'>Existing Departments</h5>
@@ -107,7 +112,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/department.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/department.js' ?>"></script>
 </body>
 
 </html>

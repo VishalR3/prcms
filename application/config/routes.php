@@ -121,6 +121,9 @@ $route['user/logout'] = 'User/logout';
 $route['user/firstLogin'] = 'User/firstLogin';
 $route['user/login'] = 'User/login';
 
+//Errors
+$route['error/NoAccess'] = 'User/NoAccess';
+
 //Any
 $route['f_login'] = 'Pages/first_login';
 $route['sendSMS'] = 'Pages/sendSMS';

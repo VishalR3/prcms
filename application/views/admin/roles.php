@@ -71,24 +71,24 @@
                 </div>
                 <div class="col-sm-6 mt-3">
                   <div class="form-check mb-3">
-                    <input type="checkbox" name="accesshelper" id='employeeAll' value="employee.all" class="form-check-input" />
-                    <label for='employeeAll' class="form-check-label">Employee All</label>
+                    <input type="checkbox" name="accesshelper" id='visitorAll' value="visitor.all" class="form-check-input" />
+                    <label for='visitorAll' class="form-check-label">Visitor All</label>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" name="access" id='employeeRead' value="employee.read" class="form-check-input" />
-                    <label for='employeeRead' class="form-check-label">Employee Reads</label>
+                    <input type="checkbox" name="access" id='visitorRead' value="visitor.read" class="form-check-input" />
+                    <label for='visitorRead' class="form-check-label">Visitor Reads</label>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" name="access" id='employeeWrite' value="employee.write" class="form-check-input" />
-                    <label for='employeeWrite' class="form-check-label">Employee Writes</label>
+                    <input type="checkbox" name="access" id='visitorWrite' value="visitor.write" class="form-check-input" />
+                    <label for='visitorWrite' class="form-check-label">Visitor Writes</label>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" name="access" id='employeeUpdate' value="employee.update" class="form-check-input" />
-                    <label for='employeeUpdate' class="form-check-label">Employee Update</label>
+                    <input type="checkbox" name="access" id='visitorUpdate' value="visitor.update" class="form-check-input" />
+                    <label for='visitorUpdate' class="form-check-label">Visitor Update</label>
                   </div>
                   <div class="form-check mb-3">
-                    <input type="checkbox" name="access" id='employeeDelete' value="employee.delete" class="form-check-input" />
-                    <label for='employeeDelete' class="form-check-label">Employee Deletes</label>
+                    <input type="checkbox" name="access" id='visitorDelete' value="visitor.delete" class="form-check-input" />
+                    <label for='visitorDelete' class="form-check-label">Visitor Deletes</label>
                   </div>
                 </div>
                 <div class="col-sm-6 mt-3">

@@ -63,7 +63,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/department.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/department.js' ?>"></script>
 </body>
 
 </html>

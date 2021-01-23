@@ -51,8 +51,9 @@
   <?= $footer; ?>
   <?= $scripts; ?>
 
-  <script type='module' src="<?= ASSETS_URL . 'js/jquery.csv.js' ?>"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/init.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/jquery.csv.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/init.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/upload_data.js' ?>"></script>
 
 
 

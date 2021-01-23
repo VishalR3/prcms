@@ -95,4 +95,12 @@ class User extends CI_Controller
     $this->session->sess_destroy();
     redirect('home');
   }
+  public function NoAccess()
+  {
+    $data['header'] = $this->load->view('templates/header', '', TRUE);
+    $data['links'] = $this->load->view('templates/links', '', TRUE);
+    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+    $this->load->view('errors/NoAccess', $data);
+  }
 }

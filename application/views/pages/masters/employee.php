@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -33,86 +34,90 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class='text-center'>Add Employee</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_employee_form">
-              <div class="form-floating mb-3">
-                <input type="text" name="name" id="name" class='form-control' placeholder="name">
-                <label for="name" class="form-label">Name</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="text" name="mobile" id="mobile" class='form-control' placeholder="mobile">
-                <label for="mobile" class="form-label">Mobile</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input type="text" name="email" id="email" class='form-control' placeholder="email">
-                <label for="email" class="form-label">Email</label>
-              </div>
-              <div class="mb-3">
-                <label for="location">Location</label>
-                <select name='location' id='location' class="form-select">
-                  <?php foreach ($locations as $location) : ?>
-                    <option value='<?= $location['loc_id']; ?>'><?= $location['loc_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="shift">Shift</label>
-                <select name='shift' id='shift' class="form-select">
-                  <?php foreach ($shifts as $shift) : ?>
-                    <option value='<?= $shift['shift_id']; ?>'><?= $shift['shift_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="dept">Department</label>
-                <select name='dept' id='dept' class="form-select">
-                  <?php foreach ($departments as $department) : ?>
-                    <option value='<?= $department['dept_id']; ?>'><?= $department['dept_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="mb-3">
-                <h6>Status</h6>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='status' id="status_c" value="1" />
-                  <label class='form-check-label' for='status_c'>C</label>
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class='text-center'>Add Employee</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_employee_form">
+                <div class="form-floating mb-3">
+                  <input type="text" name="name" id="name" class='form-control' placeholder="name">
+                  <label for="name" class="form-label">Name</label>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='status' id="status_p" value="0" />
-                  <label class='form-check-label' for='status_p'>P</label>
+                <div class="form-floating mb-3">
+                  <input type="text" name="mobile" id="mobile" class='form-control' placeholder="mobile">
+                  <label for="mobile" class="form-label">Mobile</label>
                 </div>
-              </div>
-              <div id="cont_div" class="mb-3" style='display:none;'>
-                <label for="cont">Contractor</label>
-                <select name='cont' id='cont' class="form-select">
-                  <?php foreach ($contractors as $contractor) : ?>
-                    <option value='<?= $contractor['cont_id']; ?>'><?= $contractor['cont_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="mb-3">
-                <h6>Weekly Off</h6>
-                <select name='weekly_off' id='weekly_off' class='form-select'>
-                  <option value="1">Sunday</option>
-                  <option value="2">Monday</option>
-                  <option value="3">Tuesday</option>
-                  <option value="4">Wednesday</option>
-                  <option value="5">Thursday</option>
-                  <option value="6">Friday</option>
-                  <option value="7">Saturday</option>
-                </select>
-              </div>
-              <button type='submit' class="btn btn-primary">Add Employee</button>
-            </form>
+                <div class="form-floating mb-3">
+                  <input type="text" name="email" id="email" class='form-control' placeholder="email">
+                  <label for="email" class="form-label">Email</label>
+                </div>
+                <div class="mb-3">
+                  <label for="location">Location</label>
+                  <select name='location' id='location' class="form-select">
+                    <?php foreach ($locations as $location) : ?>
+                      <option value='<?= $location['loc_id']; ?>'><?= $location['loc_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="shift">Shift</label>
+                  <select name='shift' id='shift' class="form-select">
+                    <?php foreach ($shifts as $shift) : ?>
+                      <option value='<?= $shift['shift_id']; ?>'><?= $shift['shift_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="dept">Department</label>
+                  <select name='dept' id='dept' class="form-select">
+                    <?php foreach ($departments as $department) : ?>
+                      <option value='<?= $department['dept_id']; ?>'><?= $department['dept_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <h6>Status</h6>
+                  <div class="form-check">
+                    <input class="form-check-input" type='radio' name='status' id="status_c" value="1" />
+                    <label class='form-check-label' for='status_c'>C</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type='radio' name='status' id="status_p" value="0" />
+                    <label class='form-check-label' for='status_p'>P</label>
+                  </div>
+                </div>
+                <div id="cont_div" class="mb-3" style='display:none;'>
+                  <label for="cont">Contractor</label>
+                  <select name='cont' id='cont' class="form-select">
+                    <?php foreach ($contractors as $contractor) : ?>
+                      <option value='<?= $contractor['cont_id']; ?>'><?= $contractor['cont_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <h6>Weekly Off</h6>
+                  <select name='weekly_off' id='weekly_off' class='form-select'>
+                    <option value="1">Sunday</option>
+                    <option value="2">Monday</option>
+                    <option value="3">Tuesday</option>
+                    <option value="4">Wednesday</option>
+                    <option value="5">Thursday</option>
+                    <option value="6">Friday</option>
+                    <option value="7">Saturday</option>
+                  </select>
+                </div>
+                <button type='submit' class="btn btn-primary">Add Employee</button>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
+      <?php endif; ?>
+      <div class="col-sm-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card">
           <div class="card-header">
             <h5 class='text-center'>Employee List</h5>
@@ -162,7 +167,7 @@
   <?= $footer; ?>
   <?= $scripts; ?>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/employee.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/employee.js' ?>"></script>
 </body>
 
 </html>

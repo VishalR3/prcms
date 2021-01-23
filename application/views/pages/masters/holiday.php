@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -32,43 +33,47 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="text-center">Add Holiday</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_holiday_form">
-              <div class="mb-3">
-                <label for="name" class="form-label">Holiday Name</label>
-                <input type='text' name='name' id='name' class="form-control" />
-              </div>
-              <div class="row">
-                <div class="col-sm-6">
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="text-center">Add Holiday</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_holiday_form">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Holiday Name</label>
+                  <input type='text' name='name' id='name' class="form-control" />
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
 
-                  <div class="mb-3">
-                    <label for="start" class="form-label">Start Date </label>
-                    <input type='date' name="start" id="start" class="form-control" />
+                    <div class="mb-3">
+                      <label for="start" class="form-label">Start Date </label>
+                      <input type='date' name="start" id="start" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="end" class="form-label">End Date</label>
+                      <input type='date' name='end' id='end' class="form-control" />
+                    </div>
+
                   </div>
                 </div>
-                <div class="col-sm-6">
-                  <div class="mb-3">
-                    <label for="end" class="form-label">End Date</label>
-                    <input type='date' name='end' id='end' class="form-control" />
-                  </div>
-
-                </div>
-              </div>
 
 
 
-              <button type='submit' class='btn btn-primary'>Add Holiday</button>
+                <button type='submit' class='btn btn-primary'>Add Holiday</button>
 
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6">
+      <?php endif; ?>
+      <div class="col-md-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card">
           <div class="card-header">
             <h5 class='text-center'>Holidays</h5>
@@ -108,7 +113,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/holiday.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/holiday.js' ?>"></script>
 </body>
 
 </html>

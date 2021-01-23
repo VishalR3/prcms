@@ -55,7 +55,6 @@ liveCam.on('child_added',snap=>{
     shift.innerHTML="<a href='"+SITE_ROOT+"visitors_management'>Visitor Management</a>";
     tr.append(id,name,shift);
   }else{
-    console.log('Employee');
     let id = document.createElement('td');
     id.innerHTML=snap.val().empID;
     let name = document.createElement('td');
@@ -186,6 +185,9 @@ const renderVideo = ()=> {
     video.srcObject = mediaStream;
     video.onloadedmetadata = function(e) {
       video.play();
+      let canvas = document.getElementById('face-canvas')
+      canvas.width = document.getElementById('frdiv').offsetWidth;
+      canvas.height = canvas.width * video.videoHeight/video.videoWidth;
     };
   })
   .catch(function(err) { console.log(err.name + ": " + err.message); }); // always check for errors at the end.

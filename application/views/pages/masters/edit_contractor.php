@@ -77,7 +77,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/contractor.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/contractor.js' ?>"></script>
 </body>
 
 </html>

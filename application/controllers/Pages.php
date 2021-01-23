@@ -81,15 +81,20 @@ class Pages extends CI_Controller
       show_404();
     }
     if ($this->session->is_logged_in) {
-      $data['contractors'] = $this->mm->getContractors();
-      $data['locations'] = $this->mm->getLocations();
-      $data['departments'] = $this->mm->getDepartments();
+      $access = json_decode($this->session->userdata('access'));
+      if (in_array('report.read', $access)) {
+        $data['contractors'] = $this->mm->getContractors();
+        $data['locations'] = $this->mm->getLocations();
+        $data['departments'] = $this->mm->getDepartments();
 
-      $data['header'] = $this->load->view('templates/header', '', TRUE);
-      $data['links'] = $this->load->view('templates/links', '', TRUE);
-      $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
-      $data['footer'] = $this->load->view('templates/footer', '', TRUE);
-      $this->load->view('pages/reports/' . $page, $data);
+        $data['header'] = $this->load->view('templates/header', '', TRUE);
+        $data['links'] = $this->load->view('templates/links', '', TRUE);
+        $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+        $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+        $this->load->view('pages/reports/' . $page, $data);
+      } else {
+        redirect('error/NoAccess');
+      }
     } else {
       redirect('login');
     }

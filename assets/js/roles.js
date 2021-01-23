@@ -57,7 +57,7 @@ $(function(){
   document.getElementById('allRead').addEventListener('change',e=>{
     let checked = e.target.checked;
     console.log(checked);
-    addAccess(document.querySelector('#employeeRead'),checked);
+    addAccess(document.querySelector('#visitorRead'),checked);
     addAccess(document.querySelector('#masterRead'),checked);
     addAccess(document.querySelector('#reportRead'),checked);
   })
@@ -65,7 +65,7 @@ $(function(){
   document.getElementById('allWrite').addEventListener('change',e=>{
     let checked = e.target.checked;
     console.log(checked);
-    addAccess(document.querySelector('#employeeWrite'),checked);
+    addAccess(document.querySelector('#visitorWrite'),checked);
     addAccess(document.querySelector('#masterWrite'),checked);
     addAccess(document.querySelector('#reportWrite'),checked);
   })
@@ -73,7 +73,7 @@ $(function(){
   document.getElementById('allUpdate').addEventListener('change',e=>{
     let checked = e.target.checked;
     console.log(checked);
-    addAccess(document.querySelector('#employeeUpdate'),checked);
+    addAccess(document.querySelector('#visitorUpdate'),checked);
     addAccess(document.querySelector('#masterUpdate'),checked);
     addAccess(document.querySelector('#reportUpdate'),checked);
   })
@@ -81,18 +81,18 @@ $(function(){
   document.getElementById('allDelete').addEventListener('change',e=>{
     let checked = e.target.checked;
     console.log(checked);
-    addAccess(document.querySelector('#employeeDelete'),checked);
+    addAccess(document.querySelector('#visitorDelete'),checked);
     addAccess(document.querySelector('#masterDelete'),checked);
     addAccess(document.querySelector('#reportDelete'),checked);
   })
-  //Employee All
-  document.getElementById('employeeAll').addEventListener('change',e=>{
+  //Visitor All
+  document.getElementById('visitorAll').addEventListener('change',e=>{
     let checked = e.target.checked;
     console.log(checked);
-    addAccess(document.querySelector('#employeeRead'),checked);
-    addAccess(document.querySelector('#employeeWrite'),checked);
-    addAccess(document.querySelector('#employeeUpdate'),checked);
-    addAccess(document.querySelector('#employeeDelete'),checked);
+    addAccess(document.querySelector('#visitorRead'),checked);
+    addAccess(document.querySelector('#visitorWrite'),checked);
+    addAccess(document.querySelector('#visitorUpdate'),checked);
+    addAccess(document.querySelector('#visitorDelete'),checked);
   })
   //Master All
   document.getElementById('masterAll').addEventListener('change',e=>{

@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -32,63 +33,67 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="text-center">Add Company</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_company_form">
-              <div class="mb-3">
-                <label for="comp_name" class="form-label">Name of the Company</label>
-                <input type='text' name='comp_name' id="comp_name" class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address </label>
-                <select name='address' id='address' class="form-select">
-                  <?php foreach ($locations as $location) : ?>
-                    <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="cin" class="form-label">Company Identification Number</label>
-                <input type='text' name='cin' id='cin' class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="cont_person" class="form-label">Contractor </label>
-                <select name='cont_person' id='cont_person' class="form-select">
-                  <?php foreach ($contractors as $contractor) : ?>
-                    <option value="<?= $contractor['cont_id']; ?>"><?= $contractor['cont_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="text-center">Add Company</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_company_form">
+                <div class="mb-3">
+                  <label for="comp_name" class="form-label">Name of the Company</label>
+                  <input type='text' name='comp_name' id="comp_name" class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address </label>
+                  <select name='address' id='address' class="form-select">
+                    <?php foreach ($locations as $location) : ?>
+                      <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
+                <div class="mb-3">
+                  <label for="cin" class="form-label">Company Identification Number</label>
+                  <input type='text' name='cin' id='cin' class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="cont_person" class="form-label">Contractor </label>
+                  <select name='cont_person' id='cont_person' class="form-select">
+                    <?php foreach ($contractors as $contractor) : ?>
+                      <option value="<?= $contractor['cont_id']; ?>"><?= $contractor['cont_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
+                </div>
 
 
-              <div class="mb-3">
-                <label for="mobile" class="form-label">Mobile Number </label>
-                <input type='text' name='mobile' id='mobile' class="form-control" />
-              </div>
+                <div class="mb-3">
+                  <label for="mobile" class="form-label">Mobile Number </label>
+                  <input type='text' name='mobile' id='mobile' class="form-control" />
+                </div>
 
-              <div class="mb-3">
-                <h6>Weekly Off</h6>
-                <select name='weekly_off' class='form-select'>
-                  <option value="1">Sunday</option>
-                  <option value="2">Monday</option>
-                  <option value="3">Tuesday</option>
-                  <option value="4">Wednesday</option>
-                  <option value="5">Thursday</option>
-                  <option value="6">Friday</option>
-                  <option value="7">Saturday</option>
-                </select>
-              </div>
-              <button type='submit' class='btn btn-primary'>Add Company</button>
+                <div class="mb-3">
+                  <h6>Weekly Off</h6>
+                  <select name='weekly_off' class='form-select'>
+                    <option value="1">Sunday</option>
+                    <option value="2">Monday</option>
+                    <option value="3">Tuesday</option>
+                    <option value="4">Wednesday</option>
+                    <option value="5">Thursday</option>
+                    <option value="6">Friday</option>
+                    <option value="7">Saturday</option>
+                  </select>
+                </div>
+                <button type='submit' class='btn btn-primary'>Add Company</button>
 
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
+      <?php endif; ?>
+      <div class="col-sm-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card">
           <div class="card-header">
             <h5 class='text-center'>Existing Companies</h5>
@@ -151,7 +156,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/company.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/company.js' ?>"></script>
 </body>
 
 </html>

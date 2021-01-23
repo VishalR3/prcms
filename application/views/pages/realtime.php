@@ -82,7 +82,7 @@
 
 
 
-  <!-- <script type='module' src="<?= ASSETS_URL . 'js/home.js' ?>"></script> -->
+  <!-- <script  src="<?= ASSETS_URL . 'js/home.js' ?>"></script> -->
 
 </body>
 

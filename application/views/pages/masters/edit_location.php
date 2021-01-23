@@ -46,7 +46,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/location.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/location.js' ?>"></script>
 </body>
 
 </html>

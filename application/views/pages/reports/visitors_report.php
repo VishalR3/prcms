@@ -55,7 +55,7 @@
   <?= $scripts; ?>
 
   <script src="<?= ASSETS_URL . 'js/jquery.csv.js' ?>"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/visitors_report.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/visitors_report.js' ?>"></script>
 </body>
 
 </html>

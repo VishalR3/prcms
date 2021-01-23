@@ -1,3 +1,4 @@
+<?php $access = json_decode($this->session->userdata('access')); ?>
 <!doctype html>
 <html lang="en">
 
@@ -32,59 +33,63 @@
       </div>
     <?php endif; ?>
     <div class="row g-4">
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            <h5 class="text-center">Add Contractor</h5>
-          </div>
-          <div class="card-body">
-            <form id="add_contractor_form">
-              <div class="mb-3">
-                <label for="cont_name" class="form-label">Contractor Name</label>
-                <input type='text' name='cont_name' id='cont_name' class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address </label>
-                <select name='address' class="form-select" id='address'>
-                  <?php foreach ($locations as $location) : ?>
-                    <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
-                  <?php endforeach; ?>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label for="cont_person_name" class="form-label">Cont. Person Name </label>
-                <input type='text' name="cont_person_name" id="cont_person_name" class="form-control" />
-              </div>
-
-
-              <div class="mb-3">
-                <label for="mobile" class="form-label">Mobile Number </label>
-                <input type='text' name='mobile' id='mobile' class="form-control" />
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Email </label>
-                <input type='text' name='email' id='email' class="form-control" />
-              </div>
-
-              <div class="mb-3">
-                <h6>Active</h6>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='active' id="active_false" value="0" />
-                  <label class='form-check-label' for='active_false'>False</label>
+      <?php if (in_array('master.write', $access)) : ?>
+        <div class="col-sm-6">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="text-center">Add Contractor</h5>
+            </div>
+            <div class="card-body">
+              <form id="add_contractor_form">
+                <div class="mb-3">
+                  <label for="cont_name" class="form-label">Contractor Name</label>
+                  <input type='text' name='cont_name' id='cont_name' class="form-control" />
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type='radio' name='active' id="active_true" value="1" checked />
-                  <label class='form-check-label' for='active_true'>True</label>
+                <div class="mb-3">
+                  <label for="address" class="form-label">Address </label>
+                  <select name='address' class="form-select" id='address'>
+                    <?php foreach ($locations as $location) : ?>
+                      <option value="<?= $location['loc_id']; ?>"><?= $location['loc_name']; ?></option>
+                    <?php endforeach; ?>
+                  </select>
                 </div>
-              </div>
-              <button type='submit' class='btn btn-primary'>Add Contractor</button>
 
-            </form>
+                <div class="mb-3">
+                  <label for="cont_person_name" class="form-label">Cont. Person Name </label>
+                  <input type='text' name="cont_person_name" id="cont_person_name" class="form-control" />
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="mobile" class="form-label">Mobile Number </label>
+                  <input type='text' name='mobile' id='mobile' class="form-control" />
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email </label>
+                  <input type='text' name='email' id='email' class="form-control" />
+                </div>
+
+                <div class="mb-3">
+                  <h6>Active</h6>
+                  <div class="form-check">
+                    <input class="form-check-input" type='radio' name='active' id="active_false" value="0" />
+                    <label class='form-check-label' for='active_false'>False</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type='radio' name='active' id="active_true" value="1" checked />
+                    <label class='form-check-label' for='active_true'>True</label>
+                  </div>
+                </div>
+                <button type='submit' class='btn btn-primary'>Add Contractor</button>
+
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="col-sm-6">
+      <?php endif; ?>
+      <div class="col-sm-6 <?php if (!in_array('master.write', $access)) {
+                              echo "offset-sm-3";
+                            } ?>">
         <div class="card ">
           <div class="card-header">
             <h5 class='text-center'>Existing Contractors</h5>
@@ -128,7 +133,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script type='module' src="<?= ASSETS_URL . 'js/contractor.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/contractor.js' ?>"></script>
 </body>
 
 </html>

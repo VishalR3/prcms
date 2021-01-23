@@ -45,10 +45,10 @@
               <select name='input_video' id='input_video' class='form-select'>
               </select>
             </div>
-            <div class="frdiv" style='position:relative;'>
+            <div id='frdiv' class="frdiv" style='position:relative;'>
               <video id='video' class="camera_input mt-3">
               </video>
-              <canvas id="face-canvas" width='602' height="338" style="position: absolute;top:1rem;left:0;right:0; border:1px solid black;"></canvas>
+              <canvas id="face-canvas" style="position: absolute;top:1rem;left:0;right:0; border:1px solid black;"></canvas>
             </div>
           </div>
         </div>
@@ -102,7 +102,7 @@
 
   <script defer src="<?= ASSETS_URL . 'js/vendor/face-api/face-api.min.js' ?>"></script>
   <script defer src="<?= ASSETS_URL . 'js/face-recognition.js' ?>"></script>
-  <script type='module' src="<?= ASSETS_URL . 'js/home.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/home.js' ?>"></script>
 
 </body>
 
