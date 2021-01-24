@@ -215,7 +215,7 @@
                       </div>
                       <div class="col-sm-3">
                         <?php if ($meet['photo'] != NULL) : ?>
-                          <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                          <img class='img-fluid' src='https://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
                         <?php endif; ?>
                       </div>
                     </div>

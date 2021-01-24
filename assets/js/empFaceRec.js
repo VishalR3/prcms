@@ -27,7 +27,7 @@ var myWidget = cloudinary.createUploadWidget({
   if (!error && result && result.event === "success") {
     console.log('Done! Here is the image info: ', result.info);
     let path = result.info.path;
-    let url = result.info.url;
+    let url = result.info.secure_url;
     let empID = $('#upload_widget').attr('data-id');
     let faceDescriptor = faceRec(empID,url);
     faceDescriptor.then(value  => {

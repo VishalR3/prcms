@@ -198,14 +198,12 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script src="<?= ASSETS_URL . 'js/jsx.js' ?>"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script src="<?= ASSETS_URL . 'js/node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/node_modules/blueimp-file-upload/js/jquery.iframe-transport.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/node_modules/blueimp-file-upload/js/jquery.fileupload.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/cloudinary.js' ?>"></script>
-  <script type='text/babel' src="<?= ASSETS_URL . 'js/visitor.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/visitor-compiled.js' ?>"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 

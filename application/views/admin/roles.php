@@ -171,9 +171,7 @@
   <?= $footer; ?>
   <?= $scripts; ?>
 
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="<?= ASSETS_URL . 'js/jsx.js' ?>"></script>
-  <script type='text/babel' src="<?= ASSETS_URL . 'js/roles.js' ?>"></script>
+  <script src="<?= ASSETS_URL . 'js/roles.js' ?>"></script>
 
 
 
