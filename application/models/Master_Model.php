@@ -358,6 +358,25 @@ class Master_Model extends CI_Model
       return $query->row_array();
     return FALSE;
   }
+  public function searchContractor($term)
+  {
+    $this->db->like('cont_name', $term, 'both');
+    $query = $this->db->get('contractor');
+
+    $contractors = array();
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      foreach ($query as $row) {
+        $contractor = $this->getContractorByID($row['cont_id']);
+        $contractor['label'] = $contractor['cont_name'];
+
+        array_push($contractors, $contractor);
+      }
+
+      return $contractors;
+    }
+    return FALSE;
+  }
   //Function for Adding a Contractor
   public function addContractor()
   {

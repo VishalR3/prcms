@@ -17,6 +17,7 @@ class Employee_Model extends CI_Model
       'location' => $this->input->post('location'),
       'shift' => $this->input->post('shift'),
       'dept' => $this->input->post('dept'),
+      'dob' => $this->input->post('dob'),
       'status' => $this->input->post('status'),
       'active' => '1',
       'email' => $this->input->post('email'),
@@ -65,6 +66,7 @@ class Employee_Model extends CI_Model
     $employee['location'] = $query['loc_name'];
     $employee['shift'] = $query['shift_name'];
     $employee['dept'] = $query['dept_name'];
+    $employee['dob'] = $query['dob'];
     $employee['status'] = $query['status'] ? 'P' : 'C';
     $employee['active'] = $query['active'] ? 'active' : 'deactivated';
     $employee['vehicle_number'] = $query['vehicle_number'];

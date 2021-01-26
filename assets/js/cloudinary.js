@@ -9,9 +9,6 @@ $(function() {
 $('.cloudinary-fileupload').on('cloudinarydone', (e, data)=> { 
   $('#visitorPhoto').val(data.result.public_id); 
   $('#visitorPhotoPreviewDiv').append($.cloudinary.imageTag(data.result.public_id,{class:'img-fluid'}).toHtml());   
-     console.log("hey Events");
-     console.log(e);
-     console.log(data);
 });
 
 $('.cloudinary-fileupload').on('cloudinaryprogress', function(e, data) { 

@@ -21,7 +21,27 @@
       <div class="col-sm-4">
         <div class="card">
           <div class="card-body">
-            <form id="emp_batch_form" enctype="multipart/form-data">
+            <div class="mb-3">
+              <label for="master_type" class='form-label'>Select Data Type</label>
+              <select name='master_type' id="master_type" class='form-select'>
+                <option value='employee'>Employee</option>
+                <option value='company'>Company</option>
+                <option value='location'>Location</option>
+                <option value='shift'>Shift</option>
+                <option value='contractor'>Contractor</option>
+                <option value='department'>Department</option>
+                <option value='holiday'>Holiday</option>
+              </select>
+            </div>
+
+            <a id='download_template' href='<?= ASSETS_URL; ?>templates/employee.csv' class='btn btn-primary'>Download Template</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <form id="upload_batch_form">
               <div class="form-group mb-3">
                 <label class="form-label" for='upload'>Upload CSV file</label>
                 <input type='file' name='upload' id='upload' accept=".csv" class="form-control" required>
@@ -32,8 +52,14 @@
               <div id="upload_progress" class="my-3">
 
               </div>
-              <button type="submit" class="btn btn-primary">Upload</button>
             </form>
+            <button id='emp_batch_btn' class="btn btn-primary">Upload Employee Data</button>
+            <button id='comp_batch_btn' class="btn btn-primary" style='display:none'>Upload Company Data</button>
+            <button id='loc_batch_btn' class="btn btn-primary" style='display:none'>Upload Location Data</button>
+            <button id='shift_batch_btn' class="btn btn-primary" style='display:none'>Upload Shift Data</button>
+            <button id='cont_batch_btn' class="btn btn-primary" style='display:none'>Upload Contractor Data</button>
+            <button id='dept_batch_btn' class="btn btn-primary" style='display:none'>Upload Department Data</button>
+            <button id='holiday_batch_btn' class="btn btn-primary" style='display:none'>Upload Holiday Data</button>
           </div>
         </div>
       </div>
@@ -52,7 +78,6 @@
   <?= $scripts; ?>
 
   <script src="<?= ASSETS_URL . 'js/jquery.csv.js' ?>"></script>
-  <script src="<?= ASSETS_URL . 'js/init.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/upload_data.js' ?>"></script>
 
 

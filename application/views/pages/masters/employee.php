@@ -54,29 +54,43 @@
                   <input type="text" name="email" id="email" class='form-control' placeholder="email">
                   <label for="email" class="form-label">Email</label>
                 </div>
-                <div class="mb-3">
-                  <label for="location">Location</label>
-                  <select name='location' id='location' class="form-select">
-                    <?php foreach ($locations as $location) : ?>
-                      <option value='<?= $location['loc_id']; ?>'><?= $location['loc_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="shift">Shift</label>
-                  <select name='shift' id='shift' class="form-select">
-                    <?php foreach ($shifts as $shift) : ?>
-                      <option value='<?= $shift['shift_id']; ?>'><?= $shift['shift_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
-                </div>
-                <div class="mb-3">
-                  <label for="dept">Department</label>
-                  <select name='dept' id='dept' class="form-select">
-                    <?php foreach ($departments as $department) : ?>
-                      <option value='<?= $department['dept_id']; ?>'><?= $department['dept_name']; ?></option>
-                    <?php endforeach; ?>
-                  </select>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="location">Location</label>
+                      <select name='location' id='location' class="form-select">
+                        <?php foreach ($locations as $location) : ?>
+                          <option value='<?= $location['loc_id']; ?>'><?= $location['loc_name']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="shift">Shift</label>
+                      <select name='shift' id='shift' class="form-select">
+                        <?php foreach ($shifts as $shift) : ?>
+                          <option value='<?= $shift['shift_id']; ?>'><?= $shift['shift_name']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for="dept">Department</label>
+                      <select name='dept' id='dept' class="form-select">
+                        <?php foreach ($departments as $department) : ?>
+                          <option value='<?= $department['dept_id']; ?>'><?= $department['dept_name']; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="mb-3">
+                      <label for='dob'>Date Of Birth</label>
+                      <input type="date" name='dob' id='dob' class='form-control' />
+                    </div>
+                  </div>
                 </div>
                 <div class="mb-3">
                   <h6>Status</h6>

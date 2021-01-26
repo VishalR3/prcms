@@ -48,7 +48,7 @@
             <div id='frdiv' class="frdiv" style='position:relative;'>
               <video id='video' class="camera_input mt-3">
               </video>
-              <canvas id="face-canvas" style="position: absolute;top:1rem;left:0;right:0; border:1px solid black;"></canvas>
+              <canvas id="face-canvas" style="position: absolute;top:1rem;left:0;right:0;"></canvas>
             </div>
           </div>
         </div>

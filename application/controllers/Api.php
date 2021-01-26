@@ -239,6 +239,16 @@ class Api extends CI_Controller
 
     return FALSE;
   }
+  public function searchContractor()
+  {
+    $term = $this->input->post('term');
+
+    $response = $this->mm->searchContractor($term);
+    if ($response)
+      $this->echoJsonResponse($response);
+
+    return FALSE;
+  }
   public function getPreviousVisits()
   {
     $response = $this->am->getPreviousVisits();

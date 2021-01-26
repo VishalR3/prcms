@@ -22,7 +22,7 @@
       <div class="card-body" id='emp_card'>
         <div class="row">
           <div class="col-sm-4">
-            <img class="dp" src="http://res.cloudinary.com/vishaltest/image/upload/<?= $employee['photo'] ?>" alt="user_profile">
+            <img class="dp" src="https://res.cloudinary.com/vishaltest/image/upload/<?= $employee['photo'] ?>" alt="user_profile">
           </div>
           <div class="col-sm-8">
             <h4><?= $employee['name']; ?></h4>

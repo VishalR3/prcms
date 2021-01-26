@@ -49,11 +49,21 @@ var createFragment = function createFragment(props) {
   return children;
 };
 
-$('#is_employee').change(function () {
-  $('#empIdDiv').toggle();
+$('input[name="user_type"]').on('change', function (e) {
+  console.log(document.getElementById('is_employee').checked ? '1' : '0');
+
+  if (e.target.value == '0') {
+    $('#empIdDiv').find('label').text('Contractor ID (Search Contactor by name)');
+    $('#cont_id').attr('type', 'text');
+    $('#empID').attr('type', 'hidden');
+  } else {
+    $('#empIdDiv').find('label').text('Employee ID (Search Employee by name)');
+    $('#cont_id').attr('type', 'hidden');
+    $('#empID').attr('type', 'text');
+  }
 }); //User Registration
 
-$('#reg_user_form').submit(function (e) {
+$('#reg_user_form').on('submit', function (e) {
   e.preventDefault();
   var payload = {
     'username': $('#username').val(),
@@ -130,12 +140,45 @@ $(function () {
     },
     select: function select(event, ui) {
       empID = ui.item.empID;
-      $('#empID').trigger('myEvent');
+      $('#username').val(ui.item.name);
+      $('#mobile').val(ui.item.mobile);
+      $('#password').val(ui.item.name.substr(0, 3) + ui.item.dob.replace(/-/g, ''));
+      $('#empID').trigger('empEvent');
     }
   });
-  $('#empID').on('myEvent', function (e) {
+  $('#empID').on('empEvent', function (e) {
     setTimeout(function () {
       $('#empID').val(empID);
+    }, 50);
+  });
+  var contID;
+  var contCache = {};
+  $("#cont_id").autocomplete({
+    minLength: 2,
+    source: function source(request, response) {
+      var term = request.term;
+
+      if (term in contCache) {
+        response(contCache[term]);
+        return;
+      }
+
+      $.post(SITE_ROOT + "api/searchContractor", request, function (res) {
+        contCache[term] = res;
+        response(res);
+      });
+    },
+    select: function select(event, ui) {
+      contID = ui.item.cont_id;
+      $('#username').val(ui.item.cont_name);
+      $('#mobile').val(ui.item.mobile);
+      $('#password').val(ui.item.cont_name.substr(0, 3) + ui.item.mobile.slice(-10, -3));
+      $('#cont_id').trigger('contEvent');
+    }
+  });
+  $('#cont_id').on('contEvent', function () {
+    setTimeout(function () {
+      $('#cont_id').val(contID);
     }, 50);
   });
 });

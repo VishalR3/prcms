@@ -22,7 +22,7 @@
       <div class="col-sm-3">
         <div class="card">
           <div class="card-body">
-            <img id='user_profile_pic' class="dp" src="http://res.cloudinary.com/vishaltest/image/upload/<?= $user['photo'] ?>" alt="user_profile">
+            <img id='user_profile_pic' class="dp" src="https://res.cloudinary.com/vishaltest/image/upload/<?= $user['photo'] ?>" alt="user_profile">
             <h5 class="username"><?= $user['name']; ?></h5>
             <div class="userdata">
               <div class="data-row ">
@@ -113,7 +113,7 @@
                         </div>
                         <div class="col-sm-3">
                           <?php if ($meet['photo'] != NULL) : ?>
-                            <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                            <img class='img-fluid' src='https://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
                           <?php endif; ?>
                         </div>
                       </div>
@@ -162,7 +162,7 @@
                       </div>
                       <div class="col-sm-3">
                         <?php if ($meet['photo'] != NULL) : ?>
-                          <img class='img-fluid' src='http://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
+                          <img class='img-fluid' src='https://res.cloudinary.com/vishaltest/image/upload/v1611147354/<?= $meet['photo']; ?>' alt="visitor Photo">
                         <?php endif; ?>
                       </div>
                     </div>

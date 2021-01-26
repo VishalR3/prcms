@@ -53,6 +53,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 //API
 //read
 $route['api/getFaceDescriptors'] = 'api/getFaceDescriptors';
+$route['api/searchContractor'] = 'api/searchContractor';
 $route['api/searchEmployee'] = 'api/searchEmployee';
 $route['api/getEmpReportsDateRange'] = 'api/getEmpReportsDateRange';
 $route['api/getEmpReports'] = 'api/getEmpReports';

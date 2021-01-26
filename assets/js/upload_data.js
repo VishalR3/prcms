@@ -4,11 +4,11 @@ $('#upload').change((e)=>{
 });
 let List;
 
-$('#emp_batch_form').submit((e)=>{
+$('#emp_batch_btn').on('click',(e)=>{
   e.preventDefault();
   if(!Array.isArray(List)){
     console.log('Nothing Selected!!');
-    document.querySelector('#emp_batch_form').classList.add('was-validated');
+    document.querySelector('#upload_batch_form').classList.add('was-validated');
     return;
   }
   List.forEach(row=>{
@@ -35,6 +35,85 @@ $('#emp_batch_form').submit((e)=>{
       console.log((row+1)+' Added!!');
     }
   });
+})
+
+$(function(){
+  $('#master_type').on('change',e=>{
+    console.log($('#master_type').val())
+    switch(e.target.value){
+      case 'employee': 
+        $('#emp_batch_btn').show()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/employee.csv');
+        break;
+      case 'company': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').show()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/company.csv');
+        break;
+      case 'location': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').show()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/location.csv');
+        break;
+      case 'shift': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').show()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/shift.csv');
+        break;
+      case 'contractor': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').show()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/contractor.csv');
+        break;
+      case 'department': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').show()
+        $('#holiday_batch_btn').hide()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/department.csv');
+        break;
+      case 'holiday': 
+        $('#emp_batch_btn').hide()
+        $('#comp_batch_btn').hide()
+        $('#loc_batch_btn').hide()
+        $('#shift_batch_btn').hide()
+        $('#cont_batch_btn').hide()
+        $('#dept_batch_btn').hide()
+        $('#holiday_batch_btn').show()
+        $('#download_template').attr('href',SITE_ROOT+'assets/templates/holiday.csv');
+        break;
+    }
+  })
+
 })
 
 function readFile(file) {
