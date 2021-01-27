@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group form-floating mb-3">
-                    <input type="text" name="password" id='password' placeholder="password" class="form-control" />
+                    <input type="password" name="password" id='password' placeholder="password" class="form-control" />
                     <label for='password'>Password</label>
                   </div>
                 </div>

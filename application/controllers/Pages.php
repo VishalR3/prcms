@@ -18,6 +18,7 @@ class Pages extends CI_Controller
       $data['companies'] = $this->mm->getCompanies();
       $data['locations'] = $this->mm->getLocations();
       $data['departments'] = $this->mm->getDepartments();
+      $data['employeesList'] = $this->em->getEmployeeListByContID();
 
       $data['header'] = $this->load->view('templates/header', '', TRUE);
       $data['links'] = $this->load->view('templates/links', '', TRUE);
@@ -137,14 +138,5 @@ class Pages extends CI_Controller
     } else {
       redirect('login');
     }
-  }
-  public function sendSMS()
-  {
-    $this->load->library('Twilio');
-    $message = $this->twilio->sendSMS();
-    $data['success'] = TRUE;
-    $data['message'] = $message;
-
-    exit(json_encode($data));
   }
 }

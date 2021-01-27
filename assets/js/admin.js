@@ -53,7 +53,7 @@ $('#reg_user_form').on('submit',(e)=>{
     'mobile':$('#mobile').val(),
     'password':$('#password').val(),
     'is_employee':document.getElementById('is_employee').checked?'1':'0',
-    'empID': document.getElementById('is_employee').checked?$('#empID').val():'0',
+    'empID': document.getElementById('is_employee').checked?$('#empID').val():$('#cont_id').val(),
     'role':$('#role option:selected').val(),
   }
   $.post(SITE_ROOT+'user/registerUser',payload,(res)=>{

@@ -15,8 +15,11 @@ class User_Model extends CI_Model
         $user = $query;
         if ($query['is_employee']) {
           $empData = $this->em->getEmployee($query['empID']);
+          $user['empData'] = $empData;
+        } else {
+          $contData = $this->mm->getContractorByID($query['empID']);
+          $user['contData'] = $contData;
         }
-        $user['empData'] = $empData;
         $user['access'] = $this->getPermissions($query['role']);
 
         $data['success'] = TRUE;

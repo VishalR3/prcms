@@ -51,8 +51,11 @@
               <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/attendance_report/">Attendance Report</a></li>
               <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/visitors_report/">Visitors Report</a></li>
             <?php endif; ?>
-            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/dashboard/">Dashboard</a></li>
+            <li><a class="dropdown-item" href="<?= SITE_ROOT; ?>reports/dashboard/">Visitor Request</a></li>
           </ul>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href="<?= SITE_ROOT; ?>contractor_employee_list">Contractor List</a>
         </li>
       </ul>
     </div>

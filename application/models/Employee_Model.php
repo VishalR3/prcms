@@ -262,4 +262,18 @@ class Employee_Model extends CI_Model
     }
     return FALSE;
   }
+  public function getEmployeeListByContID()
+  {
+    // $cont_id = $this->session->userdata('contData')['cont_id'];
+    $cont_id = 1;
+    $this->db->where('status', '1');
+    $this->db->where('cont', $cont_id);
+    $query = $this->db->get('employee');
+
+    if ($query && $query->num_rows() > 0) {
+      $query = $query->result_array();
+      return $query;
+    }
+    return FALSE;
+  }
 }
