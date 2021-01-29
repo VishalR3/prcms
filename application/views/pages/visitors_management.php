@@ -10,7 +10,7 @@ if (in_array('visitor.write', $access)) : ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-    <title>Contractor - Admin</title>
+    <title>Visitors Managment | PRCMS</title>
     <!-- Bootstrap CSS -->
     <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
     <?= $links; ?>

@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Contractor - Admin</title>
+  <title>Edit Employee | PRCMS</title>
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <?= $links; ?>

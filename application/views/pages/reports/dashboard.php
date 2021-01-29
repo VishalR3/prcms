@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>GateKeeper | Home</title>
+  <title>Requests | PRCMS</title>
   <!-- Bootstrap CSS -->
   <?= $links; ?>
   <link rel="stylesheet" href="<?= ASSETS_URL; ?>css/style.css">

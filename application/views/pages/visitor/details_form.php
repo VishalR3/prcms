@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-  <title>Contractor - Admin</title>
+  <title>Visitor Details | PRCMS</title>
   <!-- Bootstrap CSS -->
   <link rel='stylesheet' href="<?= ASSETS_URL . 'css/style.css' ?>">
   <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
