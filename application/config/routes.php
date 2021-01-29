@@ -118,6 +118,7 @@ $route['admin/employee/$1'] = 'Admin/employee/$1';
 $route['admin/(:any)'] = 'Admin/view/$1';
 
 //Users
+$route['user/upload_profile'] = 'Pages/uploadProfile';
 $route['user/logout'] = 'User/logout';
 $route['user/firstLogin'] = 'User/firstLogin';
 $route['user/login'] = 'User/login';

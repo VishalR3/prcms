@@ -139,4 +139,15 @@ class Pages extends CI_Controller
       redirect('login');
     }
   }
+  public function uploadProfile()
+  {
+    $empID = $this->session->userdata('empID');
+    $data['PendingMeets'] = $this->em->getPendingMeets($empID);
+
+    $data['header'] = $this->load->view('templates/header', '', TRUE);
+    $data['links'] = $this->load->view('templates/links', '', TRUE);
+    $data['scripts'] = $this->load->view('templates/scripts', '', TRUE);
+    $data['footer'] = $this->load->view('templates/footer', '', TRUE);
+    $this->load->view('pages/user/upload_profile', $data);
+  }
 }

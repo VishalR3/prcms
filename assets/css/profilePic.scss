@@ -1,0 +1,63 @@
+body{
+  width:100vw;
+  height:100vh;
+  margin:0;
+  padding:0;
+  overflow: hidden;
+}
+#positionedContainer{
+  position: relative;
+  height: 80%;
+}
+.centerCard{
+  width:75%;
+  min-width: 300px;
+  height: 75%;
+  min-height: 400px;
+  background: #ffffff;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.10);
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.bigSqBtn{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  width:200px;
+  height:200px;
+  border: 1px solid rgba(50,50,50,0.20);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.20);
+  border-radius: 6px;
+  background: url('https://res.cloudinary.com/vishaltest/image/upload/v1611138423/employees/profile_poho5l.jpg');
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  user-select: none;
+  h6{
+    position: absolute;
+    bottom: 5px;
+    left:50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-weight: 700;
+  }
+}
+.bigSqBtn:active{
+  box-shadow: none;
+}
+
+#faceRecProgressDiv{
+  position: absolute;
+  left:50%;
+  transform: translateX(-50%);
+  width:200px;
+
+  #status{
+    font-size: 12px;
+  }
+
+}

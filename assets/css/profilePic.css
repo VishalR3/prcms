@@ -1,0 +1,78 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#positionedContainer {
+  position: relative;
+  height: 80%;
+}
+
+.centerCard {
+  width: 75%;
+  min-width: 300px;
+  height: 75%;
+  min-height: 400px;
+  background: #ffffff;
+  -webkit-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.bigSqBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  -webkit-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background: url("https://res.cloudinary.com/vishaltest/image/upload/v1611138423/employees/profile_poho5l.jpg");
+  background-position: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.bigSqBtn h6 {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.bigSqBtn:active {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+#faceRecProgressDiv {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 200px;
+}
+
+#faceRecProgressDiv #status {
+  font-size: 12px;
+}
+/*# sourceMappingURL=profilePic.css.map */

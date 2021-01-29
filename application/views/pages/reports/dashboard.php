@@ -64,27 +64,6 @@
             </div>
           </div>
         </div>
-        <div class="card mt-3">
-          <div class="card-body text-center" id='update_pic_card'>
-            <button type="button" id="update_pic_btn" class="btn btn-primary">
-              Update Profile Picture
-            </button>
-            <button type="button" id="upload_widget" class="d-none" data-id="<?= $user['empID']; ?>">
-              Update Profile Picture
-            </button>
-            <div id="faceRecProgressDiv" style='display:none;'>
-              <div class="progress mt-3" style="height:5px;">
-                <div class="progress-bar" id="faceRecProgress">
-                </div>
-              </div>
-              <div>
-                <span id="status">Loading Models...</span>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
       </div>
       <div class="col-sm-9">
         <div class="card">
@@ -235,10 +214,7 @@
 
   <?= $footer; ?>
   <?= $scripts; ?>
-  <script defer src="<?= ASSETS_URL . 'js/vendor/face-api/face-api.min.js' ?>"></script>
   <script src="<?= ASSETS_URL . 'js/dashboard.js' ?>"></script>
-  <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
-  <script defer src="<?= ASSETS_URL . 'js/empFaceRec.js' ?>"></script>
 
 </body>
 
