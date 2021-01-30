@@ -1,0 +1,19 @@
+#emp_card{
+  .col-sm-8{
+    padding-top: 1.5rem;
+  }
+  .details{
+    margin-top: 1rem;
+    span{
+      display: block;
+      margin-top: 0.5rem;
+      color: #555555;
+      b{
+        color: #555555;
+      }
+      a{
+        text-decoration: none;
+      }
+    }
+  }
+}

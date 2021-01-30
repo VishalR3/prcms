@@ -1,0 +1,22 @@
+#emp_card .col-sm-8 {
+  padding-top: 1.5rem;
+}
+
+#emp_card .details {
+  margin-top: 1rem;
+}
+
+#emp_card .details span {
+  display: block;
+  margin-top: 0.5rem;
+  color: #555555;
+}
+
+#emp_card .details span b {
+  color: #555555;
+}
+
+#emp_card .details span a {
+  text-decoration: none;
+}
+/*# sourceMappingURL=employee.css.map */
