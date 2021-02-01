@@ -40,11 +40,10 @@ loadModules.then(()=>{
         $(this).remove();
       });
     }, 1500);
-    input.addEventListener('play',()=>{
-      setInterval(() => {
-        faceDetection(res);
-      }, 250);
-    })
+
+    setInterval(() => {
+      faceDetection(res);
+    }, 250);
   })
 })
 
@@ -74,11 +73,15 @@ async function faceDetection(labeledFaceDescriptors){
       }else{
         $.post(SITE_ROOT+'api/postVisitorAttendance',(res)=>{console.log(res)})
       }
-    };
+    }
+    $('#frstatus').text(`Detected : ${results.label}`)
     const box = fullFaceDescriptions.detection.box
     const text = results.toString()
     const drawBox = new faceapi.draw.DrawBox(box, {label:text})
     drawBox.draw(canvas) 
+  }else{
+    $('#frstatus').show()
+    $('#frstatus').text('No Face Detected!!')
   }
 
 }

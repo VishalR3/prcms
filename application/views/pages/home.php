@@ -50,6 +50,9 @@
               </video>
               <canvas id="face-canvas" style="position: absolute;top:1rem;left:0;right:0;"></canvas>
             </div>
+            <div id="frstatus" class=' my-3 p-3 text-center text-white bg-success'>
+              No Face Detected!!
+            </div>
           </div>
         </div>
         <div class="card mt-3">
