@@ -1,73 +1,112 @@
-const MODEL_URL = SITE_ROOT+'assets/js/vendor/face-api/models'
+const MODEL_URL = SITE_ROOT + "assets/js/vendor/face-api/models";
 
-const loadModules = new Promise(async resolve=>{
-  await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
-  await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL)
-  await faceapi.loadFaceLandmarkModel(MODEL_URL)
-  await faceapi.loadFaceRecognitionModel(MODEL_URL)
+var toastElList = [].slice.call(document.querySelectorAll(".toast"));
+var toastList = toastElList.map(function (toastEl) {
+  return new bootstrap.Toast(toastEl);
+});
+
+toastList[0].show();
+
+const loadModules = new Promise(async (resolve) => {
+  await faceapi.loadSsdMobilenetv1Model(MODEL_URL);
+  await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+  await faceapi.loadFaceLandmarkModel(MODEL_URL);
+  await faceapi.loadFaceRecognitionModel(MODEL_URL);
   resolve();
-})
+});
 
-$('#update_pic_btn').click(e=>{
-  e.preventDefault();
-  $('#faceRecProgressDiv').show();
-  $('#status').text('Loading Models...')
-  $('#faceRecProgress').style = 'width:0';
-  loadModules.then(()=>{
-    $('#faceRecProgress').animate({width:'100%'})
-    $('#status').text('Models Loaded')
-    $('#upload_widget').click();
-  })
-})
+loadModules.then(() => {
+  $(".toast-header strong").text("Models Loaded");
+  $("#models_progress").animate({ width: "100%" });
+  setTimeout(() => {
+    $(".toastWrapper").fadeOut(500);
+  }, 400);
+});
 
-var myWidget = cloudinary.createUploadWidget({
-  cloudName: 'vishaltest',
-  uploadPreset: 'vzibl1o1'
-}, (error, result) => {
-  if (!error && result && result.event === "success") {
-    console.log('Done! Here is the image info: ', result.info);
-    let path = result.info.path;
-    let url = result.info.secure_url;
-    let empID = $('#upload_widget').attr('data-id');
-    let faceDescriptor = faceRec(empID,url);
-    faceDescriptor.then(value  => {
-      $('#faceRecProgress').animate({width:'25%'});
-      $('#status').text('Calculating Your Face');
-      
-      $.post(SITE_ROOT+'api/uploadEmployeePhoto',{
-        'empID':empID,
-        'photo':path,
-        'face_descriptor':value
-      },res=>{
-        console.log(res)
-        $('#faceRecProgress').animate({width:'100%'})
-        $('#status').text('Calculation Done')
-        $('#user_profile_pic').attr('src',url)
-        $('#faceRecProgressDiv').hide();
-
-      })
-    })
+$.cloudinary.config({ cloud_name: "vishaltest", secure: true });
+$(function () {
+  if ($.fn.cloudinary_fileupload !== undefined) {
+    $("#empPhoto").cloudinary_fileupload();
   }
-})
+});
 
-document.getElementById("upload_widget").addEventListener("click", function() {
-  myWidget.open();
-}, false);
- 
+$(".upload_emp_btn").on("click", (e) => {
+  let empID = e.target.getAttribute("data-id");
+  console.log(empID);
+  $("#empPhoto").attr("data-id", empID);
+  $("#empUpload").click();
+});
 
+$("#empPhoto").on("cloudinarydone", (e, data) => {
+  let empID = e.target.getAttribute("data-id");
+  let url = data.result.secure_url;
+  $("tr[data-id = '" + empID + "'] .photoStatus").html(
+    $.cloudinary.imageTag(data.result.public_id, { height: "50" }).toHtml()
+  );
+  $("tr[data-id = '" + empID + "'] .small-font").html(
+    "<i>Photo Uploaded</i><br><i>Searching Face...</i>"
+  );
+  let faceDescriptor = faceRec(empID, url);
+  faceDescriptor.then((value) => {
+    let progress = document.createElement("div");
+    progress.classList = "progress";
+    progress.style = "height:5px";
+    let bar = document.createElement("div");
+    bar.classList = "progress-bar";
+    bar.style = "width: 25%;";
+    progress.append(bar);
+    $("tr[data-id = '" + empID + "'] .small-font").html(progress);
 
-async function faceRec(empID, url){
-   const imgUrl = url
-   const img = await faceapi.fetchImage(imgUrl)
+    $.post(
+      SITE_ROOT + "api/uploadEmployeePhoto",
+      {
+        empID: empID,
+        photo: data.result.path,
+        face_descriptor: value,
+      },
+      (res) => {
+        console.log(res);
+        bar.style = "width: 100%";
+        setTimeout(() => {
+          $("tr[data-id = '" + empID + "'] .small-font").html(
+            "Face Registered"
+          );
+        }, 200);
+      }
+    );
+  });
+});
 
-   const fullFaceDescription = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
+$("#empPhoto").on("cloudinaryprogress", function (e, data) {
+  let empID = e.target.getAttribute("data-id");
+  let progress = document.createElement("div");
+  progress.classList = "progress";
+  progress.style = "height:5px";
+  let bar = document.createElement("div");
+  bar.classList = "progress-bar";
+  bar.style = "width:" + Math.round((data.loaded * 100.0) / data.total) + "%;";
+  progress.append(bar);
+  $("tr[data-id = '" + empID + "'] .small-font").html(progress);
+});
 
-   if(!fullFaceDescription){
-     throw new Error(`no faces detected for ${empID}`)
-   }
+async function faceRec(empID, url) {
+  const imgUrl = url;
+  const img = await faceapi.fetchImage(imgUrl);
 
-   const faceDescriptors = [fullFaceDescription.descriptor]
-   const labeledFaceDescriptors = new faceapi.LabeledFaceDescriptors(empID,faceDescriptors)
+  const fullFaceDescription = await faceapi
+    .detectSingleFace(img)
+    .withFaceLandmarks()
+    .withFaceDescriptor();
 
-   return labeledFaceDescriptors.toJSON()
+  if (!fullFaceDescription) {
+    throw new Error(`no faces detected for ${empID}`);
+  }
+
+  const faceDescriptors = [fullFaceDescription.descriptor];
+  const labeledFaceDescriptors = new faceapi.LabeledFaceDescriptors(
+    empID,
+    faceDescriptors
+  );
+
+  return labeledFaceDescriptors.toJSON();
 }

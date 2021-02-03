@@ -91,3 +91,8 @@ defined('EXIT__AUTO_MAX')      or define('EXIT__AUTO_MAX', 125); // highest auto
 define('MEET_REJECTED',   0);
 define('MEET_CONFIRMED',   1);
 define('MEET_SCHEDULED',   2);
+
+
+/* Default Photo */
+
+define('DEFAULT_PHOTO', 'v1611138371/employees/vishal2_gowht7.png');

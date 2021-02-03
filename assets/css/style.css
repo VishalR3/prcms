@@ -1,6 +1,6 @@
 body {
-  background-color: #f1f1f1 !important;
-  font-family: 'Inter', sans-serif !important;
+  background-color: #f9f9f9 !important;
+  font-family: "Inter", sans-serif !important;
 }
 
 .section-label {
@@ -57,7 +57,7 @@ body {
 }
 
 .card .card-header {
-  border-radius: 8px 8px  0 0 !important;
+  border-radius: 8px 8px 0 0 !important;
   background-color: #3b3b98 !important;
   color: white;
   font-weight: 500;
@@ -67,8 +67,21 @@ body {
   border-radius: 0 0 8px 8px !important;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
   border: 1px solid black !important;
+}
+
+.toastWrapper {
+  position: absolute;
+  width: "100vw";
+  height: 100px;
+  bottom: 2vh;
+  left: 0;
+  right: 0;
+  display: -ms-grid;
+  display: grid;
+  justify-items: center;
 }
 
 .select2-container .select2-selection {
@@ -76,10 +89,12 @@ body {
 }
 
 .select2-selection {
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
 }
 
-.select2-container--default .select2-selection--single .select2-selection__arrow {
+.select2-container--default
+.select2-selection--single
+.select2-selection__arrow {
   top: 50% !important;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%);
@@ -123,24 +138,24 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
-          box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.25);
+          box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.25);
   z-index: 10;
   background-color: white;
   border-radius: 0 0 8px 8px;
 }
 
 .input-select {
-  padding: .375rem 1.75rem .375rem .75rem;
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
 }
 
 .input-text {
-  padding: .375rem 1.75rem .375rem .75rem;
+  padding: 0.375rem 1.75rem 0.375rem 0.75rem;
   line-height: 1.25 !important;
 }
 
 .input-date {
-  padding: .375rem .75rem .375rem .75rem;
+  padding: 0.375rem 0.75rem 0.375rem 0.75rem;
 }
 
 #download_btn {
@@ -319,15 +334,15 @@ body {
 }
 
 .m-reject {
-  background-color: #FFDFDF !important;
+  background-color: #ffdfdf !important;
 }
 
 .m-confirm {
-  background-color: #C2FFC8 !important;
+  background-color: #c2ffc8 !important;
 }
 
 .m-reschedule {
-  background-color: #FDFFAA !important;
+  background-color: #fdffaa !important;
 }
 
 #colorTest {

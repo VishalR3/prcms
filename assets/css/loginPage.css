@@ -1,6 +1,19 @@
 body {
   margin: 0;
   padding: 0;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+h2 {
+  color: #aeaeae;
+}
+
+#loginHeading {
+  font-weight: 700;
+  font-size: 1.5rem;
 }
 
 .wrapper {
@@ -13,6 +26,12 @@ body {
       align-content: center;
   width: 100vw;
   height: 100vh;
+}
+
+.wrapper .card {
+  border-radius: 12px;
+  -webkit-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 .form {

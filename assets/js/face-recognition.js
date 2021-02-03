@@ -16,7 +16,6 @@ setInterval(()=>{
 
 
 loadModules.then(()=>{
-  const input = document.getElementById('video')
   
   let progress = $('#faceRecProgress');
   let status = $('#status_span');
@@ -43,7 +42,7 @@ loadModules.then(()=>{
 
     setInterval(() => {
       faceDetection(res);
-    }, 250);
+    }, 2400);
   })
 })
 
@@ -80,7 +79,6 @@ async function faceDetection(labeledFaceDescriptors){
     const drawBox = new faceapi.draw.DrawBox(box, {label:text})
     drawBox.draw(canvas) 
   }else{
-    $('#frstatus').show()
     $('#frstatus').text('No Face Detected!!')
   }
 

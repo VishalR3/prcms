@@ -18,8 +18,7 @@
     <div class="card">
       <div class="card-body">
         <h2 class="text-center">PRC - Management System</h2>
-        <h5 class="text-center mt-4">Login</h5>
-        <?= $this->session->username; ?>
+        <h5 id='loginHeading' class="text-center mt-4">Login</h5>
         <div class="form">
           <?php if ($this->session->userdata('errors')) : ?>
             <div class="alert alert-danger alert-dismissible fade show" role="alert">

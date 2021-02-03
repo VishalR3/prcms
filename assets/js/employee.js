@@ -9,7 +9,7 @@ $('#add_employee_form').submit(function(e){
   let location= $(this).find('#location option:selected').val();
   let shift= $(this).find('#shift option:selected').val();
   let dept= $(this).find('#dept option:selected').val();
-  let dept= $(this).find('#dob').val();
+  let dob= $(this).find('#dob').val();
   let status= $(this).find('input[name="status"]:checked').val();
   let cont = '0';
   let weekly_off = $(this).find('#weekly_off option:selected').val();
